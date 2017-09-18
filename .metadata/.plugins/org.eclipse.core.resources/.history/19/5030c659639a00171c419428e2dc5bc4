@@ -1,0 +1,15 @@
+import burlap.mdp.auxiliary.DomainGenerator;
+import burlap.mdp.core.Domain;
+
+public class TestBurlap implements DomainGenerator {
+
+	
+	public static final String VAR_X = "x";
+	public static final String VAR_Y = "y";
+	@Override
+	public Domain generateDomain() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

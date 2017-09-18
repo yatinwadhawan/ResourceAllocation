@@ -1,0 +1,6 @@
+import burlap.mdp.auxiliary.DomainGenerator;
+
+
+public class TestBurlap implements DomainGenerator{
+
+}

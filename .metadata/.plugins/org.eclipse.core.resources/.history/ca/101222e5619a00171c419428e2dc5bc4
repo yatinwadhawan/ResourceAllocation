@@ -1,0 +1,5 @@
+import burlap.mdp.core.state.MutableState;
+
+public class GridState implements MutableState {
+
+}

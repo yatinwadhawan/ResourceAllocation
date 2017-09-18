@@ -1,0 +1,80 @@
+import java.util.List;
+
+import burlap.mdp.auxiliary.DomainGenerator;
+import burlap.mdp.core.Domain;
+import burlap.mdp.core.StateTransitionProb;
+import burlap.mdp.core.TerminalFunction;
+import burlap.mdp.core.action.Action;
+import burlap.mdp.core.state.State;
+import burlap.mdp.singleagent.model.RewardFunction;
+import burlap.mdp.singleagent.model.statemodel.FullStateModel;
+
+public class TestBurlap implements DomainGenerator {
+
+	public static final String VAR_X = "x";
+	public static final String VAR_Y = "y";
+
+	protected int[][] map = new int[][] { { 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0 },
+			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+			{ 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0 },
+			{ 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0 },
+			{ 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0 },
+			{ 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1 },
+			{ 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0 },
+			{ 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0 },
+			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+			{ 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0 },
+			{ 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0 }, };
+
+	@Override
+	public Domain generateDomain() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	protected class GridStateModel implements FullStateModel {
+
+		protected double[][] transitionProbs;
+
+		public GridWorldStateModel() {
+			this.transitionProbs = new double[4][4];
+			for (int i = 0; i < 4; i++) {
+				for (int j = 0; j < 4; j++) {
+					double p = i != j ? 0.2 / 3 : 0.8;
+					transitionProbs[i][j] = p;
+				}
+			}
+		}
+
+		@Override
+		public State sample(State arg0, Action arg1) {
+			return null;
+		}
+
+		@Override
+		public List<StateTransitionProb> stateTransitions(State arg0,
+				Action arg1) {
+			return null;
+		}
+
+	}
+
+	protected class GridRewardModel implements RewardFunction {
+
+		@Override
+		public double reward(State arg0, Action arg1, State arg2) {
+			return 0;
+		}
+
+	}
+
+	protected class GridTerminalModel implements TerminalFunction {
+
+		@Override
+		public boolean isTerminal(State arg0) {
+			return false;
+		}
+
+	}
+
+}
