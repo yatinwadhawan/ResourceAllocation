@@ -1,0 +1,11 @@
+import java.util.ArrayList;
+
+public class WorldGenerator {
+
+	ArrayList<Node> ls;
+	
+ 	public static void main(String[] args) {
+		
+	}
+
+}

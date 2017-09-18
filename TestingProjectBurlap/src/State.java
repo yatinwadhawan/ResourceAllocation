@@ -7,10 +7,13 @@ public class State implements MutableState {
 
 	public Graph graph;
 
+	public State(Graph g) {
+		this.graph = g;
+	}
+
 	@Override
 	public burlap.mdp.core.state.State copy() {
-		// TODO Auto-generated method stub
-		return null;
+		return new State(graph);
 	}
 
 	@Override
