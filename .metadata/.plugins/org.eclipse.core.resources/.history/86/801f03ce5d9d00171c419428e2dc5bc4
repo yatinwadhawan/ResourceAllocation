@@ -1,0 +1,46 @@
+import Graph.Node;
+import burlap.mdp.core.action.Action;
+
+public class MAction implements Action {
+
+	public final static String ACTION_PATCH = "PATCH";
+	public final static String ACTION_HACK = "HACK";
+	public final static String ACTION_SCAN = "SCAN";
+	
+	private Node node;
+	private String name;
+
+	public MAction(Node n, String name) {
+		this.node = n;
+		this.name = name;
+	}
+
+	@Override
+	public String actionName() {
+		// TODO Auto-generated method stub
+		return this.name;
+	}
+
+	@Override
+	public Action copy() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Node getNode() {
+		return node;
+	}
+
+	public void setNode(Node node) {
+		this.node = node;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+}

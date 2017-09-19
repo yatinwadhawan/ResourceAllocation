@@ -108,7 +108,7 @@ public class TestBurlap implements DomainGenerator {
 	@Override
 	public Domain generateDomain() {
 		SADomain domain = new SADomain();
-
+				
 		domain.addActionTypes(new UniversalActionType(ACTION_NORTH),
 				new UniversalActionType(ACTION_SOUTH), new UniversalActionType(
 						ACTION_EAST), new UniversalActionType(ACTION_WEST));

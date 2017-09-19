@@ -1,0 +1,17 @@
+import burlap.mdp.core.action.Action;
+
+public class MAction implements Action{
+
+	@Override
+	public String actionName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Action copy() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}
