@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import burlap.mdp.singleagent.SADomain;
 import Graph.Graph;
@@ -12,6 +13,7 @@ public class MainClass {
 	public final static String ACTION_SCAN = "SCAN";
 	public static ArrayList<String> ACTIONS = new ArrayList<String>();
 	public static ArrayList<Node> nlist = new ArrayList<Node>();
+	public static HashMap<String, Integer> reward = new HashMap<String, Integer>();
 
 	public static void main(String[] args) {
 
@@ -40,6 +42,10 @@ public class MainClass {
 		for (int i = 0; i < 4; i++) {
 			Node.print(nlist.get(i));
 		}
+		reward.put(nlist.get(0).getName(), 20);
+		reward.put(nlist.get(1).getName(), 30);
+		reward.put(nlist.get(2).getName(), 10);
+		reward.put(nlist.get(3).getName(), 40);
 
 		WorldGenerator gen = new WorldGenerator();
 		SADomain domain = (SADomain) gen.generateDomain();

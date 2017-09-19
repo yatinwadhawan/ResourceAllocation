@@ -1,6 +1,7 @@
 package Graph;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class NodeStatus {
 
@@ -14,4 +15,5 @@ public class NodeStatus {
 	public final static String VAR_LIST = "LIST";
 	public final static String VAR_START = "START";
 	public final static String VAR_END = "END";
+	
 }

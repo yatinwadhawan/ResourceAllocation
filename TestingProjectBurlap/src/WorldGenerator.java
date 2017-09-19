@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 import Graph.Graph;
@@ -60,15 +61,32 @@ public class WorldGenerator implements DomainGenerator {
 							// From here it can go either to patched state or
 							// vulnerable state.
 
+							double rand = Math.random();
+							if (rand <= 0.5) {
+								g.getNodelist().get(i)
+										.setStatus(NodeStatus.PATCHED);
+							} else {
+								g.getNodelist().get(i)
+										.setStatus(NodeStatus.VULNERABLE);
+							}
+
 						} else if (n.getStatus().equals(NodeStatus.PATCHED)) {
 							// From here, it will go to patched state with high
 							// probability and go to vulnerable state with low
 							// probability
 
+							double rand = Math.random();
+							if (rand <= 0.8) {
+								g.getNodelist().get(i)
+										.setStatus(NodeStatus.PATCHED);
+							} else {
+								g.getNodelist().get(i)
+										.setStatus(NodeStatus.VULNERABLE);
+							}
+
 						} else if (n.getStatus().equals(NodeStatus.VULNERABLE)) {
 							// Do nothing since it is already vulnerable.
 						}
-
 						break;
 					}
 				}
@@ -88,24 +106,23 @@ public class WorldGenerator implements DomainGenerator {
 						} else if (n.getStatus().equals(NodeStatus.VULNERABLE)) {
 							// The state of node will change to patched from
 							// vulnerable.
-							
-							
 
+							g.getNodelist().get(i)
+									.setStatus(NodeStatus.PATCHED);
 						}
-
 						break;
 					}
 				}
 
 			}
 
-			return null;
+			state.setGraph(g);
+			return state;
 		}
 
 		@Override
-		public List<StateTransitionProb> stateTransitions(State arg0,
-				Action arg1) {
-			// TODO Auto-generated method stub
+		public List<StateTransitionProb> stateTransitions(State s, Action a) {
+
 			return null;
 		}
 	}
@@ -113,8 +130,58 @@ public class WorldGenerator implements DomainGenerator {
 	protected class Reward implements RewardFunction {
 
 		@Override
-		public double reward(State arg0, Action arg1, State arg2) {
+		public double reward(State s, Action a, State sp) {
 			// TODO Auto-generated method stub
+
+			WState state = (WState) s;
+			WState statep = (WState) sp;
+			Graph g = state.getGraph();
+			Graph gp = statep.getGraph();
+			MAction m = (MAction) a;
+			Node n = m.getNode();
+			String action = m.getAction();
+			int size = g.getNodelist().size();
+			Node ng = null, ngp = null;
+			for (int i = 0; i < size; i++) {
+				if (n.getName().equals(g.getNodelist().get(i).getName())) {
+					ng = g.getNodelist().get(i);
+					break;
+				}
+			}
+			for (int i = 0; i < size; i++) {
+				if (n.getName().equals(gp.getNodelist().get(i).getName())) {
+					ngp = gp.getNodelist().get(i);
+					break;
+				}
+			}
+
+			if (action.equals(MainClass.ACTION_PATCH)) {
+				if (ng.getStatus().equals(NodeStatus.VULNERABLE)
+						&& ngp.getStatus().equals(NodeStatus.PATCHED)) {
+					return MainClass.reward.get(ng.getName());
+				} else {
+					return -100;
+				}
+			} else if (action.equals(MainClass.ACTION_SCAN)) {
+				if (ng.getStatus().equals(NodeStatus.UNKNOWN)
+						&& ngp.getStatus().equals(NodeStatus.PATCHED)) {
+					return -MainClass.reward.get(ng.getName());
+
+				} else if (ng.getStatus().equals(NodeStatus.UNKNOWN)
+						&& ngp.getStatus().equals(NodeStatus.VULNERABLE)) {
+					return MainClass.reward.get(ng.getName());
+
+				} else if (ng.getStatus().equals(NodeStatus.PATCHED)
+						&& ngp.getStatus().equals(NodeStatus.PATCHED)) {
+					return -MainClass.reward.get(ng.getName()) * 2;
+
+				} else if (ng.getStatus().equals(NodeStatus.PATCHED)
+						&& ngp.getStatus().equals(NodeStatus.VULNERABLE)) {
+					return MainClass.reward.get(ng.getName());
+				}
+			}
+
+			// When there is no action which is unlikely.
 			return 0;
 		}
 	}
@@ -122,9 +189,21 @@ public class WorldGenerator implements DomainGenerator {
 	protected class Terminal implements TerminalFunction {
 
 		@Override
-		public boolean isTerminal(State arg0) {
-			// TODO Auto-generated method stub
-			return false;
+		public boolean isTerminal(State s) {
+
+			WState state = (WState) s;
+			Graph g = state.getGraph();
+			ArrayList<Node> l = g.getNodelist();
+			int size = l.size();
+			for (int i = 0; i < size; i++) {
+				Node n = l.get(i);
+				if (n.getStatus().equals(NodeStatus.VULNERABLE)
+						|| n.getStatus().equals(NodeStatus.UNKNOWN)) {
+					return false;
+				}
+			}
+
+			return true;
 		}
 	}
 
