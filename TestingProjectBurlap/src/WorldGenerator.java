@@ -1,4 +1,8 @@
 import java.util.List;
+
+import Graph.Graph;
+import Graph.Node;
+import Graph.NodeStatus;
 import burlap.mdp.auxiliary.DomainGenerator;
 import burlap.mdp.core.Domain;
 import burlap.mdp.core.StateTransitionProb;
@@ -41,7 +45,60 @@ public class WorldGenerator implements DomainGenerator {
 			s = s.copy();
 			WState state = (WState) s;
 			MAction m = (MAction) a;
-			
+			Node n = m.getNode();
+			String action = m.getAction();
+			Graph g = state.getGraph();
+			int size = g.getNodelist().size();
+
+			if (action.equals(MainClass.ACTION_SCAN)) {
+				for (int i = 0; i < size; i++) {
+					if (n.getName().equals(g.getNodelist().get(i).getName())) {
+
+						// Change status of the Node stochastically according to
+						// the action
+						if (n.getStatus().equals(NodeStatus.UNKNOWN)) {
+							// From here it can go either to patched state or
+							// vulnerable state.
+
+						} else if (n.getStatus().equals(NodeStatus.PATCHED)) {
+							// From here, it will go to patched state with high
+							// probability and go to vulnerable state with low
+							// probability
+
+						} else if (n.getStatus().equals(NodeStatus.VULNERABLE)) {
+							// Do nothing since it is already vulnerable.
+						}
+
+						break;
+					}
+				}
+			} else if (action.equals(MainClass.ACTION_PATCH)) {
+				for (int i = 0; i < size; i++) {
+					if (n.getName().equals(g.getNodelist().get(i).getName())) {
+						// Change status of the Node stochastically according to
+						// the action
+
+						if (n.getStatus().equals(NodeStatus.UNKNOWN)) {
+							// Do nothing since you don't know whether it is
+							// vulnerable or patched.
+
+						} else if (n.getStatus().equals(NodeStatus.PATCHED)) {
+							// Do nothing since it is already patched.
+
+						} else if (n.getStatus().equals(NodeStatus.VULNERABLE)) {
+							// The state of node will change to patched from
+							// vulnerable.
+							
+							
+
+						}
+
+						break;
+					}
+				}
+
+			}
+
 			return null;
 		}
 

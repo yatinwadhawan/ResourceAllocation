@@ -1,0 +1,36 @@
+public class MainClass {
+
+	static Node head = null;
+
+	public static void main(String[] args) {
+
+		push(1);
+		push(2);
+		push(3);
+		print(head);
+	}
+
+	static void push(int data) {
+		Node n = new Node(data);
+		n.next = head;
+		head = n;
+	}
+
+	static void print(Node head) {
+		Node h = head;
+		while (h != null) {
+			System.out.println(h.data);
+			h = h.next;
+		}
+	}
+
+	public static class Node {
+		int data;
+		Node next;
+
+		public Node(int data) {
+			this.data = data;
+			this.next = null;
+		}
+	}
+}

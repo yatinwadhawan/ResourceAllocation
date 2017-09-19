@@ -61,4 +61,14 @@ public class WState implements MutableState {
 		return this;
 	}
 
+	public Graph getGraph() {
+		return graph;
+	}
+
+	public void setGraph(Graph graph) {
+		this.graph = graph;
+	}
+	
+	
+
 }
