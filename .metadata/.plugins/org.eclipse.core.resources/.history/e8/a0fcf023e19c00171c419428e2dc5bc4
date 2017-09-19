@@ -1,0 +1,67 @@
+import java.util.List;
+
+import Graph.Graph;
+import Graph.NodeStatus;
+import burlap.mdp.core.state.MutableState;
+import burlap.mdp.core.state.UnknownKeyException;
+
+public class State implements MutableState {
+
+	public Graph graph;
+
+	public State(Graph g) {
+		this.graph = g;
+	}
+
+	@Override
+	public burlap.mdp.core.state.State copy() {
+		return new State(graph);
+	}
+
+	@Override
+	public Object get(Object variableKeys) {
+		if (variableKeys.equals(NodeStatus.VAR_NODES))
+			return graph.getNodes();
+		else if (variableKeys.equals(NodeStatus.VAR_EDGES))
+			return graph.getEdges();
+		else if (variableKeys.equals(NodeStatus.VAR_LIST))
+			return graph.getNodelist();
+		else if (variableKeys.equals(NodeStatus.VAR_START))
+			return graph.getStartNode();
+		else if (variableKeys.equals(NodeStatus.VAR_END))
+			return graph.getEndNode();
+
+		throw new UnknownKeyException(variableKeys);
+	}
+
+	@Override
+	public List<Object> variableKeys() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public MutableState set(Object variableKey, Object value) {
+		if (variableKeys.equals(NodeStatus.VAR_NODES))
+			return graph.getNodes();
+		else if (variableKeys.equals(NodeStatus.VAR_EDGES))
+			return graph.getEdges();
+		else if (variableKeys.equals(NodeStatus.VAR_LIST))
+			return graph.getNodelist();
+		else if (variableKeys.equals(NodeStatus.VAR_START))
+			return graph.getStartNode();
+		else if (variableKeys.equals(NodeStatus.VAR_END))
+			return graph.getEndNode();
+
+		return null;
+	}
+
+	public Graph getGraph() {
+		return graph;
+	}
+
+	public void setGraph(Graph graph) {
+		this.graph = graph;
+	}
+
+}
