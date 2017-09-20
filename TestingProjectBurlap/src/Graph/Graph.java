@@ -18,6 +18,21 @@ public class Graph {
 		this.endNode = en;
 	}
 
+	public Graph copy() {
+		return new Graph(nodes, edges, nodelist, startNode, endNode);
+	}
+
+	public static Graph copy(Graph g) {
+		return new Graph(g.nodes, g.edges, g.nodelist, g.startNode, g.endNode);
+	}
+
+	public void print() {
+		int s = this.nodelist.size();
+		for (int i = 0; i < s; i++) {
+			this.nodelist.get(i).print();
+		}
+	}
+
 	public int getNodes() {
 		return nodes;
 	}

@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.chainsaw.Main;
+
 import Graph.Graph;
 import Graph.Node;
 import Graph.NodeStatus;
@@ -27,8 +29,7 @@ public class WorldGenerator implements DomainGenerator {
 						MainClass.ACTIONS.get(j)));
 			}
 		}
-
-		System.out.println(domain.getActionTypes());
+		// System.out.println(domain.getActionTypes());
 
 		StateWorld smodel = new StateWorld();
 		Reward rf = new Reward();
@@ -44,79 +45,83 @@ public class WorldGenerator implements DomainGenerator {
 		@Override
 		public State sample(State s, Action a) {
 
-			s = s.copy();
-			WState state = (WState) s;
-			MAction m = (MAction) a;
-			Node n = m.getNode();
-			String action = m.getAction();
+			MAction ac = (MAction) a;
+			Node n = ac.getNode();
+			String action = ac.getAction();
+			State w = s.copy();
+			WState state = (WState) w;
 			Graph g = state.getGraph();
 			int size = g.getNodelist().size();
+			int index = 0;
 
-			if (action.equals(MainClass.ACTION_SCAN)) {
-				for (int i = 0; i < size; i++) {
-					if (n.getName().equals(g.getNodelist().get(i).getName())) {
-
-						// Change status of the Node stochastically according to
-						// the action
-						if (n.getStatus().equals(NodeStatus.UNKNOWN)) {
-							// From here it can go either to patched state or
-							// vulnerable state.
-
-							double rand = Math.random();
-							if (rand <= 0.5) {
-								g.getNodelist().get(i)
-										.setStatus(NodeStatus.PATCHED);
-							} else {
-								g.getNodelist().get(i)
-										.setStatus(NodeStatus.VULNERABLE);
-							}
-
-						} else if (n.getStatus().equals(NodeStatus.PATCHED)) {
-							// From here, it will go to patched state with high
-							// probability and go to vulnerable state with low
-							// probability
-
-							double rand = Math.random();
-							if (rand <= 0.8) {
-								g.getNodelist().get(i)
-										.setStatus(NodeStatus.PATCHED);
-							} else {
-								g.getNodelist().get(i)
-										.setStatus(NodeStatus.VULNERABLE);
-							}
-
-						} else if (n.getStatus().equals(NodeStatus.VULNERABLE)) {
-							// Do nothing since it is already vulnerable.
-						}
-						break;
-					}
+			// Find the index of the node in the graph on which action is
+			// performed.
+			for (int i = 0; i < size; i++) {
+				if (n.getName().equals(g.getNodelist().get(i).getName())) {
+					index = i;
+					break;
 				}
-			} else if (action.equals(MainClass.ACTION_PATCH)) {
-				for (int i = 0; i < size; i++) {
-					if (n.getName().equals(g.getNodelist().get(i).getName())) {
-						// Change status of the Node stochastically according to
-						// the action
+			}
 
-						if (n.getStatus().equals(NodeStatus.UNKNOWN)) {
-							// Do nothing since you don't know whether it is
-							// vulnerable or patched.
+			// Perform Specific action on the node.
+			if (action.equals(MainClass.ACTION_SCAN)) {
 
-						} else if (n.getStatus().equals(NodeStatus.PATCHED)) {
-							// Do nothing since it is already patched.
-
-						} else if (n.getStatus().equals(NodeStatus.VULNERABLE)) {
-							// The state of node will change to patched from
-							// vulnerable.
-
-							g.getNodelist().get(i)
-									.setStatus(NodeStatus.PATCHED);
-						}
-						break;
+				// If status is UNKNOWN
+				if (n.getStatus().equals(NodeStatus.UNKNOWN)) {
+					g.getNodelist().get(index).setPstatus(NodeStatus.UNKNOWN);
+					double rand = Math.random();
+					if (rand > 0.5) {
+						g.getNodelist().get(index)
+								.setStatus(NodeStatus.PATCHED);
+					} else {
+						g.getNodelist().get(index)
+								.setStatus(NodeStatus.VULNERABLE);
 					}
+					// If status is PATCHED
+				} else if (n.getStatus().equals(NodeStatus.PATCHED)) {
+					g.getNodelist().get(index).setPstatus(NodeStatus.PATCHED);
+					double rand = Math.random();
+					if (rand > 0.6) {
+						g.getNodelist().get(index)
+								.setStatus(NodeStatus.PATCHED);
+					} else {
+						g.getNodelist().get(index)
+								.setStatus(NodeStatus.VULNERABLE);
+					}
+
+					// If status is VULNERABLE
+				} else if (n.getStatus().equals(NodeStatus.VULNERABLE)) {
+					g.getNodelist().get(index)
+							.setPstatus(NodeStatus.VULNERABLE);
+					g.getNodelist().get(index).setStatus(NodeStatus.VULNERABLE);
+
+				}
+
+			} else if (action.equals(MainClass.ACTION_PATCH)) {
+
+				// If status is UNKNOWN
+				if (n.getStatus().equals(NodeStatus.UNKNOWN)) {
+					// Only scan is possible. No patching allowed since defender
+					// does not know what to patch.
+					g.getNodelist().get(index).setStatus(NodeStatus.UNKNOWN);
+
+					// If status is PATCHED
+				} else if (n.getStatus().equals(NodeStatus.PATCHED)) {
+					// The node is already patched. Defender can only scan to
+					// know whether it is vulnerable once again o not. Later we
+					// will introduce Unknown state over a aperiod of time.
+					g.getNodelist().get(index).setStatus(NodeStatus.PATCHED);
+
+					// If status is VULNERABLE
+				} else if (n.getStatus().equals(NodeStatus.VULNERABLE)) {
+					// Defender will patch the node and change the state of the
+					// node.
+					g.getNodelist().get(index)
+							.setPstatus(NodeStatus.VULNERABLE);
+					g.getNodelist().get(index).setStatus(NodeStatus.PATCHED);
 				}
 
 			}
-
 			state.setGraph(g);
 			return state;
 		}
@@ -132,57 +137,7 @@ public class WorldGenerator implements DomainGenerator {
 
 		@Override
 		public double reward(State s, Action a, State sp) {
-			// TODO Auto-generated method stub
 
-			WState state = (WState) s;
-			WState statep = (WState) sp;
-			Graph g = state.getGraph();
-			Graph gp = statep.getGraph();
-			MAction m = (MAction) a;
-			Node n = m.getNode();
-			String action = m.getAction();
-			int size = g.getNodelist().size();
-			Node ng = null, ngp = null;
-			for (int i = 0; i < size; i++) {
-				if (n.getName().equals(g.getNodelist().get(i).getName())) {
-					ng = g.getNodelist().get(i);
-					break;
-				}
-			}
-			for (int i = 0; i < size; i++) {
-				if (n.getName().equals(gp.getNodelist().get(i).getName())) {
-					ngp = gp.getNodelist().get(i);
-					break;
-				}
-			}
-
-			if (action.equals(MainClass.ACTION_PATCH)) {
-				if (ng.getStatus().equals(NodeStatus.VULNERABLE)
-						&& ngp.getStatus().equals(NodeStatus.PATCHED)) {
-					return MainClass.reward.get(ng.getName());
-				} else {
-					return -100;
-				}
-			} else if (action.equals(MainClass.ACTION_SCAN)) {
-				if (ng.getStatus().equals(NodeStatus.UNKNOWN)
-						&& ngp.getStatus().equals(NodeStatus.PATCHED)) {
-					return -MainClass.reward.get(ng.getName());
-
-				} else if (ng.getStatus().equals(NodeStatus.UNKNOWN)
-						&& ngp.getStatus().equals(NodeStatus.VULNERABLE)) {
-					return MainClass.reward.get(ng.getName());
-
-				} else if (ng.getStatus().equals(NodeStatus.PATCHED)
-						&& ngp.getStatus().equals(NodeStatus.PATCHED)) {
-					return -MainClass.reward.get(ng.getName()) * 2;
-
-				} else if (ng.getStatus().equals(NodeStatus.PATCHED)
-						&& ngp.getStatus().equals(NodeStatus.VULNERABLE)) {
-					return MainClass.reward.get(ng.getName());
-				}
-			}
-
-			// When there is no action which is unlikely.
 			return 0;
 		}
 	}

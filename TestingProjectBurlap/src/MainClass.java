@@ -6,6 +6,8 @@ import burlap.behavior.singleagent.Episode;
 import burlap.behavior.singleagent.auxiliary.EpisodeSequenceVisualizer;
 import burlap.behavior.valuefunction.ConstantValueFunction;
 import burlap.domain.singleagent.gridworld.GridWorldVisualizer;
+import burlap.mdp.core.action.Action;
+import burlap.mdp.core.state.State;
 import burlap.mdp.singleagent.SADomain;
 import burlap.mdp.singleagent.environment.SimulatedEnvironment;
 import burlap.statehashing.simple.SimpleHashableStateFactory;
@@ -31,7 +33,7 @@ public class MainClass {
 		ACTIONS.add(ACTION_SCAN);
 
 		for (int i = 0; i < 4; i++) {
-			Node n = new Node("N" + i, "N" + i, NodeStatus.UNKNOWN, 0.6);
+			Node n = new Node("N" + i, "N" + i, NodeStatus.UNKNOWN, 0.0);
 			nlist.add(n);
 		}
 		ArrayList<Node> l = new ArrayList<Node>();
@@ -47,9 +49,9 @@ public class MainClass {
 		Graph g = new Graph(nlist.size(), 4, nlist, nlist.get(0),
 				nlist.get(nlist.size() - 1));
 
-		for (int i = 0; i < 4; i++) {
-			Node.print(nlist.get(i));
-		}
+		// for (int i = 0; i < 4; i++) {
+		// Node.print(nlist.get(i));
+		// }
 		reward.put(nlist.get(0).getName(), 20);
 		reward.put(nlist.get(1).getName(), 30);
 		reward.put(nlist.get(2).getName(), 10);
@@ -65,13 +67,30 @@ public class MainClass {
 		// create Q-learning
 		QLearning agent = new QLearning(domain, 0.99,
 				new SimpleHashableStateFactory(), new ConstantValueFunction(),
-				0.1, 0.1);
+				0.4, 0.1);
 
 		// run Q-learning and store results in a list
 		List<Episode> episodes = new ArrayList<Episode>(1000);
 		for (int i = 0; i < 1; i++) {
 			episodes.add(agent.runLearningEpisode(env));
 			env.resetEnvironment();
+		}
+
+		for (int i = 0; i < 1; i++) {
+			Episode e = episodes.get(i);
+			List<Action> ls = e.actionSequence;
+			List<Double> rs = e.rewardSequence;
+			List<State> ss = e.stateSequence;
+			for (int j = 0; j < ls.size(); j++) {
+				System.out.print(ls.get(j).actionName() + ", ");
+			}
+			System.out.println();
+			System.out.println(rs);
+			System.out.println();
+			// for (int x = 0; x < ss.size(); x++) {
+			// WState s = (WState) ss.get(x);
+			// s.getGraph().print();
+			// }
 		}
 	}
 

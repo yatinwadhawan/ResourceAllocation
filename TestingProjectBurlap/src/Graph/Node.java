@@ -9,20 +9,40 @@ public class Node {
 	private String status;
 	private double cProb;
 	private ArrayList<Node> adj;
+	private String pstatus;
+
+	public String getPstatus() {
+		return pstatus;
+	}
+
+	public void setPstatus(String pstatus) {
+		this.pstatus = pstatus;
+	}
 
 	public Node(String name, String function, String s, double p) {
 		this.name = name;
 		this.function = function;
 		this.status = s;
 		this.cProb = p;
+		this.pstatus = "";
 	}
 
 	public static void print(Node n) {
-		System.out.println("Name - "+n.getName());
-		System.out.println("Function - "+n.getFunction());
-		System.out.println("Probability - "+n.getcProb());
-		System.out.println("Status - "+n.getStatus());
-		System.out.println("Adjacency List - "+n.getAdj());
+		System.out.println("Name - " + n.getName());
+		System.out.println("Function - " + n.getFunction());
+		System.out.println("Probability - " + n.getcProb());
+		System.out.println("Previous Status - " + n.getPstatus());
+		System.out.println("Status - " + n.getStatus());
+		System.out.println("Adjacency List - " + n.getAdj());
+	}
+
+	public void print() {
+		System.out.println("Name - " + this.name);
+		System.out.println("Function - " + this.function);
+		System.out.println("Probability - " + this.cProb);
+		System.out.println("Previous Status - " + this.pstatus);
+		System.out.println("Status - " + this.status);
+		System.out.println("Adjacency List - " + this.adj);
 	}
 
 	public String getName() {

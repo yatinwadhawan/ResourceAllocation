@@ -12,7 +12,7 @@ import burlap.mdp.core.state.UnknownKeyException;
 
 public class WState implements MutableState {
 
-	public Graph graph;
+	private Graph graph;
 	private final static List<Object> keys = Arrays.<Object> asList(
 			NodeStatus.VAR_NODES, NodeStatus.VAR_EDGES, NodeStatus.VAR_LIST,
 			NodeStatus.VAR_START, NodeStatus.VAR_END);
@@ -23,7 +23,7 @@ public class WState implements MutableState {
 
 	@Override
 	public State copy() {
-		return new WState(graph);
+		return new WState(graph.copy());
 	}
 
 	@Override
