@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 import Graph.Node;
@@ -5,7 +6,7 @@ import burlap.mdp.core.action.Action;
 import burlap.mdp.core.action.ActionType;
 import burlap.mdp.core.state.State;
 
-public class MAction implements ActionType {
+public class MAction implements ActionType, Action {
 
 	// We have three fields so that to we can decide what action is taken on
 	// which node.
@@ -20,13 +21,20 @@ public class MAction implements ActionType {
 	}
 
 	@Override
-	public List<Action> allApplicableActions(State arg0) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Action> allApplicableActions(State s) {
+		List<Action> ls = new ArrayList<Action>();
+		for (int i = 0; i < MainClass.nlist.size(); i++) {
+			for (int j = 0; j < MainClass.ACTIONS.size(); j++) {
+				ls.add(new MAction(MainClass.nlist.get(i), MainClass.ACTIONS
+						.get(j)));
+			}
+		}
+		System.out.println(ls);
+		return ls;
 	}
 
 	@Override
-	public Action associatedAction(String arg0) {
+	public Action associatedAction(String s) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -35,6 +43,18 @@ public class MAction implements ActionType {
 	public String typeName() {
 		// TODO Auto-generated method stub
 		return this.name;
+	}
+
+	@Override
+	public String actionName() {
+		// TODO Auto-generated method stub
+		return this.name;
+	}
+
+	@Override
+	public Action copy() {
+		// TODO Auto-generated method stub
+		return new MAction(this.node, this.name);
 	}
 
 	public Node getNode() {
@@ -60,7 +80,5 @@ public class MAction implements ActionType {
 	public void setAction(String action) {
 		this.action = action;
 	}
-	
-	
 
 }

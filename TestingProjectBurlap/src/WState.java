@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import Graph.Graph;
@@ -6,11 +7,15 @@ import Graph.Node;
 import Graph.NodeStatus;
 import burlap.mdp.core.state.MutableState;
 import burlap.mdp.core.state.State;
+import burlap.mdp.core.state.StateUtilities;
 import burlap.mdp.core.state.UnknownKeyException;
 
 public class WState implements MutableState {
 
 	public Graph graph;
+	private final static List<Object> keys = Arrays.<Object> asList(
+			NodeStatus.VAR_NODES, NodeStatus.VAR_EDGES, NodeStatus.VAR_LIST,
+			NodeStatus.VAR_START, NodeStatus.VAR_END);
 
 	public WState(Graph g) {
 		this.graph = g;
@@ -40,7 +45,7 @@ public class WState implements MutableState {
 	@Override
 	public List<Object> variableKeys() {
 		// TODO Auto-generated method stub
-		return null;
+		return keys;
 	}
 
 	@Override
@@ -61,6 +66,11 @@ public class WState implements MutableState {
 		return this;
 	}
 
+	@Override
+	public String toString() {
+		return StateUtilities.stateToString(this);
+	}
+
 	public Graph getGraph() {
 		return graph;
 	}
@@ -68,7 +78,5 @@ public class WState implements MutableState {
 	public void setGraph(Graph graph) {
 		this.graph = graph;
 	}
-	
-	
 
 }

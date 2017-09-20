@@ -1,7 +1,15 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
+import burlap.behavior.singleagent.Episode;
+import burlap.behavior.singleagent.auxiliary.EpisodeSequenceVisualizer;
+import burlap.behavior.valuefunction.ConstantValueFunction;
+import burlap.domain.singleagent.gridworld.GridWorldVisualizer;
 import burlap.mdp.singleagent.SADomain;
+import burlap.mdp.singleagent.environment.SimulatedEnvironment;
+import burlap.statehashing.simple.SimpleHashableStateFactory;
+import burlap.visualizer.Visualizer;
 import Graph.Graph;
 import Graph.Node;
 import Graph.NodeStatus;
@@ -50,9 +58,21 @@ public class MainClass {
 		WorldGenerator gen = new WorldGenerator();
 		SADomain domain = (SADomain) gen.generateDomain();
 		WState initialstate = new WState(g);
+		SimulatedEnvironment env = new SimulatedEnvironment(domain,
+				initialstate);
 
 		// Q-Learning Algorithm: Create Q-Learning Class and implement methods.
+		// create Q-learning
+		QLearning agent = new QLearning(domain, 0.99,
+				new SimpleHashableStateFactory(), new ConstantValueFunction(),
+				0.1, 0.1);
 
+		// run Q-learning and store results in a list
+		List<Episode> episodes = new ArrayList<Episode>(1000);
+		for (int i = 0; i < 1; i++) {
+			episodes.add(agent.runLearningEpisode(env));
+			env.resetEnvironment();
+		}
 	}
 
 }

@@ -1,0 +1,50 @@
+import java.util.List;
+
+import burlap.behavior.singleagent.Episode;
+import burlap.behavior.singleagent.MDPSolver;
+import burlap.behavior.singleagent.learning.LearningAgent;
+import burlap.behavior.valuefunction.QProvider;
+import burlap.behavior.valuefunction.QValue;
+import burlap.mdp.core.action.Action;
+import burlap.mdp.core.state.State;
+import burlap.mdp.singleagent.environment.Environment;
+
+public class QLearning extends MDPSolver implements LearningAgent, QProvider {
+
+	@Override
+	public double qValue(State arg0, Action arg1) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public double value(State arg0) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public List<QValue> qValues(State arg0) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Episode runLearningEpisode(Environment arg0) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Episode runLearningEpisode(Environment arg0, int arg1) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void resetSolver() {
+		// TODO Auto-generated method stub
+
+	}
+
+}

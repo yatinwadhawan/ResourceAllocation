@@ -1,0 +1,10 @@
+import burlap.behavior.singleagent.MDPSolver;
+import burlap.behavior.singleagent.learning.LearningAgent;
+import burlap.behavior.valuefunction.QProvider;
+
+
+public class QLearning extends MDPSolver implements LearningAgent, QProvider{
+	
+	
+
+}

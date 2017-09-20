@@ -27,6 +27,7 @@ public class WorldGenerator implements DomainGenerator {
 						MainClass.ACTIONS.get(j)));
 			}
 		}
+
 		System.out.println(domain.getActionTypes());
 
 		StateWorld smodel = new StateWorld();
