@@ -1,5 +1,0 @@
-import burlap.mdp.core.action.Action;
-
-public class MAction extends Action{
-
-}

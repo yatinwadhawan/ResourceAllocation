@@ -29,26 +29,14 @@ public class MAction implements ActionType, Action {
 		Graph g = state.getGraph();
 		List<Node> nls = g.getNodelist();
 		List<Action> ls = new ArrayList<Action>();
+
+		// Fill this function
 		for (int i = 0; i < nls.size(); i++) {
-			Node n = nls.get(i);
-			if (n.getStatus().equals(NodeStatus.UNKNOWN)) {
-				String action = MainClass.ACTION_SCAN;
-				MAction m = new MAction(n, action);
-				ls.add(m);
-			} else if (n.getStatus().equals(NodeStatus.VULNERABLE)) {
-				String action = MainClass.ACTION_PATCH;
-				MAction m = new MAction(n, action);
-				ls.add(m);
-			} else if (n.getStatus().equals(NodeStatus.PATCHED)) {
-				String action = MainClass.ACTION_SCAN;
-				MAction m = new MAction(n, action);
-				ls.add(m);
-			}
+			MAction ms = new MAction(nls.get(i), MainClass.ACTION_SCAN);
+			MAction mp = new MAction(nls.get(i), MainClass.ACTION_PATCH);
+			ls.add(ms);
+			ls.add(mp);
 		}
-		// for (int i = 0; i < ls.size(); i++) {
-		// System.out.print(ls.get(i).actionName() + ",");
-		// }
-		// System.out.println();
 		return ls;
 	}
 

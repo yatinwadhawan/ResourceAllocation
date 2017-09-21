@@ -49,13 +49,10 @@ public class MainClass {
 		Graph g = new Graph(nlist.size(), 4, nlist, nlist.get(0),
 				nlist.get(nlist.size() - 1));
 
-		// for (int i = 0; i < 4; i++) {
-		// Node.print(nlist.get(i));
-		// }
-		reward.put(nlist.get(0).getName(), 20);
-		reward.put(nlist.get(1).getName(), 30);
-		reward.put(nlist.get(2).getName(), 10);
-		reward.put(nlist.get(3).getName(), 40);
+		reward.put(nlist.get(0).getName(), 80);
+		reward.put(nlist.get(1).getName(), 120);
+		reward.put(nlist.get(2).getName(), 40);
+		reward.put(nlist.get(3).getName(), 160);
 
 		WorldGenerator gen = new WorldGenerator();
 		SADomain domain = (SADomain) gen.generateDomain();
@@ -71,26 +68,21 @@ public class MainClass {
 
 		// run Q-learning and store results in a list
 		List<Episode> episodes = new ArrayList<Episode>(1000);
-		for (int i = 0; i < 1; i++) {
+		for (int i = 0; i < 100; i++) {
 			episodes.add(agent.runLearningEpisode(env));
 			env.resetEnvironment();
 		}
 
-		for (int i = 0; i < 1; i++) {
+		for (int i = 0; i < 100; i++) {
 			Episode e = episodes.get(i);
 			List<Action> ls = e.actionSequence;
 			List<Double> rs = e.rewardSequence;
-			List<State> ss = e.stateSequence;
 			for (int j = 0; j < ls.size(); j++) {
 				System.out.print(ls.get(j).actionName() + ", ");
 			}
 			System.out.println();
 			System.out.println(rs);
 			System.out.println();
-			// for (int x = 0; x < ss.size(); x++) {
-			// WState s = (WState) ss.get(x);
-			// s.getGraph().print();
-			// }
 		}
 	}
 
