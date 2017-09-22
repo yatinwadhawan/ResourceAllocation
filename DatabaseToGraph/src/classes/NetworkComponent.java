@@ -10,6 +10,10 @@ public class NetworkComponent {
 	private ArrayList<Vulnerability> vulnerabilityList;
 	private ArrayList<NetworkComponent> networkComponentList;
 
+	public NetworkComponent() {
+		System.out.println("Network Component Created");
+	}
+
 	public NetworkComponent(String name, String details, double cprob,
 			ArrayList<Vulnerability> vlist, ArrayList<NetworkComponent> nclist) {
 		this.name = name;

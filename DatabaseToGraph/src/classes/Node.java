@@ -16,6 +16,10 @@ public class Node {
 	private ArrayList<Node> adjList;
 	private ArrayList<NetworkComponent> networkComponentList;
 
+	public Node() {
+		System.out.println("Node created");
+	}
+
 	public Node(String symbol, String name, String function, String status,
 			String pstatus, double prob, ArrayList<Node> adj,
 			ArrayList<NetworkComponent> nclist) {

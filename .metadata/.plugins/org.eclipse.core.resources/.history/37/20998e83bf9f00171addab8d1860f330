@@ -1,0 +1,14 @@
+package mainClass;
+
+import java.util.ArrayList;
+
+public class MainClass {
+
+	static ArrayList<Vulnerability> vlist = new ArrayList<Vulnerability>();
+
+	
+	public static void main(String[] str) {
+
+	}
+
+}

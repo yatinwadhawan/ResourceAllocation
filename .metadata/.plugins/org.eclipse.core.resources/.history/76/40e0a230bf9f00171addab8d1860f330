@@ -1,0 +1,42 @@
+package mainClass;
+
+import MainPage;
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
+import classes.Vulnerability;
+
+public class ConfigureDatabase {
+
+	public static void loadVulnerabilities() {
+		String fileName = "/Users/yatinwadhawan/Documents/android/BN/src/com/src/database/Vulnerability";
+		String line = null;
+
+		try {
+			FileReader fileReader = new FileReader(fileName);
+			BufferedReader bufferedReader = new BufferedReader(fileReader);
+			while ((line = bufferedReader.readLine()) != null) {
+				if (line.length() != 0) {
+					Vulnerability v = new Vulnerability();
+					v.setName(line.toUpperCase());
+					line = bufferedReader.readLine();
+					v.setProbability(Double.parseDouble(line));
+					v.setScore(v.getProbability() * 10);
+					line = bufferedReader.readLine();
+					v.setDetails(line);
+					MainPage.vlist.add(v);
+					MainPage.vmap.put(v.getName(), v);
+				}
+			}
+
+			bufferedReader.close();
+		} catch (FileNotFoundException ex) {
+			System.out.println("Unable to open file '" + fileName + "'");
+		} catch (IOException ex) {
+			System.out.println("Error reading file '" + fileName + "'");
+		}
+	}
+}
