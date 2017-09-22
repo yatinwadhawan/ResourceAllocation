@@ -1,0 +1,49 @@
+package classes;
+
+import java.util.ArrayList;
+
+public class Node {
+
+	private String symbol;
+	private String name;
+	private String function;
+	private String status;
+	private double cProb;
+	private ArrayList<Node> adj;
+	private String pstatus;
+	ArrayList<Node> flist;
+	ArrayList<NetworkComponent> nclist;
+
+	public String getSymbol() {
+		return symbol;
+	}
+
+	public void setSymbol(String symbol) {
+		this.symbol = symbol;
+	}
+
+	public ArrayList<NetworkComponent> getNclist() {
+		return nclist;
+	}
+
+	public void setNclist(ArrayList<NetworkComponent> nclist) {
+		this.nclist = nclist;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public ArrayList<Node> getFlist() {
+		return flist;
+	}
+
+	public void setFlist(ArrayList<Node> flist) {
+		this.flist = flist;
+	}
+
+}
