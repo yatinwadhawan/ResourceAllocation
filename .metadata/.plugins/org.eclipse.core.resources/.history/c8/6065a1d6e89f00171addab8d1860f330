@@ -12,11 +12,6 @@ public class NetworkComponent {
 
 	public NetworkComponent() {
 		System.out.println("Network Component Created");
-		this.name = "";
-		this.details = "";
-		this.compromiseProb = 0.0;
-		this.vulnerabilityList = new ArrayList<Vulnerability>();
-		this.networkComponentList = new ArrayList<NetworkComponent>();
 	}
 
 	public NetworkComponent(String name, String details, double cprob,

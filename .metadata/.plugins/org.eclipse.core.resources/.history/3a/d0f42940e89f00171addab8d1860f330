@@ -138,7 +138,7 @@ public class ConfigureDatabase {
 		} catch (IOException ex) {
 			System.out.println("Error reading file '" + fileName + "'");
 		}
-
+		
 		Set set = MainClass.networkMap.keySet();
 		Iterator itr = set.iterator();
 		while (itr.hasNext()) {
@@ -160,7 +160,6 @@ public class ConfigureDatabase {
 					String[] arr = line.split(",");
 					f.setSymbol(arr[0]);
 					f.setName(arr[1]);
-					f.setFunction(arr[1]);
 
 					MainClass.nodeMap.put(f.getSymbol(), f);
 				}

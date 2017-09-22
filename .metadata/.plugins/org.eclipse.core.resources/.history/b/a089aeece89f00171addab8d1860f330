@@ -21,7 +21,7 @@ public class Node {
 		this.symbol = "";
 		this.name = "";
 		this.function = "";
-		this.status = NodeStatus.UNKNOWN;
+		this.status = "";
 		this.pstatus = "";
 		this.compromiseProb = 0.0;
 		this.adjList = new ArrayList<Node>();

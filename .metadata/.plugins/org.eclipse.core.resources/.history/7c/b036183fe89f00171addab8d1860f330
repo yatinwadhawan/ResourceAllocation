@@ -138,12 +138,12 @@ public class ConfigureDatabase {
 		} catch (IOException ex) {
 			System.out.println("Error reading file '" + fileName + "'");
 		}
-
-		Set set = MainClass.networkMap.keySet();
+		
+		Set set = MainClass.nodeMap.keySet();
 		Iterator itr = set.iterator();
 		while (itr.hasNext()) {
 			String name = (String) itr.next();
-			MainClass.networkList.add(MainClass.networkMap.get(name));
+			MainClass.nodeList.add(MainClass.nodeMap.get(name));
 		}
 	}
 
@@ -160,7 +160,6 @@ public class ConfigureDatabase {
 					String[] arr = line.split(",");
 					f.setSymbol(arr[0]);
 					f.setName(arr[1]);
-					f.setFunction(arr[1]);
 
 					MainClass.nodeMap.put(f.getSymbol(), f);
 				}

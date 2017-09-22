@@ -18,14 +18,6 @@ public class Node {
 
 	public Node() {
 		System.out.println("Node created");
-		this.symbol = "";
-		this.name = "";
-		this.function = "";
-		this.status = NodeStatus.UNKNOWN;
-		this.pstatus = "";
-		this.compromiseProb = 0.0;
-		this.adjList = new ArrayList<Node>();
-		this.networkComponentList = new ArrayList<NetworkComponent>();
 	}
 
 	public Node(String symbol, String name, String function, String status,

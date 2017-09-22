@@ -6,9 +6,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Set;
-
 import classes.NetworkComponent;
 import classes.Node;
 import classes.Vulnerability;
@@ -138,13 +135,6 @@ public class ConfigureDatabase {
 		} catch (IOException ex) {
 			System.out.println("Error reading file '" + fileName + "'");
 		}
-
-		Set set = MainClass.networkMap.keySet();
-		Iterator itr = set.iterator();
-		while (itr.hasNext()) {
-			String name = (String) itr.next();
-			MainClass.networkList.add(MainClass.networkMap.get(name));
-		}
 	}
 
 	public static void loadFunctions() {
@@ -160,7 +150,6 @@ public class ConfigureDatabase {
 					String[] arr = line.split(",");
 					f.setSymbol(arr[0]);
 					f.setName(arr[1]);
-					f.setFunction(arr[1]);
 
 					MainClass.nodeMap.put(f.getSymbol(), f);
 				}
@@ -222,6 +211,7 @@ public class ConfigureDatabase {
 					}
 					f.setNclist(nclist);
 
+					MainClass.nodeList.add(f);
 					MainClass.nodeMap.put(arr[0], f);
 				}
 			}
@@ -231,14 +221,6 @@ public class ConfigureDatabase {
 			System.out.println("Unable to open file '" + fileName + "'");
 		} catch (IOException ex) {
 			System.out.println("Error reading file '" + fileName + "'");
-		}
-
-		// Updating Node List Finally
-		Set set = MainClass.nodeMap.keySet();
-		Iterator itr = set.iterator();
-		while (itr.hasNext()) {
-			String name = (String) itr.next();
-			MainClass.nodeList.add(MainClass.nodeMap.get(name));
 		}
 	}
 
