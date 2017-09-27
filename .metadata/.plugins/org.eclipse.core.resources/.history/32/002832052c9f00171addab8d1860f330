@@ -1,0 +1,63 @@
+package classes;
+
+import java.util.ArrayList;
+
+public class NetworkComponent {
+
+	private String name;
+	private String details;
+	private double compromiseProb;
+	private ArrayList<Vulnerability> vulnerabilityList;
+	private ArrayList<NetworkComponent> networkComponentList;
+
+	
+	
+	public void print() {
+		System.out.println("Name: " + this.name);
+		System.out.println("Name: " + this.details);
+		System.out.println("Name: " + this.compromiseProb);
+		System.out.println("Name: " + this.vulnerabilityList);
+		System.out.println("Name: " + this.networkComponentList);
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getDetails() {
+		return details;
+	}
+
+	public void setDetails(String details) {
+		this.details = details;
+	}
+
+	public double getCompromiseProb() {
+		return compromiseProb;
+	}
+
+	public void setCompromiseProb(double compromiseProb) {
+		this.compromiseProb = compromiseProb;
+	}
+
+	public ArrayList<Vulnerability> getVlist() {
+		return vulnerabilityList;
+	}
+
+	public void setVlist(ArrayList<Vulnerability> vlist) {
+		this.vulnerabilityList = vlist;
+	}
+
+	public ArrayList<NetworkComponent> getNclist() {
+		return networkComponentList;
+	}
+
+	public void setNclist(ArrayList<NetworkComponent> nclist) {
+		this.networkComponentList = nclist;
+	}
+
+}

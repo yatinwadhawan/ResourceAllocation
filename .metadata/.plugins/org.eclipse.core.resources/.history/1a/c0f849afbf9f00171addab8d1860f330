@@ -1,0 +1,17 @@
+package mainClass;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import classes.Vulnerability;
+
+public class MainClass {
+
+	static ArrayList<Vulnerability> vulnerabilityList = new ArrayList<Vulnerability>();
+	static HashMap<String, Vulnerability> vmap = new HashMap<String, Vulnerability>();
+
+	public static void main(String[] str) {
+
+	}
+
+}

@@ -1,0 +1,85 @@
+import java.util.ArrayList;
+import java.util.List;
+import Graph.Node;
+import burlap.mdp.core.action.Action;
+import burlap.mdp.core.action.ActionType;
+import burlap.mdp.core.state.State;
+
+public class MAction implements ActionType, Action {
+
+	// We have three fields so that to we can decide what action is taken on
+	// which node.
+	private String nodeName;
+	private String action;
+	private String actionName;
+
+	public MAction(String n, String action) {
+		this.nodeName = n;
+		this.action = action;
+		this.actionName = n + "-" + action;
+	}
+
+	@Override
+	public List<Action> allApplicableActions(State s) {
+
+		WState state = (WState) s;
+		ArrayList<Node> nls = state.getNodeList();
+		List<Action> ls = new ArrayList<Action>();
+
+		// Fill this function
+		for (int i = 0; i < nls.size(); i++) {
+			MAction ms = new MAction(nls.get(i).getName(),
+					MainClass.ACTION_SCAN);
+			MAction mp = new MAction(nls.get(i).getName(),
+					MainClass.ACTION_PATCH);
+			ls.add(ms);
+			ls.add(mp);
+		}
+		return ls;
+	}
+
+	@Override
+	public Action associatedAction(String s) {
+		return null;
+	}
+
+	@Override
+	public String typeName() {
+		return this.actionName;
+	}
+
+	@Override
+	public String actionName() {
+		return this.actionName;
+	}
+
+	@Override
+	public Action copy() {
+		return new MAction(this.nodeName, this.action);
+	}
+
+	public String getNodeName() {
+		return nodeName;
+	}
+
+	public void setNodeName(String nodeName) {
+		this.nodeName = nodeName;
+	}
+
+	public String getActionName() {
+		return actionName;
+	}
+
+	public void setActionName(String actionName) {
+		this.actionName = actionName;
+	}
+
+	public String getAction() {
+		return action;
+	}
+
+	public void setAction(String action) {
+		this.action = action;
+	}
+
+}

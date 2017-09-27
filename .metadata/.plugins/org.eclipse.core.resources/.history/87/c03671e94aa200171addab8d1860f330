@@ -1,0 +1,9 @@
+
+public class StateToAction {
+
+	private State s;
+	private MAction a;
+	
+	
+	
+}

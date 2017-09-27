@@ -1,0 +1,107 @@
+package mainClass;
+
+import MainPage;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+
+import classes.NetworkComponent;
+import classes.Vulnerability;
+
+public class ConfigureDatabase {
+
+	public static void loadVulnerabilities() {
+		String fileName = MainClass.filename + "Vulnerability";
+		String line = null;
+
+		try {
+			FileReader fileReader = new FileReader(fileName);
+			BufferedReader bufferedReader = new BufferedReader(fileReader);
+			while ((line = bufferedReader.readLine()) != null) {
+				if (line.length() != 0) {
+					Vulnerability v = new Vulnerability();
+					v.setName(line.toUpperCase());
+					line = bufferedReader.readLine();
+					v.setProbability(Double.parseDouble(line));
+					v.setCvssScore(v.getProbability() * 10);
+					line = bufferedReader.readLine();
+					v.setDetails(line);
+
+					MainClass.vulnerabilityList.add(v);
+					MainClass.vulnerabilityMap.put(v.getName(), v);
+				}
+			}
+
+			bufferedReader.close();
+		} catch (FileNotFoundException ex) {
+			System.out.println("Unable to open file '" + fileName + "'");
+		} catch (IOException ex) {
+			System.out.println("Error reading file '" + fileName + "'");
+		}
+	}
+
+	public static void loadNetworkComponent() {
+		String fileName = MainClass.filename + "NetworkComponent";
+		String line = null;
+
+		try {
+			FileReader fileReader = new FileReader(fileName);
+			BufferedReader bufferedReader = new BufferedReader(fileReader);
+			while ((line = bufferedReader.readLine()) != null) {
+				if (line.length() != 0) {
+					NetworkComponent nc = new NetworkComponent();
+					nc.setName(line.toUpperCase());
+					line = bufferedReader.readLine();
+					nc.setDetails(line);
+					MainClass.networkList.add(nc);
+					MainClass.networkMap.put(nc.getName().toUpperCase(), nc);
+				}
+			}
+
+			bufferedReader.close();
+		} catch (FileNotFoundException ex) {
+			System.out.println("Unable to open file '" + fileName + "'");
+		} catch (IOException ex) {
+			System.out.println("Error reading file '" + fileName + "'");
+		}
+	}
+
+	public static void loadNetworkComponentToVul() {
+		String fileName = MainClass.filename + "NetworkToVul";
+		String line = null;
+
+		try {
+			FileReader fileReader = new FileReader(fileName);
+			BufferedReader bufferedReader = new BufferedReader(fileReader);
+			while ((line = bufferedReader.readLine()) != null) {
+				if (line.length() != 0) {
+					NetworkComponent nc = MainClass.networkMap.get(line
+							.toUpperCase());
+					ArrayList<Vulnerability> l = new ArrayList<Vulnerability>();
+					line = bufferedReader.readLine();
+					String[] arr = line.split(",");
+					for (int i = 0; i < arr.length; i++) {
+						String upper = arr[i].toUpperCase();
+						Vulnerability v = MainClass.vulnerabilityMap.get(upper);
+						l.add(v);
+					}
+					nc.setVlist(l);
+					
+					//Update Network Component with list of vulnerabilies.
+					MainClass.networkMap.put(nc.getName().toUpperCase(), nc);
+				}
+			}
+
+			bufferedReader.close();
+		} catch (FileNotFoundException ex) {
+			System.out.println("Unable to open file '" + fileName + "'");
+		} catch (IOException ex) {
+			System.out.println("Error reading file '" + fileName + "'");
+		}
+	}
+
+}

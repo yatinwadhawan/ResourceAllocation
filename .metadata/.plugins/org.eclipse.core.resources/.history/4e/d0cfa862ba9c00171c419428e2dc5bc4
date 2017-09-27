@@ -1,0 +1,13 @@
+package Graph;
+
+import java.awt.List;
+
+public class Node {
+
+	private String name;
+	private String function;
+	private NodeStatus status;
+	private double cProb;
+	private List<Node> adj;
+
+}

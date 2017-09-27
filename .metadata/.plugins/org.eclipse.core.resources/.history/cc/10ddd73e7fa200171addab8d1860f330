@@ -1,0 +1,67 @@
+package Graph;
+
+import java.util.ArrayList;
+
+public class Node {
+
+	private String name;
+	private String status;
+	private ArrayList<Node> adj;
+	private String pstatus;
+
+	public String getPstatus() {
+		return pstatus;
+	}
+
+	public void setPstatus(String pstatus) {
+		this.pstatus = pstatus;
+	}
+
+	public Node(String name, String s) {
+		this.name = name;
+		this.status = s;
+		this.pstatus = NodeStatus.UNKNOWN;
+	}
+
+	public static void print(Node n) {
+		System.out.println("Name - " + n.getName());
+		System.out.println("Function - " + n.getFunction());
+		System.out.println("Probability - " + n.getcProb());
+		System.out.println("Previous Status - " + n.getPstatus());
+		System.out.println("Status - " + n.getStatus());
+		System.out.println("Adjacency List - " + n.getAdj());
+	}
+
+	public void print() {
+		System.out.println("Name - " + this.name);
+		System.out.println("Previous Status - " + this.pstatus);
+		System.out.println("Status - " + this.status);
+		System.out.println("Adjacency List - " + this.adj);
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public ArrayList<Node> getAdj() {
+		return adj;
+	}
+
+	public void setAdj(ArrayList<Node> adj) {
+		this.adj = adj;
+	}
+
+}

@@ -1,0 +1,11 @@
+package Graph;
+
+import java.util.ArrayList;
+
+public class Graph {
+
+	int nodes;
+	int edges;
+	ArrayList<Node> nodelist;
+	
+}

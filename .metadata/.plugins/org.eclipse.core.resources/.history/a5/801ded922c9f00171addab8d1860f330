@@ -1,0 +1,12 @@
+package classes;
+
+public class Vulnerability {
+
+	private String name;
+	private String details;
+	private double cvssScore;
+	private double probability;
+
+	
+
+}

@@ -1,0 +1,17 @@
+package classes;
+
+import java.util.ArrayList;
+
+public class Node {
+
+	private String symbol;
+	private String name;
+	private String function;
+	private String status;
+	private double compromiseProb;
+	private ArrayList<Node> adj;
+	private String pstatus;
+	private ArrayList<Node> flist;
+	private ArrayList<NetworkComponent> nclist;
+
+}

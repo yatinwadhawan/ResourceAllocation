@@ -1,0 +1,67 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import Graph.Graph;
+import Graph.Node;
+import Graph.NodeStatus;
+import burlap.mdp.core.state.MutableState;
+import burlap.mdp.core.state.State;
+import burlap.mdp.core.state.StateUtilities;
+import burlap.mdp.core.state.UnknownKeyException;
+
+public class WState implements MutableState {
+
+	private Graph graph;
+	private final static List<Object> keys = Arrays.<Object> asList(
+			NodeStatus.VAR_NODES, NodeStatus.VAR_EDGES, NodeStatus.VAR_LIST,
+			NodeStatus.VAR_START, NodeStatus.VAR_END);
+
+	public WState(Graph g) {
+		this.graph = g;
+	}
+
+	@Override
+	public State copy() {
+		return new WState(graph.copy());
+	}
+
+	@Override
+	public Object get(Object variableKeys) {
+
+		if (variableKeys.equals(NodeStatus.VAR_LIST))
+			return graph.getNodelist();
+
+		throw new UnknownKeyException(variableKeys);
+	}
+
+	@Override
+	public List<Object> variableKeys() {
+		// TODO Auto-generated method stub
+		return keys;
+	}
+
+	@Override
+	public MutableState set(Object variableKeys, Object value) {
+		if (variableKeys.equals(NodeStatus.VAR_LIST))
+			this.graph.setNodelist((ArrayList<Node>) value);
+		else
+			throw new UnknownKeyException(variableKeys);
+
+		return this;
+	}
+
+	@Override
+	public String toString() {
+		return StateUtilities.stateToString(this);
+	}
+
+	public Graph getGraph() {
+		return graph;
+	}
+
+	public void setGraph(Graph graph) {
+		this.graph = graph;
+	}
+
+}

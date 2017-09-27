@@ -1,0 +1,12 @@
+package Graph;
+
+public class Node {
+
+	private String name;
+	private String function;
+	private NodeStatus status;
+	private double cProb;
+	
+	
+
+}

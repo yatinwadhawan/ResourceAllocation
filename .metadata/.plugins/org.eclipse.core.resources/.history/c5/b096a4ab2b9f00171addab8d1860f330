@@ -1,0 +1,13 @@
+package classes;
+
+import java.util.ArrayList;
+
+public class NetworkComponent {
+
+	private String name;
+	private String details;
+	private double compromiseProb;
+	private ArrayList<Vulnerability> vlist;
+	private ArrayList<NetworkComponent> nclist;
+
+}

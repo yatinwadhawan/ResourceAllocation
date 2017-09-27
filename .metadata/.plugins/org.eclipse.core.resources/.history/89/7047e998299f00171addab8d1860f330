@@ -1,0 +1,9 @@
+Home Appliance:Smart Meters
+Smart Meters:Smart Meter Collector Server
+Smart Meter Collector Server:Smart Grid Head End
+Smart Grid Head End:MS SQL Server,Workstations,Billing Engine Server
+Billing Engine Server:MS SQL Server,Workstations,Meter Data Management Server
+Meter Data Management Server:MS SQL Server,Workstations,Outage Management Server
+Outage Management Server:MS SQL Server,Workstations,Energy Control Center Server
+Vendor Specific Server:MS SQL Server,Workstations,Meter Data Management Server
+Energy Control Center Server:Resilience,Transformer

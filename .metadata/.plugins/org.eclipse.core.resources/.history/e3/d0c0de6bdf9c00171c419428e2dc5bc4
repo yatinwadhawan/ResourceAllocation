@@ -1,0 +1,16 @@
+package Graph;
+
+import java.util.ArrayList;
+
+public class NodeStatus {
+
+	public final static String UNKNOWN = "UNKNOWN";
+	public final static String PATCHED = "PATCHED";
+	public final static String VULNERABLE = "VULNERABLE";
+	public final static String HACKED = "HACKED";
+	public final static String NAME = "NAME";
+	public final static String FUNCTION = "FUNCTION";
+	public final static String STATUS = "STATUS";
+	public final static String CPROB = "CPROB";
+	public final static String ADJ = "ADJ";
+}

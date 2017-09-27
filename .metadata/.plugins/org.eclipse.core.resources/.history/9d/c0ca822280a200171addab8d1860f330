@@ -1,0 +1,29 @@
+import burlap.mdp.core.state.State;
+
+public class StateToAction {
+
+	private State s;
+	private MAction a;
+
+	public StateToAction(State s, MAction a) {
+		this.s = s;
+		this.a = a;
+	}
+
+	public State getS() {
+		return s;
+	}
+
+	public void setS(State s) {
+		this.s = s;
+	}
+
+	public MAction getA() {
+		return a;
+	}
+
+	public void setA(MAction a) {
+		this.a = a;
+	}
+
+}
