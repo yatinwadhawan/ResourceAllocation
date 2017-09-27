@@ -22,7 +22,6 @@ import Graph.NodeStatus;
 
 public class MainClass {
 
-	public final static String ADDRESS = "/Users/yatinwadhawan/Documents/Results/";
 	public final static String ACTION_PATCH = "PATCH";
 	public final static String ACTION_HACK = "HACK";
 	public final static String ACTION_SCAN = "SCAN";
@@ -111,9 +110,9 @@ public class MainClass {
 			env.resetEnvironment();
 		}
 
-		clear(ADDRESS + "state.text");
-		clear(ADDRESS + "action.text");
-		clear(ADDRESS + "reward.text");
+		clear("state.text");
+		clear("action.text");
+		clear("reward.text");
 
 		for (int i = 0; i < trials; i++) {
 			Episode e = episodes.get(i);
@@ -135,9 +134,9 @@ public class MainClass {
 			}
 			plot.add(reward / rl.size());
 
-			writeFile(sl, ADDRESS + "state.text");
-			writeFile(al, ADDRESS + "action.text");
-			writeFile(rl, ADDRESS + "reward.text");
+			writeFile(sl, "state.text");
+			writeFile(al, "action.text");
+			writeFile(rl, "reward.text");
 		}
 
 		for (int i = 0; i < allStates.size(); i++) {
@@ -183,14 +182,14 @@ public class MainClass {
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
 
 		bw.write("New Episode \n");
-		if (name.equals(ADDRESS + "state.text")) {
+		if (name.equals("state.text")) {
 			List<State> l = (List<State>) ls;
 			for (int j = 0; j < l.size(); j++) {
 				WState s = (WState) l.get(j);
 				bw.write(s.getNodeList().toString());
 				bw.newLine();
 			}
-		} else if (name.equals(ADDRESS + "reward.text")) {
+		} else if (name.equals("reward.text")) {
 			List<Double> l = (List<Double>) ls;
 			for (int j = 0; j < l.size(); j++) {
 				bw.write(l.get(j) + ", ");
@@ -209,7 +208,7 @@ public class MainClass {
 	}
 
 	public static void writeFile1(String str) throws IOException {
-		File fout = new File(ADDRESS + "out.txt");
+		File fout = new File("out.txt");
 		FileOutputStream fos = new FileOutputStream(fout, true);
 
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));

@@ -209,7 +209,7 @@ public class MainClass {
 	}
 
 	public static void writeFile1(String str) throws IOException {
-		File fout = new File(ADDRESS + "out.txt");
+		File fout = new File("out.txt");
 		FileOutputStream fos = new FileOutputStream(fout, true);
 
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
