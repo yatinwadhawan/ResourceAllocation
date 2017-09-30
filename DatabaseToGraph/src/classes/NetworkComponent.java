@@ -1,6 +1,7 @@
 package classes;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class NetworkComponent {
 
@@ -26,6 +27,21 @@ public class NetworkComponent {
 		this.compromiseProb = cprob;
 		this.vulnerabilityList = vlist;
 		this.networkComponentList = nclist;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		NetworkComponent that = (NetworkComponent) obj;
+		if (this.name == that.name && this.details == that.details
+				&& this.compromiseProb == that.compromiseProb)
+			return true;
+		return false;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(name, details, compromiseProb, vulnerabilityList,
+				networkComponentList);
 	}
 
 	public void print() {

@@ -6,19 +6,20 @@
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="QLearning" key="selection"/>
+		<item value="app" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="NodeStatus.VAR_START, NodeStatus.VAR_END"/>
+			<item value="applicableActions"/>
+			<item value="app"/>
+			<item value="applic"/>
 			<item value="QLTutorial"/>
 			<item value="keys"/>
 			<item value="sample"/>
 			<item value="EXGridState"/>
-			<item value="plotest"/>
-			<item value="plottest"/>
-			<item value="plo"/>
 		</list>
 		<list key="replacehistory">
 			<item value="QLearning"/>

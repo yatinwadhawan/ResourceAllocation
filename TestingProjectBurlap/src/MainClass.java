@@ -5,11 +5,22 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import org.jfree.ui.RefineryUtilities;
+
 import burlap.behavior.singleagent.Episode;
+import burlap.behavior.singleagent.auxiliary.performance.LearningAlgorithmExperimenter;
+import burlap.behavior.singleagent.auxiliary.performance.PerformanceMetric;
+import burlap.behavior.singleagent.auxiliary.performance.TrialMode;
+import burlap.behavior.singleagent.learning.LearningAgent;
+import burlap.behavior.singleagent.learning.LearningAgentFactory;
 import burlap.behavior.valuefunction.ConstantValueFunction;
 import burlap.behavior.valuefunction.QValue;
 import burlap.mdp.core.action.Action;
@@ -28,13 +39,21 @@ public class MainClass {
 	public final static String ACTION_SCAN = "SCAN";
 	public static ArrayList<String> ACTIONS = new ArrayList<String>();
 	public static HashMap<String, Integer> reward = new HashMap<String, Integer>();
-	public static int trials = 1000;
 	public static List<MAction> ls = new ArrayList<MAction>();
 	public static List<State> statelist = new ArrayList<State>();
 	public static int count_state = 0;
 	static ArrayList<State> wl = new ArrayList<State>();
 
+	static int trials = 7000;
+	static double learningrate = 0.8;
+	static double gamma = 0.2;
+	static double epsilon = 0.2;
+
 	public static void main(String[] args) throws IOException {
+
+		// Writing Configueration to the file
+		clear(ADDRESS + "config.text");
+		writeConfig(ADDRESS + "config.text");
 
 		// We have to write a separate function for parsing input to the model.
 		// This is dummy input for testing purpose.
@@ -43,7 +62,7 @@ public class MainClass {
 
 		// Create a nodelist that will create a state.
 		ArrayList<Node> nlist = new ArrayList<Node>();
-		for (int i = 0; i < 6; i++) {
+		for (int i = 0; i < 8; i++) {
 			Node n = new Node("N" + i, NodeStatus.UNKNOWN);
 			nlist.add(n);
 		}
@@ -51,27 +70,40 @@ public class MainClass {
 		l0.add(nlist.get(1));
 		l0.add(nlist.get(2));
 		nlist.get(0).setAdj(l0);
+
 		ArrayList<Node> l1 = new ArrayList<Node>();
 		l1.add(nlist.get(3));
+		l1.add(nlist.get(7));
 		nlist.get(1).setAdj(l1);
+
 		ArrayList<Node> l2 = new ArrayList<Node>();
 		l2.add(nlist.get(3));
 		l2.add(nlist.get(4));
 		nlist.get(2).setAdj(l2);
+
+		ArrayList<Node> l3 = new ArrayList<Node>();
+		l3.add(nlist.get(6));
+		nlist.get(3).setAdj(l3);
+
 		ArrayList<Node> l4 = new ArrayList<Node>();
-		l4.add(nlist.get(3));
 		l4.add(nlist.get(5));
 		nlist.get(4).setAdj(l4);
+
 		ArrayList<Node> l5 = new ArrayList<Node>();
-		l5.add(nlist.get(3));
+		l5.add(nlist.get(6));
 		nlist.get(5).setAdj(l5);
 
-		nlist.get(3).setAdj(new ArrayList<Node>());
+		ArrayList<Node> l6 = new ArrayList<Node>();
+		nlist.get(6).setAdj(l6);
+
+		ArrayList<Node> l7 = new ArrayList<Node>();
+		l7.add(nlist.get(6));
+		nlist.get(7).setAdj(l7);
 
 		// Creating action set for the domain. We will assign this in the
 		// WorldGenerator class.
 		for (int i = 0; i < nlist.size(); i++) {
-			nlist.get(i).print();
+			// nlist.get(i).print();
 
 			MAction ms = new MAction(nlist.get(i).getName(),
 					MainClass.ACTION_SCAN);
@@ -85,9 +117,11 @@ public class MainClass {
 		reward.put(nlist.get(0).getName(), 2);
 		reward.put(nlist.get(1).getName(), 8);
 		reward.put(nlist.get(2).getName(), 10);
-		reward.put(nlist.get(3).getName(), 4);
+		reward.put(nlist.get(3).getName(), 14);
 		reward.put(nlist.get(4).getName(), 6);
-		reward.put(nlist.get(5).getName(), 12);
+		reward.put(nlist.get(5).getName(), 4);
+		reward.put(nlist.get(6).getName(), 2);
+		reward.put(nlist.get(7).getName(), 20);
 
 		// Initializing the world generator.
 		WorldGenerator gen = new WorldGenerator();
@@ -96,25 +130,44 @@ public class MainClass {
 		SimulatedEnvironment env = new SimulatedEnvironment(domain,
 				initialstate);
 
-		QLearning agent = new QLearning(domain, 0.5,
+		QLearning agent = new QLearning(domain, gamma,
 				new SimpleHashableStateFactory(), new ConstantValueFunction(),
-				0.2, 0.1);
+				learningrate, epsilon);
 
 		ArrayList<State> wl = new ArrayList<State>();
 		ArrayList<State> allStates = new ArrayList<State>();
 		ArrayList<Double> plot = new ArrayList<Double>();
+		HashMap<State, List<List<QValue>>> map = new HashMap<State, List<List<QValue>>>();
 
 		// run Q-learning and store results in a list
-		List<Episode> episodes = new ArrayList<Episode>(1000);
+		List<Episode> episodes = new ArrayList<Episode>(trials);
 		for (int x = 0; x < trials; x++) {
 			episodes.add(agent.runLearningEpisode(env));
 			env.resetEnvironment();
+			Episode e = episodes.get(x);
+			List<State> sl = e.stateSequence;
+
+			for (int j = 0; j < sl.size(); j++) {
+				WState w = (WState) sl.get(j);
+				if (!wl.contains(w)) {
+					List<List<QValue>> qv = new ArrayList<List<QValue>>();
+					wl.add(sl.get(j));
+					qv.add(agent.qValues(sl.get(j)));
+					map.put(sl.get(j), qv);
+				} else {
+					List<List<QValue>> qv = map.get(sl.get(j));
+					qv.add(agent.qValues(sl.get(j)));
+					map.put(sl.get(j), qv);
+				}
+			}
 		}
 
-		clear(ADDRESS + "state.text");
 		clear(ADDRESS + "action.text");
 		clear(ADDRESS + "reward.text");
+		clear(ADDRESS + "states.text");
 
+		wl.clear();
+		allStates.clear();
 		for (int i = 0; i < trials; i++) {
 			Episode e = episodes.get(i);
 			List<Action> al = e.actionSequence;
@@ -128,38 +181,17 @@ public class MainClass {
 					allStates.add(sl.get(j));
 				}
 			}
-
 			double reward = 0.0;
 			for (int j = 0; j < rl.size(); j++) {
 				reward += rl.get(j);
 			}
 			plot.add(reward / rl.size());
 
-			writeFile(sl, ADDRESS + "state.text");
-			writeFile(al, ADDRESS + "action.text");
-			writeFile(rl, ADDRESS + "reward.text");
+			writeFile(al, ADDRESS + "action.text", i);
+			writeFile(rl, ADDRESS + "reward.text", i);
 		}
 
-		for (int i = 0; i < allStates.size(); i++) {
-			State s = allStates.get(i);
-			WState w = (WState) s;
-			List<QValue> lq = agent.qValues(s);
-
-			System.out.println("State " + i);
-
-			ArrayList<Node> nl = w.getNodeList();
-			for (int j = 0; j < nl.size(); j++) {
-				Node n = nl.get(j);
-				n.print();
-			}
-			for (int j = 0; j < lq.size(); j++) {
-				System.out.print(lq.get(j).a.actionName() + " - " + lq.get(j).q
-						+ ", ");
-			}
-			System.out.println();
-			System.out.println();
-			System.out.println();
-		}
+		writeAllStates(allStates, ADDRESS + "states.text");
 
 		System.out.println("Count States - " + count_state);
 		System.out.println("Total states - " + allStates.size());
@@ -168,6 +200,10 @@ public class MainClass {
 		demo.pack();
 		RefineryUtilities.centerFrameOnScreen(demo);
 		demo.setVisible(true);
+
+		purgeDirectory(ADDRESS + "/states/");
+		createFilesForEachStateQValues(map);
+
 	}
 
 	public static void clear(String name) throws FileNotFoundException {
@@ -176,13 +212,109 @@ public class MainClass {
 		writer.close();
 	}
 
-	public static void writeFile(List ls, String name) throws IOException {
+	static void purgeDirectory(String str) {
+		File dir = new File(str);
+		for (File file : dir.listFiles()) {
+			file.delete();
+		}
+	}
+
+	public static void writeAllStates(ArrayList<State> allStates, String name)
+			throws IOException {
+
+		File fout = new File(name);
+		FileOutputStream fos = new FileOutputStream(fout, true);
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
+
+		for (int i = 0; i < allStates.size(); i++) {
+			State s = allStates.get(i);
+			WState w = (WState) s;
+
+			bw.write("State " + i + "\n");
+
+			ArrayList<Node> nl = w.getNodeList();
+			for (int j = 0; j < nl.size(); j++) {
+				Node n = nl.get(j);
+				bw.write(n.getName());
+				bw.newLine();
+				bw.write(n.getStatus());
+				bw.newLine();
+				bw.write(n.getAdj().toString());
+				bw.newLine();
+			}
+			bw.newLine();
+		}
+		bw.close();
+	}
+
+	public static void createFilesForEachStateQValues(
+			HashMap<State, List<List<QValue>>> map) throws IOException {
+
+		int i = 1;
+		Set set = map.keySet();
+		Iterator itr = set.iterator();
+		while (itr.hasNext()) {
+			State s = (State) itr.next();
+			WState w = (WState) s;
+
+			String name = ADDRESS + "/states/" + i++ + ".text";
+			File fout = new File(name);
+			FileOutputStream fos = new FileOutputStream(fout, true);
+			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
+			ArrayList<Node> nl = w.getNodeList();
+			for (int j = 0; j < nl.size(); j++) {
+				Node n = nl.get(j);
+				bw.write(n.getName());
+				bw.newLine();
+				bw.write(n.getStatus());
+				bw.newLine();
+				bw.write(n.getAdj().toString());
+				bw.newLine();
+			}
+			bw.newLine();
+			List<List<QValue>> q = map.get(s);
+			for (int x = 0; x < q.size(); x++) {
+				List<QValue> l = q.get(x);
+				for (int y = 0; y < l.size(); y++) {
+					String text = l.get(y).a.actionName() + ":" + l.get(y).q
+							+ ",";
+					bw.write(text);
+				}
+				bw.newLine();
+				bw.newLine();
+			}
+			bw.close();
+		}
+
+	}
+
+	public static void writeConfig(String name) throws IOException {
 		File fout = new File(name);
 		FileOutputStream fos = new FileOutputStream(fout, true);
 
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
 
-		bw.write("New Episode \n");
+		bw.write("Trials-" + trials);
+		bw.newLine();
+		bw.write("Learning Rate-" + learningrate);
+		bw.newLine();
+		bw.write("Epsilon-" + epsilon);
+		bw.newLine();
+		bw.write("Discount Factor-" + gamma);
+		bw.newLine();
+		bw.close();
+	}
+
+	public static void writeFile(List ls, String name, int number)
+			throws IOException {
+		File fout = new File(name);
+		FileOutputStream fos = new FileOutputStream(fout, true);
+
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
+
+		bw.write("Episode");
+		bw.write(Integer.toString(number));
+		bw.newLine();
 		if (name.equals(ADDRESS + "state.text")) {
 			List<State> l = (List<State>) ls;
 			for (int j = 0; j < l.size(); j++) {
@@ -193,13 +325,13 @@ public class MainClass {
 		} else if (name.equals(ADDRESS + "reward.text")) {
 			List<Double> l = (List<Double>) ls;
 			for (int j = 0; j < l.size(); j++) {
-				bw.write(l.get(j) + ", ");
+				bw.write(l.get(j) + ",");
 			}
 			bw.newLine();
 		} else {
 			List<Action> l = (List<Action>) ls;
 			for (int j = 0; j < l.size(); j++) {
-				bw.write(l.get(j).actionName() + ", ");
+				bw.write(l.get(j).actionName() + ",");
 			}
 			bw.newLine();
 		}
@@ -207,18 +339,6 @@ public class MainClass {
 
 		bw.close();
 	}
-
-	public static void writeFile1(String str) throws IOException {
-		File fout = new File(ADDRESS + "out.txt");
-		FileOutputStream fos = new FileOutputStream(fout, true);
-
-		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
-		bw.write(str);
-		bw.newLine();
-
-		bw.close();
-	}
-
 }
 
 // Q-Learning Algorithm: Create Q-Learning Class and implement methods.

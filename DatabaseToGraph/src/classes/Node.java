@@ -1,6 +1,7 @@
 package classes;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Node {
 	// Node represents the function node that is displayed on the dashboard. The
@@ -11,10 +12,24 @@ public class Node {
 	private String name;
 	private String function;
 	private String status;
-	private String pstatus;
 	private double compromiseProb;
 	private ArrayList<Node> adjList;
 	private ArrayList<NetworkComponent> networkComponentList;
+
+	@Override
+	public boolean equals(Object obj) {
+		Node that = (Node) obj;
+		if (this.symbol == that.symbol && this.name == that.name
+				&& this.function == that.function && this.status == that.status)
+			return true;
+		return false;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(symbol, name, function, status, compromiseProb,
+				adjList, networkComponentList);
+	}
 
 	public Node() {
 		System.out.println("Node created");
@@ -22,7 +37,6 @@ public class Node {
 		this.name = "";
 		this.function = "";
 		this.status = NodeStatus.UNKNOWN;
-		this.pstatus = "";
 		this.compromiseProb = 0.0;
 		this.adjList = new ArrayList<Node>();
 		this.networkComponentList = new ArrayList<NetworkComponent>();
@@ -35,7 +49,6 @@ public class Node {
 		this.name = name;
 		this.function = function;
 		this.status = status;
-		this.pstatus = pstatus;
 		this.compromiseProb = prob;
 		this.adjList = adj;
 		this.networkComponentList = nclist;
@@ -46,7 +59,6 @@ public class Node {
 		System.out.println("Name - " + this.name);
 		System.out.println("Function - " + this.function);
 		System.out.println("Status - " + this.status);
-		System.out.println("Previous Status - " + this.pstatus);
 		System.out.println("Probability - " + this.compromiseProb);
 		System.out.println("Adjacency List - " + this.adjList);
 		System.out.println("Previous Status - " + this.networkComponentList);
@@ -57,7 +69,6 @@ public class Node {
 		System.out.println("Name - " + n.name);
 		System.out.println("Function - " + n.function);
 		System.out.println("Status - " + n.status);
-		System.out.println("Previous Status - " + n.pstatus);
 		System.out.println("Probability - " + n.compromiseProb);
 		System.out.println("Adjacency List - " + n.adjList);
 		System.out.println("Previous Status - " + n.networkComponentList);
@@ -109,14 +120,6 @@ public class Node {
 
 	public void setAdj(ArrayList<Node> adj) {
 		this.adjList = adj;
-	}
-
-	public String getPstatus() {
-		return pstatus;
-	}
-
-	public void setPstatus(String pstatus) {
-		this.pstatus = pstatus;
 	}
 
 	public ArrayList<NetworkComponent> getNclist() {
