@@ -1,0 +1,108 @@
+package QLearning;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+
+import burlap.mdp.core.state.MutableState;
+import classes.Node;
+import classes.NodeStatus;
+
+public class WState implements MutableState {
+
+	private int nodes;
+	private int edges;
+	private Node startNode;
+	private Node endNode;
+	private ArrayList<Node> nodeList;
+	private final static List<Object> keys = Arrays
+			.<Object> asList(NodeStatus.VAR_LIST);
+
+	public WState(int n, int e, ArrayList<Node> l, Node s, Node en) {
+		this.nodes = n;
+		this.edges = e;
+		this.nodeList = l;
+		this.startNode = s;
+		this.endNode = en;
+	}
+
+	public WState copy() {
+		return new WState(nodes, edges, nodeList, startNode, endNode);
+	}
+
+	public static WState copy(WState g) {
+		return new WState(g.nodes, g.edges, g.nodeList, g.startNode, g.endNode);
+	}
+
+	public void print() {
+		int s = this.nodeList.size();
+		for (int i = 0; i < s; i++) {
+			this.nodeList.get(i).print();
+		}
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(nodes, edges, nodeList, startNode, endNode);
+	}
+
+	@Override
+	public Object get(Object arg0) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Object> variableKeys() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public MutableState set(Object arg0, Object arg1) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public int getNodes() {
+		return nodes;
+	}
+
+	public void setNodes(int nodes) {
+		this.nodes = nodes;
+	}
+
+	public int getEdges() {
+		return edges;
+	}
+
+	public void setEdges(int edges) {
+		this.edges = edges;
+	}
+
+	public ArrayList<Node> getNodelist() {
+		return nodeList;
+	}
+
+	public void setNodelist(ArrayList<Node> nodelist) {
+		this.nodeList = nodelist;
+	}
+
+	public Node getStartNode() {
+		return startNode;
+	}
+
+	public void setStartNode(Node startNode) {
+		this.startNode = startNode;
+	}
+
+	public Node getEndNode() {
+		return endNode;
+	}
+
+	public void setEndNode(Node endNode) {
+		this.endNode = endNode;
+	}
+
+}

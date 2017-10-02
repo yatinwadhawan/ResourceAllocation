@@ -1,0 +1,36 @@
+package classes;
+
+import MAction;
+import mainClass.MainClass;
+
+public class NodeStatus {
+
+	public final static String UNKNOWN = "UNKNOWN";
+	public final static String PATCHED = "PATCHED";
+	public final static String VULNERABLE = "VULNERABLE";
+	public final static String HACKED = "HACKED";
+	public final static String VAR_LIST = "LIST";
+	public final static String ACTION_PATCH = "PATCH";
+	public final static String ACTION_HACK = "HACK";
+	public final static String ACTION_SCAN = "SCAN";
+
+	public static void addActions() {
+		MainClass.ACTIONS.add(ACTION_PATCH);
+		MainClass.ACTIONS.add(ACTION_SCAN);
+	}
+
+	// Creating action set for the domain. We will assign this in the
+	// WorldGenerator class.
+	public static void createActionList() {
+		for (int i = 0; i < MainClass.nodeList.size(); i++) {
+			// nlist.get(i).print();
+
+			MAction ms = new MAction(nlist.get(i).getName(),
+					MainClass.ACTION_SCAN);
+			MAction mp = new MAction(nlist.get(i).getName(),
+					MainClass.ACTION_PATCH);
+			ls.add(ms);
+			ls.add(mp);
+		}
+	}
+}

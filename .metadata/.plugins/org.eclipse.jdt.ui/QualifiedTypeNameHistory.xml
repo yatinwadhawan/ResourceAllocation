@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="burlap.behavior.policy.PolicyUtils"/>
 <fullyQualifiedTypeName name="burlap.behavior.singleagent.auxiliary.performance.PerformancePlotter"/>
 <fullyQualifiedTypeName name="java.io.File"/>
-<fullyQualifiedTypeName name="classes.Vulnerability"/>
 <fullyQualifiedTypeName name="java.lang.NoClassDefFoundError"/>
 <fullyQualifiedTypeName name="mainClass.ConfigureDatabase"/>
 <fullyQualifiedTypeName name="mainClass.MainClass"/>
 <fullyQualifiedTypeName name="classes.NodeStatus"/>
-<fullyQualifiedTypeName name="classes.NetworkComponent"/>
-<fullyQualifiedTypeName name="classes.Node"/>
 <fullyQualifiedTypeName name="org.jfree.chart.plot.Plot"/>
 <fullyQualifiedTypeName name="org.jfree.ui.ApplicationFrame"/>
 <fullyQualifiedTypeName name="org.jfree.data.xy.XYSeriesCollection"/>
@@ -28,7 +24,6 @@
 <fullyQualifiedTypeName name="java.util.LinkedHashMap"/>
 <fullyQualifiedTypeName name="Graph.NodeStatus"/>
 <fullyQualifiedTypeName name="java.util.Collection"/>
-<fullyQualifiedTypeName name="java.util.Collections"/>
 <fullyQualifiedTypeName name="java.util.HashSet"/>
 <fullyQualifiedTypeName name="burlap.mdp.core.action.UniversalActionType"/>
 <fullyQualifiedTypeName name="Graph.Node"/>
@@ -39,10 +34,7 @@
 <fullyQualifiedTypeName name="org.apache.log4j.chainsaw.Main"/>
 <fullyQualifiedTypeName name="TestBurlap"/>
 <fullyQualifiedTypeName name="MainClass"/>
-<fullyQualifiedTypeName name="java.lang.Object"/>
-<fullyQualifiedTypeName name="WState"/>
 <fullyQualifiedTypeName name="MAction"/>
-<fullyQualifiedTypeName name="java.util.Objects"/>
 <fullyQualifiedTypeName name="burlap.behavior.singleagent.learning.LearningAgentFactory"/>
 <fullyQualifiedTypeName name="burlap.behavior.singleagent.learning.LearningAgent"/>
 <fullyQualifiedTypeName name="burlap.behavior.singleagent.auxiliary.performance.LearningAlgorithmExperimenter"/>
@@ -57,7 +49,15 @@
 <fullyQualifiedTypeName name="java.util.Map.Entry"/>
 <fullyQualifiedTypeName name="java.util.Map"/>
 <fullyQualifiedTypeName name="burlap.mdp.core.state.State"/>
+<fullyQualifiedTypeName name="classes.Vulnerability"/>
+<fullyQualifiedTypeName name="classes.NetworkComponent"/>
+<fullyQualifiedTypeName name="java.lang.Object"/>
+<fullyQualifiedTypeName name="classes.Node"/>
+<fullyQualifiedTypeName name="java.util.Objects"/>
+<fullyQualifiedTypeName name="WState"/>
 <fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="burlap.behavior.valuefunction.QValue"/>
+<fullyQualifiedTypeName name="java.util.Collections"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="java.util.Arrays"/>
 </qualifiedTypeNameHistroy>

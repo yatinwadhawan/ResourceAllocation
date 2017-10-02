@@ -1,0 +1,9 @@
+package mainClass;
+
+public class InstallDatabase {
+
+	public static void install() {
+
+	}
+
+}

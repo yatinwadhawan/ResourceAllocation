@@ -1,0 +1,31 @@
+package mainClass;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import classes.NetworkComponent;
+import classes.Node;
+import classes.Vulnerability;
+import database.InstallDatabase;
+
+public class MainClass {
+
+	// Path of the database
+	public static String filename = "/Users/yatinwadhawan/Documents/Projects/DatabaseToGraph/src/database/";
+
+	// Data Structure storing vulnerabilities.
+	public static ArrayList<Vulnerability> vulnerabilityList = new ArrayList<Vulnerability>();
+	public static HashMap<String, Vulnerability> vulnerabilityMap = new HashMap<String, Vulnerability>();
+	public static ArrayList<NetworkComponent> networkList = new ArrayList<NetworkComponent>();
+	public static HashMap<String, NetworkComponent> networkMap = new HashMap<String, NetworkComponent>();
+	public static ArrayList<Node> nodeList = new ArrayList<Node>();
+	public static HashMap<String, Node> nodeMap = new HashMap<String, Node>();
+
+	public static void main(String[] str) {
+
+		InstallDatabase.install();
+		InstallDatabase.print();
+
+	}
+
+}
