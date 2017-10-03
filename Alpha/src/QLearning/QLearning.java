@@ -94,7 +94,7 @@ public class QLearning extends MDPSolver implements LearningAgent, QProvider {
 			}
 			// store this for later
 			this.qValues.put(sh, qs);
-			MainClass.count_state++;
+			DecisionMaking.count_state++;
 		}
 
 		return qs;
