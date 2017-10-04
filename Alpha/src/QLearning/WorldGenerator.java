@@ -66,30 +66,56 @@ public class WorldGenerator implements DomainGenerator {
 			// Perform Specific action on the node.
 			if (action.equals(NodeStatus.ACTION_SCAN)) {
 
-				// If status is UNKNOWN
-				if (n.getStatus().equals(NodeStatus.UNKNOWN)) {
+				// If status is Hacked
+				if (DecisionMaking.isHackedStateInvolved
+						&& n.getStatus().equals(NodeStatus.HACKED)) {
+					state.getNodeList().get(index).setStatus(NodeStatus.HACKED);
+
+					// If status is UNKNOWN
+				} else if (n.getStatus().equals(NodeStatus.UNKNOWN)) {
 					// state.getNodeList().get(index)
 					// .setPstatus(NodeStatus.UNKNOWN);
-					double rand = Math.random();
-					if (rand > 0.5) {
+
+					// Hacked
+					if (DecisionMaking.isHackedStateInvolved
+							&& n.getCompromiseProb() >= 0.7) {
 						state.getNodeList().get(index)
-								.setStatus(NodeStatus.PATCHED);
+								.setStatus(NodeStatus.HACKED);
+
 					} else {
-						state.getNodeList().get(index)
-								.setStatus(NodeStatus.VULNERABLE);
+
+						double rand = Math.random();
+						if (rand > 0.5) {
+							state.getNodeList().get(index)
+									.setStatus(NodeStatus.PATCHED);
+						} else {
+							state.getNodeList().get(index)
+									.setStatus(NodeStatus.VULNERABLE);
+						}
 					}
 
 					// If status is PATCHED
 				} else if (n.getStatus().equals(NodeStatus.PATCHED)) {
-					// state.getNodeList().get(index)
-					// .setPstatus(NodeStatus.PATCHED);
-					double rand = Math.random();
-					if (rand > 0.6) {
+
+					// For Future:
+					// When Patched its compromised Probability will be zero.
+					// If it becomes vulnerable we will update its probability
+
+					// Hacked
+					if (DecisionMaking.isHackedStateInvolved
+							&& n.getCompromiseProb() >= 0.7) {
 						state.getNodeList().get(index)
-								.setStatus(NodeStatus.PATCHED);
+								.setStatus(NodeStatus.HACKED);
+
 					} else {
-						state.getNodeList().get(index)
-								.setStatus(NodeStatus.VULNERABLE);
+						double rand = Math.random();
+						if (rand > 0.6) {
+							state.getNodeList().get(index)
+									.setStatus(NodeStatus.PATCHED);
+						} else {
+							state.getNodeList().get(index)
+									.setStatus(NodeStatus.VULNERABLE);
+						}
 					}
 
 					// If status is VULNERABLE
@@ -98,13 +124,19 @@ public class WorldGenerator implements DomainGenerator {
 					// .setPstatus(NodeStatus.VULNERABLE);
 					state.getNodeList().get(index)
 							.setStatus(NodeStatus.VULNERABLE);
-
 				}
 
 			} else if (action.equals(NodeStatus.ACTION_PATCH)) {
 
-				// If status is UNKNOWN
-				if (n.getStatus().equals(NodeStatus.UNKNOWN)) {
+				// If status is Hacked
+				if (DecisionMaking.isHackedStateInvolved
+						&& n.getStatus().equals(NodeStatus.HACKED)) {
+
+					state.getNodeList().get(index)
+							.setStatus(NodeStatus.PATCHED);
+
+					// If status is UNKNOWN
+				} else if (n.getStatus().equals(NodeStatus.UNKNOWN)) {
 					// Only scan is possible. No patching allowed since defender
 					// does not know what to patch.
 					state.getNodeList().get(index)
@@ -176,12 +208,19 @@ public class WorldGenerator implements DomainGenerator {
 
 			if (action.equals(NodeStatus.ACTION_SCAN)) {
 
-				if (n.getStatus().equals(NodeStatus.VULNERABLE)) {
+				if (DecisionMaking.isHackedStateInvolved
+						&& n.getStatus().equals(NodeStatus.HACKED)) {
+					return 0;
+				} else if (n.getStatus().equals(NodeStatus.VULNERABLE)) {
 					return 0;
 				} else if (n.getStatus().equals(NodeStatus.UNKNOWN)) {
 					// We distinguish between the state in which
 					// node lands.. whether Vulnerable or Patched
-					if (n.getStatus().equals(NodeStatus.PATCHED)) {
+
+					if (DecisionMaking.isHackedStateInvolved
+							&& n.getStatus().equals(NodeStatus.HACKED)) {
+						return MainClass.reward.get(np.getName()) * 1.5;
+					} else if (n.getStatus().equals(NodeStatus.PATCHED)) {
 						return MainClass.reward.get(np.getName()) / 2;
 					} else {
 						return MainClass.reward.get(np.getName());
@@ -189,7 +228,10 @@ public class WorldGenerator implements DomainGenerator {
 				} else if (n.getStatus().equals(NodeStatus.PATCHED)) {
 					// We distinguish between the state in which
 					// node lands.. whether Vulnerable or Patched
-					if (n.getStatus().equals(NodeStatus.PATCHED)) {
+					if (DecisionMaking.isHackedStateInvolved
+							&& n.getStatus().equals(NodeStatus.HACKED)) {
+						return MainClass.reward.get(np.getName()) * 1.5;
+					} else if (n.getStatus().equals(NodeStatus.PATCHED)) {
 						return MainClass.reward.get(np.getName()) / 2;
 					} else {
 						return MainClass.reward.get(np.getName());
@@ -198,7 +240,10 @@ public class WorldGenerator implements DomainGenerator {
 
 			} else if (action.equals(NodeStatus.ACTION_PATCH)) {
 
-				if (n.getStatus().equals(NodeStatus.VULNERABLE)) {
+				if (DecisionMaking.isHackedStateInvolved
+						&& n.getStatus().equals(NodeStatus.HACKED)) {
+					return MainClass.reward.get(np.getName()) * 2.0;
+				} else if (n.getStatus().equals(NodeStatus.VULNERABLE)) {
 					return MainClass.reward.get(np.getName());
 				} else if (n.getStatus().equals(NodeStatus.PATCHED)) {
 					return 0;

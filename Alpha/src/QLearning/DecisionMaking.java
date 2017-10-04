@@ -29,11 +29,12 @@ import burlap.statehashing.simple.SimpleHashableStateFactory;
 public class DecisionMaking {
 
 	// Configuration Variables
-	public static int trials = 7000;
-	public static double learningrate = 0.2;
+	public static int trials = 3000;
+	public static double learningrate = 0.8;
 	public static double gamma = 0.2;
-	public static double epsilon = 0.6;
+	public static double epsilon = 0.2;
 	public static int count_state = 0;
+	public static boolean isHackedStateInvolved = false;
 
 	public static void makeDecision() throws IOException {
 
@@ -140,7 +141,7 @@ public class DecisionMaking {
 				bw.newLine();
 				bw.write(n.getStatus());
 				bw.newLine();
-				bw.write(n.getAdj().toString());
+				bw.write(n.getAdjList().toString());
 				bw.newLine();
 			}
 			bw.newLine();
@@ -169,7 +170,7 @@ public class DecisionMaking {
 				bw.newLine();
 				bw.write(n.getStatus());
 				bw.newLine();
-				bw.write(n.getAdj().toString());
+				bw.write(n.getAdjList().toString());
 				bw.newLine();
 			}
 			bw.newLine();
@@ -211,7 +212,6 @@ public class DecisionMaking {
 			for (int j = 0; j < l.size(); j++) {
 				bw.write(l.get(j) + ",");
 			}
-			bw.newLine();
 		} else {
 			List<Action> l = (List<Action>) ls;
 			for (int j = 0; j < l.size(); j++) {
@@ -237,6 +237,8 @@ public class DecisionMaking {
 		bw.write("Epsilon-" + epsilon);
 		bw.newLine();
 		bw.write("Discount Factor-" + gamma);
+		bw.newLine();
+		bw.write("Is Hacked State Involved-" + isHackedStateInvolved);
 		bw.newLine();
 		bw.close();
 	}

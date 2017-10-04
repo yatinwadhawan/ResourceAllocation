@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Set;
+
 import mainClass.MainClass;
 import classes.NetworkComponent;
 import classes.Node;
@@ -162,6 +163,10 @@ public class ConfigureDatabase {
 					f.setFunction(arr[1]);
 					f.setReward(Integer.parseInt(arr[2]));
 
+					// We have to update this probability via Bayesian Network
+					// later on when we implement Bayesian algorithm.
+					f.setCompromiseProb(Double.parseDouble(arr[3]));
+
 					MainClass.nodeMap.put(f.getSymbol(), f);
 				}
 			}
@@ -191,7 +196,7 @@ public class ConfigureDatabase {
 					for (int i = 0; i < arr_2.length; i++) {
 						adj.add(MainClass.nodeMap.get(arr_2[i]));
 					}
-					f.setAdj(adj);
+					f.setAdjList(adj);
 				}
 			}
 
@@ -220,7 +225,7 @@ public class ConfigureDatabase {
 						nclist.add(MainClass.networkMap.get(arr_2[i]
 								.toUpperCase()));
 					}
-					f.setNclist(nclist);
+					f.setNetworkComponentList(nclist);
 
 					MainClass.nodeMap.put(arr[0], f);
 				}

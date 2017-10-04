@@ -6,12 +6,13 @@
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="app" key="selection"/>
+		<item value="FILENAME" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="filename"/>
 			<item value="NodeStatus.VAR_START, NodeStatus.VAR_END"/>
 			<item value="applicableActions"/>
 			<item value="app"/>
@@ -19,9 +20,9 @@
 			<item value="QLTutorial"/>
 			<item value="keys"/>
 			<item value="sample"/>
-			<item value="EXGridState"/>
 		</list>
 		<list key="replacehistory">
+			<item value="FILENAME"/>
 			<item value="QLearning"/>
 			<item value="ExGridState"/>
 		</list>

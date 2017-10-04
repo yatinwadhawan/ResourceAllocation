@@ -134,22 +134,6 @@ public class Node {
 		this.compromiseProb = compromiseProb;
 	}
 
-	public ArrayList<Node> getAdj() {
-		return adjList;
-	}
-
-	public void setAdj(ArrayList<Node> adj) {
-		this.adjList = adj;
-	}
-
-	public ArrayList<NetworkComponent> getNclist() {
-		return networkComponentList;
-	}
-
-	public void setNclist(ArrayList<NetworkComponent> nclist) {
-		this.networkComponentList = nclist;
-	}
-
 	public int getReward() {
 		return reward;
 	}
