@@ -34,11 +34,4 @@ public class NodeStatus {
 		}
 	}
 
-	// Create Rewards List
-	public static void createRewardList() {
-		for (int i = 0; i < MainClass.nodeList.size(); i++) {
-			Node n = MainClass.nodeList.get(i);
-			MainClass.reward.put(n.getName(), n.getReward());
-		}
-	}
 }

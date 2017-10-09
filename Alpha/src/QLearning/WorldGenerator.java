@@ -73,25 +73,19 @@ public class WorldGenerator implements DomainGenerator {
 
 					// If status is UNKNOWN
 				} else if (n.getStatus().equals(NodeStatus.UNKNOWN)) {
-					// state.getNodeList().get(index)
-					// .setPstatus(NodeStatus.UNKNOWN);
 
 					// Hacked
-					if (DecisionMaking.isHackedStateInvolved
-							&& n.getCompromiseProb() >= 0.7) {
+					double rand = Math.random();
+					if (rand > 0.7 && DecisionMaking.isHackedStateInvolved) {
 						state.getNodeList().get(index)
 								.setStatus(NodeStatus.HACKED);
 
+					} else if (rand > 0.4) {
+						state.getNodeList().get(index)
+								.setStatus(NodeStatus.PATCHED);
 					} else {
-
-						double rand = Math.random();
-						if (rand > 0.5) {
-							state.getNodeList().get(index)
-									.setStatus(NodeStatus.PATCHED);
-						} else {
-							state.getNodeList().get(index)
-									.setStatus(NodeStatus.VULNERABLE);
-						}
+						state.getNodeList().get(index)
+								.setStatus(NodeStatus.VULNERABLE);
 					}
 
 					// If status is PATCHED
@@ -101,21 +95,16 @@ public class WorldGenerator implements DomainGenerator {
 					// When Patched its compromised Probability will be zero.
 					// If it becomes vulnerable we will update its probability
 
-					// Hacked
-					if (DecisionMaking.isHackedStateInvolved
-							&& n.getCompromiseProb() >= 0.7) {
+					double rand = Math.random();
+					if (rand > 0.7 && DecisionMaking.isHackedStateInvolved) {
 						state.getNodeList().get(index)
 								.setStatus(NodeStatus.HACKED);
-
+					} else if (rand > 0.4) {
+						state.getNodeList().get(index)
+								.setStatus(NodeStatus.PATCHED);
 					} else {
-						double rand = Math.random();
-						if (rand > 0.6) {
-							state.getNodeList().get(index)
-									.setStatus(NodeStatus.PATCHED);
-						} else {
-							state.getNodeList().get(index)
-									.setStatus(NodeStatus.VULNERABLE);
-						}
+						state.getNodeList().get(index)
+								.setStatus(NodeStatus.VULNERABLE);
 					}
 
 					// If status is VULNERABLE
@@ -211,30 +200,32 @@ public class WorldGenerator implements DomainGenerator {
 				if (DecisionMaking.isHackedStateInvolved
 						&& n.getStatus().equals(NodeStatus.HACKED)) {
 					return 0;
+
 				} else if (n.getStatus().equals(NodeStatus.VULNERABLE)) {
-					return 0;
+					return -50;
+
 				} else if (n.getStatus().equals(NodeStatus.UNKNOWN)) {
 					// We distinguish between the state in which
 					// node lands.. whether Vulnerable or Patched
 
 					if (DecisionMaking.isHackedStateInvolved
-							&& n.getStatus().equals(NodeStatus.HACKED)) {
-						return MainClass.reward.get(np.getName()) * 1.5;
-					} else if (n.getStatus().equals(NodeStatus.PATCHED)) {
-						return MainClass.reward.get(np.getName()) / 2;
-					} else {
+							&& np.getStatus().equals(NodeStatus.HACKED)) {
 						return MainClass.reward.get(np.getName());
+					} else if (np.getStatus().equals(NodeStatus.PATCHED)) {
+						return 0;
+					} else {
+						return 50;
 					}
 				} else if (n.getStatus().equals(NodeStatus.PATCHED)) {
 					// We distinguish between the state in which
 					// node lands.. whether Vulnerable or Patched
 					if (DecisionMaking.isHackedStateInvolved
-							&& n.getStatus().equals(NodeStatus.HACKED)) {
-						return MainClass.reward.get(np.getName()) * 1.5;
-					} else if (n.getStatus().equals(NodeStatus.PATCHED)) {
-						return MainClass.reward.get(np.getName()) / 2;
-					} else {
+							&& np.getStatus().equals(NodeStatus.HACKED)) {
 						return MainClass.reward.get(np.getName());
+					} else if (np.getStatus().equals(NodeStatus.PATCHED)) {
+						return -50;
+					} else {
+						return 50;
 					}
 				}
 
@@ -242,13 +233,13 @@ public class WorldGenerator implements DomainGenerator {
 
 				if (DecisionMaking.isHackedStateInvolved
 						&& n.getStatus().equals(NodeStatus.HACKED)) {
-					return MainClass.reward.get(np.getName()) * 2.0;
+					return MainClass.reward.get(np.getName()) * 1.2;
 				} else if (n.getStatus().equals(NodeStatus.VULNERABLE)) {
-					return MainClass.reward.get(np.getName());
+					return 50;
 				} else if (n.getStatus().equals(NodeStatus.PATCHED)) {
-					return 0;
+					return -50;
 				} else if (n.getStatus().equals(NodeStatus.UNKNOWN)) {
-					return 0;
+					return -50;
 				}
 			}
 

@@ -4,14 +4,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
 import QLearning.DecisionMaking;
 import QLearning.MAction;
 import burlap.mdp.core.state.State;
 import classes.NetworkComponent;
 import classes.Node;
 import classes.NodeStatus;
+import classes.RewardVariables;
 import classes.Vulnerability;
 import database.InstallDatabase;
+import database.NodesImportance;
 
 public class MainClass {
 
@@ -26,10 +29,13 @@ public class MainClass {
 	public static HashMap<String, NetworkComponent> networkMap = new HashMap<String, NetworkComponent>();
 	public static ArrayList<Node> nodeList = new ArrayList<Node>();
 	public static HashMap<String, Node> nodeMap = new HashMap<String, Node>();
+	public static ArrayList<RewardVariables> rewardList = new ArrayList<RewardVariables>();
+	public static HashMap<String, RewardVariables> rewardVariable = new HashMap<String, RewardVariables>();
+	public static HashMap<String, ArrayList<RewardVariables>> rewardValueMap = new HashMap<String, ArrayList<RewardVariables>>();
 
 	// Data Structure for Storing QLearning variables
 	public static ArrayList<String> ACTIONS = new ArrayList<String>();
-	public static HashMap<String, Integer> reward = new HashMap<String, Integer>();
+	public static HashMap<String, Double> reward = new HashMap<String, Double>();
 	public static List<MAction> actionList = new ArrayList<MAction>();
 	public static ArrayList<State> wstateList = new ArrayList<State>();
 	public static List<State> statelist = new ArrayList<State>();
@@ -39,11 +45,13 @@ public class MainClass {
 		// Installing database into data structures from files
 		InstallDatabase.install();
 		InstallDatabase.print();
+		// InstallDatabase.printReward();
 
 		// Adding actions and rewards
 		NodeStatus.addActions();
 		NodeStatus.createActionList();
-		NodeStatus.createRewardList();
+		// NodesImportance.rewardFunction();
+		NodesImportance.alternateRewardFunction();
 
 		// Calling QLearning Algorithm to make decision
 		DecisionMaking.makeDecision();

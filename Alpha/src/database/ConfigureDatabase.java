@@ -8,9 +8,12 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Set;
 
+import org.apache.log4j.chainsaw.Main;
+
 import mainClass.MainClass;
 import classes.NetworkComponent;
 import classes.Node;
+import classes.RewardVariables;
 import classes.Vulnerability;
 
 public class ConfigureDatabase {
@@ -161,7 +164,10 @@ public class ConfigureDatabase {
 					f.setSymbol(arr[0]);
 					f.setName(arr[1]);
 					f.setFunction(arr[1]);
-					f.setReward(Integer.parseInt(arr[2]));
+
+					// We are not taking rewards from the function file rather
+					// we are computing in the node importance class.
+					f.setReward(Double.parseDouble(arr[2]));
 
 					// We have to update this probability via Bayesian Network
 					// later on when we implement Bayesian algorithm.
@@ -247,4 +253,75 @@ public class ConfigureDatabase {
 		}
 	}
 
+	public static void loadRewardVariablesDescription() {
+		String fileName = MainClass.FILENAME + "RewardVariables";
+		String line = null;
+		try {
+			FileReader fileReader = new FileReader(fileName);
+			BufferedReader bufferedReader = new BufferedReader(fileReader);
+			bufferedReader.readLine();
+			while ((line = bufferedReader.readLine()) != null) {
+				if (line.length() != 0) {
+					String[] arr = line.split(",");
+					RewardVariables r = new RewardVariables();
+					r.setName(arr[0]);
+					r.setSymbol(arr[1]);
+					r.setDescription(arr[2]);
+					r.setValue(0.0);
+
+					MainClass.rewardVariable.put(r.getSymbol(), r);
+					MainClass.rewardList.add(r);
+				}
+			}
+
+			bufferedReader.close();
+		} catch (FileNotFoundException ex) {
+			System.out.println("Unable to open file '" + fileName + "'");
+		} catch (IOException ex) {
+			System.out.println("Error reading file '" + fileName + "'");
+		}
+	}
+
+	public static void loadRewardVariableValues() {
+		String fileName = MainClass.FILENAME + "RewardValues";
+		String line = null;
+		try {
+			FileReader fileReader = new FileReader(fileName);
+			BufferedReader bufferedReader = new BufferedReader(fileReader);
+			bufferedReader.readLine();
+			while ((line = bufferedReader.readLine()) != null) {
+				if (line.length() != 0) {
+					String[] arr = line.split(":");
+					String node = arr[0];
+					String[] value = arr[1].split(",");
+					ArrayList<RewardVariables> ls = new ArrayList<RewardVariables>();
+
+					RewardVariables av = MainClass.rewardVariable.get("AV")
+							.clone();
+					av.setValue(Double.parseDouble(value[0]));
+					ls.add(av);
+					RewardVariables ro = MainClass.rewardVariable.get("RO")
+							.clone();
+					ro.setValue(Double.parseDouble(value[1]));
+					ls.add(ro);
+					RewardVariables re = MainClass.rewardVariable.get("RE")
+							.clone();
+					re.setValue(Double.parseDouble(value[2]));
+					ls.add(re);
+					RewardVariables poc = MainClass.rewardVariable.get("POC")
+							.clone();
+					poc.setValue(Double.parseDouble(value[3]));
+					ls.add(poc);
+
+					MainClass.rewardValueMap.put(node, ls);
+				}
+			}
+
+			bufferedReader.close();
+		} catch (FileNotFoundException ex) {
+			System.out.println("Unable to open file '" + fileName + "'");
+		} catch (IOException ex) {
+			System.out.println("Error reading file '" + fileName + "'");
+		}
+	}
 }

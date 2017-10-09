@@ -1,0 +1,41 @@
+package database;
+
+import java.util.ArrayList;
+
+import mainClass.MainClass;
+import classes.Node;
+import classes.RewardVariables;
+
+public class NodesImportance {
+
+	// Create Rewards List using Importance and Reward specified by the
+	// defender.
+
+	public static void rewardFunction() {
+		int totaloccurrence = 0;
+		for (int i = 0; i < MainClass.nodeList.size(); i++) {
+			ArrayList<RewardVariables> ls = MainClass.rewardValueMap.get(n
+					.getSymbol());
+			for (int j = 0; j < ls.size(); j++) {
+
+			}
+		}
+
+		for (int i = 0; i < MainClass.nodeList.size(); i++) {
+
+			double reward = 1.0;
+			Node n = MainClass.nodeList.get(i);
+			ArrayList<RewardVariables> ls = MainClass.rewardValueMap.get(n
+					.getSymbol());
+
+			for (int j = 0; j < ls.size(); j++) {
+				RewardVariables r = ls.get(j);
+
+			}
+
+			MainClass.reward.put(n.getName(), reward);
+		}
+
+	}
+
+}

@@ -1,0 +1,9 @@
+package classes;
+
+public class RewardVariables {
+
+	private String name;
+	private String symbol;
+	private String description;
+
+}

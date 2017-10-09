@@ -1,0 +1,13 @@
+package database;
+
+public class NodesImportance {
+
+	public static void calculateImportance() {
+
+	}
+
+	public static void updateRewardList() {
+
+	}
+
+}

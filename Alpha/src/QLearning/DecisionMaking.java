@@ -29,12 +29,12 @@ import burlap.statehashing.simple.SimpleHashableStateFactory;
 public class DecisionMaking {
 
 	// Configuration Variables
-	public static int trials = 3000;
-	public static double learningrate = 0.8;
-	public static double gamma = 0.2;
-	public static double epsilon = 0.2;
+	public static int trials = 20000;
+	public static double learningrate = 0.6;
+	public static double gamma = 0.1;
+	public static double epsilon = 0.8;
 	public static int count_state = 0;
-	public static boolean isHackedStateInvolved = false;
+	public static boolean isHackedStateInvolved = true;
 
 	public static void makeDecision() throws IOException {
 
@@ -57,12 +57,20 @@ public class DecisionMaking {
 
 		ArrayList<State> wl = new ArrayList<State>();
 		ArrayList<State> allStates = new ArrayList<State>();
-		ArrayList<Double> plot = new ArrayList<Double>();
 		HashMap<State, List<List<QValue>>> map = new HashMap<State, List<List<QValue>>>();
 
 		// run Q-learning and store results in a list
 		List<Episode> episodes = new ArrayList<Episode>(trials);
 		for (int x = 0; x < trials; x++) {
+			if (trials > 8000)
+				epsilon = 0.6;
+			if (trials > 10000)
+				epsilon = 0.4;
+			if (trials > 14000)
+				epsilon = 0.2;
+			if (trials > 16000)
+				epsilon = 0.1;
+
 			episodes.add(agent.runLearningEpisode(env));
 			env.resetEnvironment();
 			Episode e = episodes.get(x);
@@ -86,6 +94,9 @@ public class DecisionMaking {
 		System.out.println("Total states - " + allStates.size());
 		wl.clear();
 		allStates.clear();
+		ArrayList<Double> firstplot = new ArrayList<Double>();
+		ArrayList<Double> secondplot = new ArrayList<Double>();
+		double avg = 0, sum = 0;
 		for (int i = 0; i < trials; i++) {
 			Episode e = episodes.get(i);
 			List<Action> al = e.actionSequence;
@@ -103,22 +114,36 @@ public class DecisionMaking {
 			for (int j = 0; j < rl.size(); j++) {
 				reward += rl.get(j);
 			}
-			plot.add(reward / rl.size());
+			firstplot.add(reward / rl.size());
+
+			avg++;
+			sum += reward / rl.size();
+			if (avg == 99) {
+				avg = 0;
+				secondplot.add(sum / 100.0);
+				sum = 0.0;
+			}
 
 			writeFile(al, MainClass.ADDRESS + "action.text", i);
 			writeFile(rl, MainClass.ADDRESS + "reward.text", i);
 		}
 
+		createGraph("Average Reward per Episode", firstplot);
+		createGraph("Average Running Reward per Episode", secondplot);
+
 		System.out.println("Count States - " + count_state);
 		System.out.println("Total states - " + allStates.size());
 
-		PlotGraph demo = new PlotGraph("Average Reward per Episode", plot);
+		writeAllStates(allStates, MainClass.ADDRESS + "states.text");
+		createFilesForEachStateQValues(map);
+	}
+
+	public static void createGraph(String name, List plot) {
+		PlotGraph demo = new PlotGraph(name, plot);
 		demo.pack();
 		RefineryUtilities.centerFrameOnScreen(demo);
 		demo.setVisible(true);
 
-		writeAllStates(allStates, MainClass.ADDRESS + "states.text");
-		createFilesForEachStateQValues(map);
 	}
 
 	public static void writeAllStates(ArrayList<State> allStates, String name)
