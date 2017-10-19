@@ -1,13 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="PlotGraph"/>
-<fullyQualifiedTypeName name="javax.crypto.Mac"/>
-<fullyQualifiedTypeName name="StateToAction"/>
-<fullyQualifiedTypeName name="Graph.Graph"/>
-<fullyQualifiedTypeName name="java.lang.System"/>
-<fullyQualifiedTypeName name="org.apache.commons.math3.util.OpenIntToDoubleHashMap.Iterator"/>
-<fullyQualifiedTypeName name="java.util.LinkedHashMap"/>
-<fullyQualifiedTypeName name="Graph.NodeStatus"/>
 <fullyQualifiedTypeName name="java.util.Collection"/>
 <fullyQualifiedTypeName name="java.util.HashSet"/>
 <fullyQualifiedTypeName name="burlap.mdp.core.action.UniversalActionType"/>
@@ -15,7 +7,6 @@
 <fullyQualifiedTypeName name="java.lang.Character"/>
 <fullyQualifiedTypeName name="java.lang.Integer"/>
 <fullyQualifiedTypeName name="burlap.mdp.core.action.Action"/>
-<fullyQualifiedTypeName name="java.lang.Double"/>
 <fullyQualifiedTypeName name="TestBurlap"/>
 <fullyQualifiedTypeName name="MainClass"/>
 <fullyQualifiedTypeName name="MAction"/>
@@ -26,7 +17,6 @@
 <fullyQualifiedTypeName name="burlap.behavior.singleagent.auxiliary.performance.PerformanceMetric"/>
 <fullyQualifiedTypeName name="EDU.oswego.cs.dl.util.concurrent.Heap"/>
 <fullyQualifiedTypeName name="java.util.PriorityQueue"/>
-<fullyQualifiedTypeName name="java.util.HashMap"/>
 <fullyQualifiedTypeName name="java.sql.Array"/>
 <fullyQualifiedTypeName name="java.util.Set"/>
 <fullyQualifiedTypeName name="java.util.Iterator"/>
@@ -41,23 +31,33 @@
 <fullyQualifiedTypeName name="java.util.Arrays"/>
 <fullyQualifiedTypeName name="mainClass.InstallDatabase"/>
 <fullyQualifiedTypeName name="classes.NetworkComponent"/>
-<fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="classes.Vulnerability"/>
 <fullyQualifiedTypeName name="burlap.mdp.core.state.MutableState"/>
 <fullyQualifiedTypeName name="java.util.Objects"/>
-<fullyQualifiedTypeName name="database.ConfigureDatabase"/>
 <fullyQualifiedTypeName name="org.omg.CORBA.NO_IMPLEMENT"/>
 <fullyQualifiedTypeName name="QLearning.MAction"/>
 <fullyQualifiedTypeName name="burlap.mdp.stochasticgames.world.WorldGenerator"/>
 <fullyQualifiedTypeName name="QLearning.WorldGenerator"/>
 <fullyQualifiedTypeName name="QLearning.WState"/>
 <fullyQualifiedTypeName name="burlap.behavior.singleagent.learning.tdmethods.QLearning"/>
-<fullyQualifiedTypeName name="QLearning.QLearning"/>
 <fullyQualifiedTypeName name="org.rlcommunity.rlglue.codec.types.Reward_observation_action_terminal"/>
-<fullyQualifiedTypeName name="org.apache.log4j.chainsaw.Main"/>
 <fullyQualifiedTypeName name="classes.Node"/>
-<fullyQualifiedTypeName name="classes.NodeStatus"/>
 <fullyQualifiedTypeName name="mainClass.PlotGraph"/>
-<fullyQualifiedTypeName name="mainClass.MainClass"/>
+<fullyQualifiedTypeName name="classes.NodeStatus"/>
 <fullyQualifiedTypeName name="QLearning.DecisionMaking"/>
+<fullyQualifiedTypeName name="java.util.HashMap"/>
+<fullyQualifiedTypeName name="database.ConfigureDatabase"/>
+<fullyQualifiedTypeName name="java.lang.Double"/>
+<fullyQualifiedTypeName name="classes.RewardVariables"/>
+<fullyQualifiedTypeName name="database.NodesImportance"/>
+<fullyQualifiedTypeName name="database.InstallDatabase"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="burlap.behavior.valuefunction.ConstantValueFunction"/>
+<fullyQualifiedTypeName name="burlap.behavior.singleagent.learning.tdmethods.SarsaLam"/>
+<fullyQualifiedTypeName name="burlap.statehashing.simple.SimpleHashableStateFactory"/>
+<fullyQualifiedTypeName name="burlap.behavior.singleagent.MDPSolver"/>
+<fullyQualifiedTypeName name="QLearning.QLearning"/>
+<fullyQualifiedTypeName name="org.apache.log4j.chainsaw.Main"/>
+<fullyQualifiedTypeName name="mainClass.MainClass"/>
+<fullyQualifiedTypeName name="java.lang.Math"/>
 </qualifiedTypeNameHistroy>

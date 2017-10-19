@@ -41,7 +41,6 @@ public class QLearning extends MDPSolver implements LearningAgent, QProvider {
 		this.learningRate = learningRate;
 		this.qValues = new HashMap<HashableState, List<QValue>>();
 		this.learningPolicy = new EpsilonGreedy(this, epsilon);
-
 	}
 
 	@Override

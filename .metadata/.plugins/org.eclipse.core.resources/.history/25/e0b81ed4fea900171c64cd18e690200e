@@ -1,5 +1,0 @@
-Name,Symbol,Description
-Asset Value,AV,The value of asset (over here asset means functions to which we are focusing) to the smart grid
-Rate of Occurrence,RO,The frequency at which attacks happened on a specific asset monthly
-Risk Exposure,RE,The amount of loss to Smart grid if a particular function gets compromised
-Probability of Compromise,POC,The exploitability score of the asset

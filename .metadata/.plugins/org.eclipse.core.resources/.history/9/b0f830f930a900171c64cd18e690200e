@@ -1,9 +1,0 @@
-package database;
-
-public class NodesImportance {
-
-	public static void calculateImportance() {
-		
-	}
-
-}

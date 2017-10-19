@@ -1,6 +1,9 @@
 package mainClass;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -42,22 +45,44 @@ public class MainClass {
 
 	public static void main(String[] str) throws IOException {
 
+		// clearing all the files before starting the program
+		clear(MainClass.ADDRESS + "config.text");
+		clear(MainClass.ADDRESS + "action.text");
+		clear(MainClass.ADDRESS + "reward.text");
+		clear(MainClass.ADDRESS + "states.text");
+		clear(MainClass.ADDRESS + "output.text");
+		clear(MainClass.ADDRESS + "rewards.text");
+		purgeDirectory(MainClass.ADDRESS + "/states/");
+
 		// Installing database into data structures from files
 		InstallDatabase.install();
 		InstallDatabase.print();
-		// InstallDatabase.printReward();
+		InstallDatabase.printReward();
 
 		// Adding actions and rewards
 		NodeStatus.addActions();
 		NodeStatus.createActionList();
-		// NodesImportance.rewardFunction();
-		NodesImportance.alternateRewardFunction();
+		NodesImportance.rewardFunction();
+		// NodesImportance.alternateRewardFunction();
 
 		// Calling QLearning Algorithm to make decision
 		DecisionMaking.makeDecision();
 
 		// Write algorithm to implement Bayesian Graph
 
+	}
+
+	public static void clear(String name) throws FileNotFoundException {
+		PrintWriter writer = new PrintWriter(name);
+		writer.print("");
+		writer.close();
+	}
+
+	static void purgeDirectory(String str) {
+		File dir = new File(str);
+		for (File file : dir.listFiles()) {
+			file.delete();
+		}
 	}
 
 }

@@ -1,6 +1,14 @@
 package database;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
+
+import org.apache.log4j.chainsaw.Main;
 
 import mainClass.MainClass;
 import classes.NetworkComponent;
@@ -18,8 +26,9 @@ public class InstallDatabase {
 		ConfigureDatabase.loadFunctions();
 		ConfigureDatabase.loadFunctionToFunctions();
 		ConfigureDatabase.loadFuntionToComponent();
-		// ConfigureDatabase.loadRewardVariablesDescription();
-		// ConfigureDatabase.loadRewardVariableValues();
+		// Remove both below when using alternate reward function.
+		ConfigureDatabase.loadRewardVariablesDescription();
+		ConfigureDatabase.loadRewardVariableValues();
 	}
 
 	public static void print() {
@@ -39,7 +48,7 @@ public class InstallDatabase {
 		}
 	}
 
-	public static void printReward() {
+	public static void printReward() throws IOException {
 		for (int i = 0; i < MainClass.rewardList.size(); i++) {
 			MainClass.rewardList.get(i).print();
 			System.out.println("");
