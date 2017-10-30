@@ -6,5 +6,10 @@
 	<classpathentry exported="true" kind="lib" path="/Users/yatinwadhawan/Documents/Burlap/burlap-3.0.1-javadoc.jar"/>
 	<classpathentry exported="true" kind="lib" path="/Users/yatinwadhawan/Documents/Burlap/burlap-3.0.1-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="/Users/yatinwadhawan/Documents/Burlap/burlap-3.0.1.jar"/>
+	<classpathentry kind="lib" path="/Users/yatinwadhawan/Documents/NeticaJ_504/bin/NeticaJ.jar">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="/Users/yatinwadhawan/Documents/NeticaJ_504/bin"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

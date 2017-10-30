@@ -48,6 +48,7 @@ public class NodesImportance {
 		bw.close();
 	}
 
+	// Adding rewards on the basis of random values assigned to each function
 	public static void alternateRewardFunction() {
 		for (int i = 0; i < MainClass.nodeList.size(); i++) {
 			Node n = MainClass.nodeList.get(i);

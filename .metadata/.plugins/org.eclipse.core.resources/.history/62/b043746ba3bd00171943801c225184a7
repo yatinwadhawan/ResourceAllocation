@@ -1,0 +1,25 @@
+import norsys.netica.*;
+import norsys.neticaEx.aliases.Node;
+
+public class Main {
+	public static void main(String[] args) {
+		 public DrawNet( String netName ) throws Exception {
+				Net net = new Net( new Streamer( netName ) );
+				net.compile();  //optional
+				NetPanel netPanel = new NetPanel( net, NodePanel.NODE_STYLE_AUTO_SELECT );
+				getContentPane().add( new JScrollPane(netPanel ) ); //adds the NetPanel to ourself
+				setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+				setSize( 800, 500 ); // or supply getPreferredSize();
+				setVisible(true);
+			    }
+
+			    public static void main( String[] args ) {
+				try {
+				    Environ env = new Environ( null );
+				    DrawNet dn = new DrawNet( args.length == 0 ? "ChestClinic_WithVisuals.dne" : args[0] );
+				}
+				catch ( Exception e ) {
+				    e.printStackTrace();
+				}
+			    }
+}
