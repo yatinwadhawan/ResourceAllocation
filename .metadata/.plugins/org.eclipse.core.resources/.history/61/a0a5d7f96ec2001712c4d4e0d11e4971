@@ -1,0 +1,24 @@
+package multiagent;
+
+
+import QLearning.MainClass;
+import QLearning.WState;
+import burlap.mdp.stochasticgames.SGDomain;
+import burlap.mdp.stochasticgames.world.World;
+
+public class WorldForMultiAgent {
+
+	public void generateDomain() {
+
+		SGDomain domain = new SGDomain();
+		// Add Actions
+
+		StateWorld statemodel = new StateWorld();
+		Reward rf = new Reward();
+		Terminal tf = new Terminal();
+		WState initialState = new WState(MainClass.nlist);
+
+		World w = new World(domain, rf, tf, initialState);
+	}
+
+}

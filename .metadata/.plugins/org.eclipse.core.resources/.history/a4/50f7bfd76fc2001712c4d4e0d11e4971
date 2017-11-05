@@ -1,0 +1,15 @@
+package multiagent;
+
+import burlap.mdp.stochasticgames.SGDomain;
+import burlap.statehashing.HashableStateFactory;
+import burlap.statehashing.simple.SimpleHashableStateFactory;
+
+public class WorldForMultiAgent {
+
+	public void createGameModel() {
+		HashableStateFactory hashingFactory = new SimpleHashableStateFactory();
+		JointWorldGenerator joint = new JointWorldGenerator();
+		SGDomain domain = (SGDomain) joint.generateDomain();
+	}
+
+}

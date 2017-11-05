@@ -51,8 +51,7 @@ public class NetworkComponent {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(name, details, compromiseProb, vulnerabilityList,
-				networkComponentList);
+		return Objects.hash(name, details, compromiseProb);
 	}
 
 	public void print() {

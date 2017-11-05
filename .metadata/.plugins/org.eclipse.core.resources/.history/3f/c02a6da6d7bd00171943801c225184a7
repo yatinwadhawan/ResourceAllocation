@@ -1,0 +1,199 @@
+// ~->[DNET-1]->~
+
+// File created by an unlicensed user using Netica 2.17 on Jun 08, 2003 at 16:38:37.
+
+bnet BAGS {
+autoupdate = TRUE;
+
+visual V1 {
+	defdispform = BELIEFBARS;
+	nodelabeling = TITLE;
+	NodeMaxNumEntries = 50;
+	nodefont = font {shape= "Palatino"; size= 14;};
+	linkfont = font {shape= "Arial"; size= 9;};
+	windowposn = (22, 22, 870, 589);
+	CommentShowing = TRUE;
+	CommentWindowPosn = (22, 491, 815, 729);
+	resolution = 72;
+	drawingbounds = (1104, 730);
+	showpagebreaks = FALSE;
+	usegrid = TRUE;
+	gridspace = (6, 6);
+	PrinterSetting A {
+		margins = (1270, 1270, 1270, 1270);
+		landscape = FALSE;
+		magnify = 1;
+		};
+	};
+
+node Attacker {
+	kind = NATURE;
+	discrete = TRUE;
+	states = (Attack, No_Attack);
+	parents = ();
+	probs = 
+		// Visit        No Visit     
+		  (0.01,        0.99);
+	title = "Visit To Asia";
+	comment = "Patient has recently visited Asia";
+	whenchanged = 904512863;
+	belief = (0.01, 0.99);
+	visual V1 {
+		center = (126, 54);
+		height = 7;
+		};
+	};
+
+node Tuberculosis {
+	kind = NATURE;
+	discrete = TRUE;
+	states = (Present, Absent);
+	parents = (VisitAsia);
+	probs = 
+		// Present      Absent         // VisitAsia 
+		 ((0.05,        0.95),         // Visit     
+		  (0.01,        0.99));        // No Visit  ;
+	title = "Tuberculosis";
+	belief = (0.0104, 0.9896);
+	visual V1 {
+		center = (126, 156);
+		height = 1;
+		};
+	};
+
+node Smoking {
+	kind = NATURE;
+	discrete = TRUE;
+	states = (Smoker, NonSmoker);
+	parents = ();
+	probs = 
+		// Smoker       NonSmoker    
+		  (0.5,         0.5);
+	title = "Smoking";
+	belief = (0.5, 0.5);
+	visual V1 {
+		center = (510, 54);
+		height = 8;
+		};
+	};
+
+node Cancer {
+	kind = NATURE;
+	discrete = TRUE;
+	states = (Present, Absent);
+	parents = (Smoking);
+	probs = 
+		// Present      Absent         // Smoking   
+		 ((0.1,         0.9),          // Smoker    
+		  (0.01,        0.99));        // NonSmoker ;
+	title = "Lung Cancer";
+	belief = (0.055, 0.945);
+	visual V1 {
+		center = (384, 156);
+		height = 4;
+		link 1 {
+			path = ((466, 91), (429, 120));
+			};
+		};
+	};
+
+node TbOrCa {
+	kind = NATURE;
+	discrete = TRUE;
+	states = (True, False);
+	parents = (Tuberculosis, Cancer);
+	functable = 
+		                     // Tuberculosis Cancer  
+		 ((True,             // Present      Present 
+		   True),            // Present      Absent  
+		  (True,             // Absent       Present 
+		   False));          // Absent       Absent  ;
+	title = "Tuberculosis or Cancer";
+	whenchanged = 2147483647;
+	belief = (0.064828, 0.935172);
+	visual V1 {
+		center = (264, 264);
+		height = 3;
+		link 1 {
+			path = ((171, 193), (217, 228));
+			};
+		};
+	};
+
+node XRay {
+	kind = NATURE;
+	discrete = TRUE;
+	states = (Abnormal, Normal);
+	parents = (TbOrCa);
+	probs = 
+		// Abnormal     Normal         // TbOrCa 
+		 ((0.98,        0.02),         // True   
+		  (0.05,        0.95));        // False  ;
+	title = "XRay Result";
+	whenchanged = 904512850;
+	belief = (0.11029, 0.88971);
+	visual V1 {
+		center = (138, 366);
+		height = 2;
+		};
+	};
+
+node Bronchitis {
+	kind = NATURE;
+	discrete = TRUE;
+	states = (Present, Absent);
+	parents = (Smoking);
+	probs = 
+		// Present      Absent         // Smoking   
+		 ((0.6,         0.4),          // Smoker    
+		  (0.3,         0.7));         // NonSmoker ;
+	title = "Bronchitis";
+	belief = (0.45, 0.55);
+	visual V1 {
+		center = (636, 156);
+		height = 6;
+		link 1 {
+			path = ((554, 91), (591, 120));
+			};
+		};
+	};
+
+node Dyspnea {
+	kind = NATURE;
+	discrete = TRUE;
+	chance = CHANCE;
+	states = (Present, Maybe, Absent);
+	parents = (TbOrCa, Bronchitis);
+	probs = 
+		// Present      Maybe        Absent          // TbOrCa Bronchitis 
+		(((0.1,         0.1,         0.8),           // True   Present    
+		  (0.1,         0.1,         0.8)),          // True   Absent     
+		 ((0.1,         0.1,         0.8),           // False  Present    
+		  (0.1,         0.1,         0.8)));         // False  Absent     ;
+	title = "Dyspnea";
+	comment = "Shortness of breath.";
+	whenchanged = 1055115507;
+	belief = (0.1, 0.1, 0.8);
+	visual V1 {
+		center = (426, 366);
+		height = 5;
+		link 1 {
+			path = ((321, 301), (351, 319));
+			};
+		};
+	};
+
+node TITLE1 {
+	kind = ASSUME;
+	discrete = FALSE;
+	parents = ();
+	title = "Chest Clinic";
+	whenchanged = 904468693;
+	visual V1 {
+		center = (660, 306);
+		font = font {shape= "Times New Roman"; size= 22;};
+		height = 9;
+		};
+	};
+ElimOrder = (VisitAsia, XRay, Tuberculosis, Smoking, Cancer, TbOrCa, Bronchitis, Dyspnea);
+};

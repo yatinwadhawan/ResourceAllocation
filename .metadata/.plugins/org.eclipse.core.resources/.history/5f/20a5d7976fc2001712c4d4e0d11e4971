@@ -1,0 +1,16 @@
+package multiagent;
+
+import burlap.mdp.auxiliary.DomainGenerator;
+import burlap.mdp.core.Domain;
+
+public class JointWorldGenerator implements DomainGenerator{
+
+	@Override
+	public Domain generateDomain() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
+
+}

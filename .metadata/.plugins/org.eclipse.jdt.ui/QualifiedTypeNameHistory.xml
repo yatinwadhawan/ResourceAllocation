@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="java.util.Collection"/>
-<fullyQualifiedTypeName name="java.util.HashSet"/>
-<fullyQualifiedTypeName name="burlap.mdp.core.action.UniversalActionType"/>
-<fullyQualifiedTypeName name="Graph.Node"/>
 <fullyQualifiedTypeName name="java.lang.Character"/>
 <fullyQualifiedTypeName name="java.lang.Integer"/>
 <fullyQualifiedTypeName name="burlap.mdp.core.action.Action"/>
@@ -41,23 +37,27 @@
 <fullyQualifiedTypeName name="QLearning.WState"/>
 <fullyQualifiedTypeName name="burlap.behavior.singleagent.learning.tdmethods.QLearning"/>
 <fullyQualifiedTypeName name="org.rlcommunity.rlglue.codec.types.Reward_observation_action_terminal"/>
-<fullyQualifiedTypeName name="classes.Node"/>
 <fullyQualifiedTypeName name="mainClass.PlotGraph"/>
 <fullyQualifiedTypeName name="classes.NodeStatus"/>
 <fullyQualifiedTypeName name="QLearning.DecisionMaking"/>
-<fullyQualifiedTypeName name="java.util.HashMap"/>
 <fullyQualifiedTypeName name="database.ConfigureDatabase"/>
 <fullyQualifiedTypeName name="java.lang.Double"/>
 <fullyQualifiedTypeName name="classes.RewardVariables"/>
 <fullyQualifiedTypeName name="database.NodesImportance"/>
 <fullyQualifiedTypeName name="database.InstallDatabase"/>
-<fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="burlap.behavior.valuefunction.ConstantValueFunction"/>
 <fullyQualifiedTypeName name="burlap.behavior.singleagent.learning.tdmethods.SarsaLam"/>
 <fullyQualifiedTypeName name="burlap.statehashing.simple.SimpleHashableStateFactory"/>
 <fullyQualifiedTypeName name="burlap.behavior.singleagent.MDPSolver"/>
 <fullyQualifiedTypeName name="QLearning.QLearning"/>
-<fullyQualifiedTypeName name="org.apache.log4j.chainsaw.Main"/>
-<fullyQualifiedTypeName name="mainClass.MainClass"/>
 <fullyQualifiedTypeName name="java.lang.Math"/>
+<fullyQualifiedTypeName name="org.apache.log4j.chainsaw.Main"/>
+<fullyQualifiedTypeName name="bayesian.BuildNetwork"/>
+<fullyQualifiedTypeName name="norsys.netica.Environ"/>
+<fullyQualifiedTypeName name="norsys.netica.Net"/>
+<fullyQualifiedTypeName name="norsys.neticaEx.aliases.Node"/>
+<fullyQualifiedTypeName name="java.util.HashMap"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="classes.Node"/>
+<fullyQualifiedTypeName name="mainClass.MainClass"/>
 </qualifiedTypeNameHistroy>

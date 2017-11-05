@@ -1,0 +1,14 @@
+package multiagent;
+
+import burlap.mdp.stochasticgames.SGDomain;
+
+
+
+public class WorldForMultiAgent {
+
+	public void createGameModel() {
+		JointWorldGenerator joint = new JointWorldGenerator();
+		SGDomain domain = joint.generateDomain();
+	}
+
+}

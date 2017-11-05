@@ -1,0 +1,12 @@
+package multiagent;
+
+import java.util.List;
+
+import burlap.mdp.core.action.ActionType;
+
+public class Agents {
+
+	private String name;
+	private List<ActionType> actionAvailable;
+
+}

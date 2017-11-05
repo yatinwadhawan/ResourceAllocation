@@ -1,0 +1,25 @@
+package multiagent;
+
+import QLearning.MainClass;
+import QLearning.WState;
+import burlap.mdp.auxiliary.DomainGenerator;
+import burlap.mdp.core.Domain;
+import burlap.mdp.core.state.State;
+import burlap.mdp.stochasticgames.JointAction;
+import burlap.mdp.stochasticgames.SGDomain;
+import burlap.mdp.stochasticgames.model.JointModel;
+import burlap.mdp.stochasticgames.world.World;
+
+public class WorldForMultiAgent implements DomainGenerator {
+
+	@Override
+	public Domain generateDomain() {
+		SGDomain domain = new SGDomain();
+		// Add Actions
+
+		StateWorld statemodel = new StateWorld();
+		domain.setJointActionModel(statemodel);
+		return domain;
+	}
+
+}

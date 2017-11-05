@@ -1,0 +1,5 @@
+package bayesian;
+
+public class DrawNet {
+
+}

@@ -1,0 +1,16 @@
+package multiagent;
+
+import burlap.mdp.auxiliary.DomainGenerator;
+import burlap.mdp.core.Domain;
+import burlap.mdp.stochasticgames.SGDomain;
+
+public class JointWorldGenerator implements DomainGenerator {
+
+	@Override
+	public Domain generateDomain() {
+		SGDomain domain = new SGDomain();
+		domain.setJointActionModel(statemodel);
+		return domain;
+	}
+
+}

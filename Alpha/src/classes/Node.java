@@ -28,8 +28,8 @@ public class Node {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(symbol, name, function, status, compromiseProb,
-				reward, adjList, networkComponentList);
+		return Objects.hash(symbol, name, status, compromiseProb,
+				reward);
 	}
 
 	public Node copy() {

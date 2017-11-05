@@ -1,0 +1,11 @@
+package multiagent;
+
+
+
+public class WorldForMultiAgent {
+
+	public void createGameModel() {
+		
+	}
+
+}

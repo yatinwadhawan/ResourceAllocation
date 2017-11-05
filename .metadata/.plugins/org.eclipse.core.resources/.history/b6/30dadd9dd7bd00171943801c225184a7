@@ -1,0 +1,90 @@
+package bayesian;
+
+import norsys.netica.*;
+import norsys.neticaEx.aliases.Node;
+
+public class BuildNetwork {
+
+	public final static String networkName = "BAGS";
+	public static Environ env;
+
+	public static void buildNetwork() {
+		try {
+			Node.setConstructorClass("norsys.neticaEx.aliases.Node");
+			env = new Environ(null);
+
+			Net net = new Net();
+			net.setName(networkName);
+
+			Node attacker = new Node("RemoteAttacker", "attack,no_attack", net);
+			Node smartmeter = new Node("SmartMeter",
+					"compromised,no_compromised", net);
+			Node smcollector = new Node("SmartMeterCollector",
+					"compromised,no_compromised", net);
+			Node smhead = new Node("SmartMeterHead",
+					"compromised,no_compromised", net);
+			Node billing = new Node("BillingEngine",
+					"compromised,no_compromised", net);
+			Node vendor = new Node("Vendor", "compromised,no_compromised", net);
+			Node metermanag = new Node("MeterDataManag",
+					"compromised,no_compromised", net);
+			Node outage = new Node("OutageManag", "compromised,no_compromised",
+					net);
+			Node ecc = new Node("ElecticityControl",
+					"compromised,no_compromised", net);
+
+			attacker.setTitle("Attacker");
+			smartmeter.setTitle("Smart Meter");
+			smcollector.setTitle("Smart Meter Collector");
+			smhead.setTitle("Smart Meter Head");
+			billing.setTitle("Billing");
+			vendor.setTitle("Vendor");
+			outage.setTitle("OutageManag");
+			ecc.setTitle("ElecticityControl");
+
+			attacker.addLink(smartmeter);
+			attacker.addLink(smcollector);
+			attacker.addLink(vendor);
+			smartmeter.addLink(smcollector);
+			smcollector.addLink(smhead);
+			smcollector.addLink(metermanag);
+			smhead.addLink(billing);
+			billing.addLink(metermanag);
+			metermanag.addLink(outage);
+			outage.addLink(ecc);
+
+			attacker.setCPTable(0.7, 0.3);
+
+			smartmeter.setCPTable("attack", 0.84, 0.16);
+			smartmeter.setCPTable("no_attack", 0.0, 1.0);
+
+			tbOrCa.setEquation("TbOrCa (Tuberculosis, Cancer) = Tuberculosis || Cancer");
+			tbOrCa.equationToTable(1, false, false);
+
+			// the above is a convenient way of doing:
+			// tbOrCa.setCPTable ("present", "present", 1.0, 0.0);
+			// tbOrCa.setCPTable ("present", "absent", 1.0, 0.0);
+			// tbOrCa.setCPTable ("absent", "present", 1.0, 0.0);
+			// tbOrCa.setCPTable ("absent", "absent", 0.0, 1.0);
+
+			// TbOrCa abnormal normal
+			xRay.setCPTable("true", 0.98, 0.02);
+			xRay.setCPTable("false", 0.05, 0.95);
+
+			// TbOrCa Bronchitis
+			dyspnea.setCPTable("true", "present", 0.9, 0.1);
+			dyspnea.setCPTable("true", "absent", 0.7, 0.3);
+			dyspnea.setCPTable("false", "present", 0.8, 0.2);
+			dyspnea.setCPTable("false", "absent", 0.1, 0.9);
+
+			Streamer stream = new Streamer("Data Files/ChestClinic.dne");
+			net.write(stream);
+
+			net.finalize(); // free resources immediately and safely; not
+							// strictly necessary, but a good habit
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+}

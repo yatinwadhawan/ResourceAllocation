@@ -1,0 +1,65 @@
+package bayesian;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import mainClass.MainClass;
+import norsys.netica.*;
+import norsys.neticaEx.aliases.Node;
+
+public class BuildNetwork {
+
+	public final static String networkName = "BAGS";
+	public static Environ env;
+	public static HashMap<String, Node> map = new HashMap<String, Node>();
+
+	static {
+		Node.setConstructorClass("norsys.neticaEx.aliases.Node");
+		env = new Environ(null);
+	}
+	public static void buildNetwork() throws NeticaException {
+
+
+		Net net = new Net();
+		net.setName(networkName);
+
+		Node attacker = new Node("Attacker", "Attack,Not_Attack", net);
+
+		int len = MainClass.nodeList.size();
+		for (int i = 0; i < len; i++) {
+			classes.Node n = MainClass.nodeList.get(i);
+			Node node = new Node(n.getSymbol(), "True,False", net);
+			node.setTitle(n.getSymbol());
+			
+			map.put(n.getSymbol(), node);
+		}
+
+		for (int i = 0; i < len; i++) {
+			classes.Node n = MainClass.nodeList.get(i);
+			Node node = map.get(n.getSymbol());
+			ArrayList<classes.Node> ls = n.getAdjList();
+			int size = ls.size();
+			for (int j = 0; j < size; j++) {
+				classes.Node adj = ls.get(j);
+				Node mapnode = map.get(adj.getSymbol());
+				node.addLink(mapnode);
+			}
+		}
+
+		Streamer stream = new Streamer(MainClass.NETWORK_BUILD_PATH
+				+ "network.dne");
+		net.write(stream);
+		net.finalize();
+
+	}
+
+	public static void displayNetwork() {
+		try {
+			DrawNet dn = new DrawNet(MainClass.NETWORK_BUILD_PATH
+					+ "network.dne");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+}

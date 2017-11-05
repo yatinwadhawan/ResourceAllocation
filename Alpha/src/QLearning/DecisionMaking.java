@@ -33,10 +33,10 @@ import burlap.statehashing.simple.SimpleHashableStateFactory;
 public class DecisionMaking {
 
 	// Configuration Variables
-	public static int trials = 35000;
+	public static int trials = 60000;
 
-	public static double learningrate = 0.8;
-	public static double gamma = 0.6; // For preferring future rewards or not.
+	public static double learningrate = 0.2;
+	public static double gamma = 0.2; // For preferring future rewards or not.
 	public static double epsilon = 0.8; // greedy policy exploitation
 
 	public static double lambda = 0.4; // sarsa learning agent
@@ -44,7 +44,7 @@ public class DecisionMaking {
 	public static int count_state = 0;
 	public static boolean isHackedStateInvolved = true;
 	public static boolean isQLearning = true;
-	public static double movingaverage = 100;
+	public static double movingaverage = 300;
 
 	public static void makeDecision() throws IOException {
 
@@ -76,16 +76,16 @@ public class DecisionMaking {
 		// run Q-learning and store results in a list
 		List<Episode> episodes = new ArrayList<Episode>(trials);
 		for (int x = 0; x < trials; x++) {
-			if (x > 15000) {
+			if (x > 35000) {
 				epsilon = 0.6;
 			}
-			if (x > 16000) {
+			if (x > 56000) {
 				epsilon = 0.4;
 			}
-			if (x > 18000) {
+			if (x > 68000) {
 				epsilon = 0.2;
 			}
-			if (x > 20000) {
+			if (x > 70000) {
 				epsilon = 0.1;
 			}
 

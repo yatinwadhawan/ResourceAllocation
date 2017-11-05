@@ -1,0 +1,33 @@
+package bayesian;
+
+import java.util.HashMap;
+import mainClass.MainClass;
+import norsys.netica.*;
+import norsys.neticaEx.aliases.Node;
+
+public class BuildNetwork {
+
+	public final static String networkName = "BAGS";
+	public static Environ env;
+	public static HashMap<String, Node> map = new HashMap<String, Node>();
+
+	static {
+		try {
+			Node.setConstructorClass("norsys.neticaEx.aliases.Node");
+			env = new Environ(null);
+		} catch (NeticaException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public static void displayNetwork() {
+		try {
+			DrawNet dn = new DrawNet(MainClass.NETWORK_BUILD_PATH
+					+ "network.dne");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+}
