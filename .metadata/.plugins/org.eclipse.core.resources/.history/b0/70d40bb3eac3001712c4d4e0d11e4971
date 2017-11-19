@@ -1,0 +1,42 @@
+package multiagent;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import QLearning.MAction;
+import QLearning.MainClass;
+import burlap.mdp.auxiliary.DomainGenerator;
+import burlap.mdp.core.Domain;
+import burlap.mdp.core.action.ActionType;
+import burlap.mdp.stochasticgames.SGDomain;
+
+public class JointWorldGenerator implements DomainGenerator {
+
+	@Override
+	public Domain generateDomain() {
+		SGDomain domain = new SGDomain();
+		StateWorld statemodel = new StateWorld();
+		domain.setJointActionModel(statemodel);
+		return domain;
+	}
+
+	public static List<ActionType> getDefenderActionList() {
+		List<MAction> ls = new ArrayList<MAction>();
+		for (int i = 0; i < MainClass.nlist.size(); i++) {
+			MAction ms = new MAction(MainClass.nlist.get(i).getName(),
+					MainClass.ACTION_SCAN);
+			MAction mp = new MAction(MainClass.nlist.get(i).getName(),
+					MainClass.ACTION_PATCH);
+			ls.add(ms);
+			ls.add(mp);
+		}
+		return ls;
+
+	}
+
+	public static List<ActionType> getAtatckerActionList() {
+		return null;
+
+	}
+
+}

@@ -1,0 +1,42 @@
+package multiagent;
+
+import java.util.ArrayList;
+
+import Graph.Node;
+import Graph.NodeStatus;
+import QLearning.WState;
+import burlap.mdp.core.TerminalFunction;
+import burlap.mdp.core.state.State;
+
+public class Terminal implements TerminalFunction {
+
+	@Override
+	public boolean isTerminal(State s) {
+
+		WState state = (WState) s;
+		ArrayList<Node> l = state.getNodeList();
+		int size = l.size();
+
+		// When attacker and defender accessing the same node.
+		// Defender gets high reward.
+		if (WorldForMultiAgent.isDefenderAttackerAccessingSameNode)
+			return true;
+
+		//When last node in the system gets HACKED by the attacker. Now attacked can control the system functionality.
+		if (l.get(7).getAstatus().equals(NodeStatus.HACKED)) {
+			return true;
+		}
+
+		// When all the functions are patched by the defender.
+		// Defender gets high reward.
+		for (int i = 0; i < size; i++) {
+			Node n = l.get(i);
+			if (n.getDstatus().equals(NodeStatus.VULNERABLE)
+					|| n.getDstatus().equals(NodeStatus.UNKNOWN)) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+}

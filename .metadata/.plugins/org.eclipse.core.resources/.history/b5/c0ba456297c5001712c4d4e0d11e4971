@@ -1,0 +1,18 @@
+package multiagent;
+
+import java.util.List;
+
+import burlap.mdp.core.action.ActionType;
+import burlap.mdp.stochasticgames.agent.SGAgentType;
+
+public class SAgentType extends SGAgentType{
+
+	private  String typeName;
+	private List<ActionType> actionsAvailableToType;
+	
+	public SAgentType(String typeName, List<ActionType> actionsAvailableToType) {
+		super(typeName, actionsAvailableToType);
+		// TODO Auto-generated constructor stub
+	}
+
+}

@@ -1,0 +1,17 @@
+package multiagent;
+
+import burlap.mdp.core.TerminalFunction;
+import burlap.mdp.core.state.State;
+
+public class Terminal implements TerminalFunction {
+
+	@Override
+	public boolean isTerminal(State s) {
+		
+		if(WorldForMultiAgent.isDefenderAttackerAccessingSameNode)
+			return true;
+		
+		return false;
+	}
+
+}

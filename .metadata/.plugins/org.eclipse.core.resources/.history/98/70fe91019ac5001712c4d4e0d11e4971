@@ -1,0 +1,58 @@
+package multiagent;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import QLearning.MAction;
+import QLearning.MainClass;
+import burlap.mdp.auxiliary.DomainGenerator;
+import burlap.mdp.core.Domain;
+import burlap.mdp.core.action.ActionType;
+import burlap.mdp.core.action.UniversalActionType;
+import burlap.mdp.stochasticgames.SGDomain;
+
+public class JointWorldGenerator implements DomainGenerator {
+
+	@Override
+	public Domain generateDomain() {
+		SGDomain domain = new SGDomain();
+		StateWorld statemodel = new StateWorld();
+		domain.setJointActionModel(statemodel);
+		return domain;
+	}
+
+	public static List<ActionType> getDefenderActionList() {
+		List<ActionType> output = new ArrayList<ActionType>();
+		for (int i = 0; i < MainClass.nlist.size(); i++) {
+			MAction ms = new MAction(MainClass.nlist.get(i).getName(),
+					MainClass.ACTION_SCAN);
+			MAction mp = new MAction(MainClass.nlist.get(i).getName(),
+					MainClass.ACTION_PATCH);
+			output.add(new UniversalActionType(ms));
+			output.add(new UniversalActionType(mp));
+		}
+		return output;
+	}
+
+	public static List<ActionType> getAttackerActionList(int stat) {
+		List<ActionType> output = new ArrayList<ActionType>();
+		MAction ms = new MAction(MainClass.nlist.get(0).getName(),
+				MainClass.ACTION_SCAN);
+		MAction mp = new MAction(MainClass.nlist.get(0).getName(),
+				MainClass.ACTION_HACK);
+		output.add(new UniversalActionType(ms));
+		output.add(new UniversalActionType(mp));
+
+		for (int i = 0; i < MainClass.nlist.get(0).getAdj().size(); i++) {
+			MAction s = new MAction(MainClass.nlist.get(0).getAdj().get(i)
+					.getName(), MainClass.ACTION_SCAN);
+			MAction p = new MAction(MainClass.nlist.get(0).getAdj().get(i)
+					.getName(), MainClass.ACTION_HACK);
+			output.add(new UniversalActionType(s));
+			output.add(new UniversalActionType(p));
+		}
+		return output;
+
+	}
+
+}

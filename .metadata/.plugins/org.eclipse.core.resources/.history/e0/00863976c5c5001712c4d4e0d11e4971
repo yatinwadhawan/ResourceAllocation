@@ -1,0 +1,87 @@
+package multiagent;
+
+import java.util.List;
+
+import Graph.Node;
+import Graph.NodeStatus;
+import QLearning.MAction;
+import QLearning.MainClass;
+import QLearning.WState;
+import burlap.mdp.core.StateTransitionProb;
+import burlap.mdp.core.state.State;
+import burlap.mdp.stochasticgames.JointAction;
+import burlap.mdp.stochasticgames.model.FullJointModel;
+
+public class StateWorld implements FullJointModel {
+
+	@Override
+	public State sample(State s, JointAction a) {
+
+		WorldForMultiAgent.isDefenderAttackerAccessingSameNode = false;
+
+		MAction dfaction = (MAction) a.action(0);
+		String dname = dfaction.getNodeName();
+		String daction = dfaction.getAction();
+
+		MAction ataction = (MAction) a.action(1);
+		String aname = ataction.getNodeName();
+		String aaction = ataction.getAction();
+
+		State w = s.copy();
+		WState state = (WState) w;
+		int size = state.getNodeList().size();
+		int dindex = 0;
+		int aindex = 0;
+
+		// Find the index of the node in the graph on which defender performed
+		// an action
+		for (int i = 0; i < size; i++) {
+			if (dname.equals(state.getNodeList().get(i).getName())) {
+				dindex = i;
+				break;
+			}
+		}
+
+		// Find the index of the node in the graph on which attacker performed
+		// an action
+		for (int i = 0; i < size; i++) {
+			if (aname.equals(state.getNodeList().get(i).getName())) {
+				aindex = i;
+				break;
+			}
+		}
+
+		Node dn = state.getNodeList().get(dindex);
+		Node an = state.getNodeList().get(aindex);
+
+		// To check if they are accessing the same node. In this case, defender
+		// will catch the attacker.
+		if (dn.getName().equals(an.getName())) {
+			WorldForMultiAgent.isDefenderAttackerAccessingSameNode = true;
+			if (dfaction.equals(MainClass.ACTION_SCAN){
+				
+			}else if(dfaction.equals(MainClass.ACTION_PATCH){
+				
+			}
+		
+		} else {
+			// To check if they are accessing different nodes.
+
+		}
+
+		return state;
+	}
+
+	public String getUpdatedStatus(String action, Node n) {
+
+		return "";
+	}
+
+	@Override
+	public List<StateTransitionProb> stateTransitions(State arg0,
+			JointAction arg1) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

@@ -33,17 +33,17 @@ import burlap.statehashing.simple.SimpleHashableStateFactory;
 public class DecisionMaking {
 
 	// Configuration Variables
-	public static int trials = 60000;
+	public static int trials = 250000;
 
-	public static double learningrate = 0.2;
+	public static double learningrate = 0.8;
 	public static double gamma = 0.2; // For preferring future rewards or not.
-	public static double epsilon = 0.8; // greedy policy exploitation
+	public static double epsilon = 0.8; // greedy policy exploration
 
 	public static double lambda = 0.4; // sarsa learning agent
-	public static double qinit = -50.0;
+	public static double qinit = 0.0;
 	public static int count_state = 0;
 	public static boolean isHackedStateInvolved = true;
-	public static boolean isQLearning = true;
+	public static boolean isQLearning = false;
 	public static double movingaverage = 300;
 
 	public static void makeDecision() throws IOException {
@@ -58,13 +58,13 @@ public class DecisionMaking {
 				initialstate);
 
 		// QLearning
-		 QLearning agent = new QLearning(domain, gamma,
-		 new SimpleHashableStateFactory(), new ConstantValueFunction(),
-		 learningrate, epsilon);
+		// QLearning agent = new QLearning(domain, gamma,
+		// new SimpleHashableStateFactory(), new ConstantValueFunction(),
+		// learningrate, epsilon);
 
 		// Sarsa Learning Agent
-		// SarsaLam agent = new SarsaLam(domain, gamma,
-		// new SimpleHashableStateFactory(), qinit, learningrate, lambda);
+		 SarsaLam agent = new SarsaLam(domain, gamma,
+		 new SimpleHashableStateFactory(), qinit, learningrate, lambda);
 
 		ArrayList<State> wl = new ArrayList<State>();
 		ArrayList<State> allStates = new ArrayList<State>();
@@ -76,16 +76,16 @@ public class DecisionMaking {
 		// run Q-learning and store results in a list
 		List<Episode> episodes = new ArrayList<Episode>(trials);
 		for (int x = 0; x < trials; x++) {
-			if (x > 35000) {
+			if (x > 100000) {
 				epsilon = 0.6;
 			}
-			if (x > 56000) {
+			if (x > 126000) {
 				epsilon = 0.4;
 			}
-			if (x > 68000) {
+			if (x > 148000) {
 				epsilon = 0.2;
 			}
-			if (x > 70000) {
+			if (x > 170000) {
 				epsilon = 0.1;
 			}
 
@@ -236,7 +236,6 @@ public class DecisionMaking {
 			}
 			bw.close();
 		}
-
 	}
 
 	public static void writeFile(List ls, String name, int number)

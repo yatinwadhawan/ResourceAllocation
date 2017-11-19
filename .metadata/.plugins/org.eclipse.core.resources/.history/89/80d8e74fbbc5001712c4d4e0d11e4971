@@ -1,0 +1,35 @@
+package multiagent;
+
+import java.util.ArrayList;
+
+import Graph.Node;
+import Graph.NodeStatus;
+import QLearning.WState;
+import burlap.mdp.core.TerminalFunction;
+import burlap.mdp.core.state.State;
+
+public class Terminal implements TerminalFunction {
+
+	@Override
+	public boolean isTerminal(State s) {
+
+		if (WorldForMultiAgent.isDefenderAttackerAccessingSameNode)
+			return true;
+		
+		
+
+		WState state = (WState) s;
+		ArrayList<Node> l = state.getNodeList();
+		int size = l.size();
+		for (int i = 0; i < size; i++) {
+			Node n = l.get(i);
+			if (n.getStatus().equals(NodeStatus.VULNERABLE)
+					|| n.getStatus().equals(NodeStatus.UNKNOWN)) {
+				return false;
+			}
+		}
+
+		return false;
+	}
+
+}
