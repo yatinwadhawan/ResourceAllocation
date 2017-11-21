@@ -51,6 +51,7 @@ public class MainClass {
 		clear(MainClass.ADDRESS + "states.text");
 		clear(MainClass.ADDRESS + "output.text");
 		clear(MainClass.ADDRESS + "rewards.text");
+		clear(MainClass.ADDRESS + "statetoaction.text");
 		purgeDirectory(MainClass.ADDRESS + "/states/");
 
 		// Installing database into data structures from files

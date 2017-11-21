@@ -1,7 +1,0 @@
-package multiagent;
-
-import burlap.mdp.core.TerminalFunction;
-
-public class TerminalFunction implements TerminalFunction{
-
-}

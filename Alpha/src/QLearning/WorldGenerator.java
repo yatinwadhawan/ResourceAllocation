@@ -162,8 +162,47 @@ public class WorldGenerator implements DomainGenerator {
 
 	protected class Reward implements RewardFunction {
 
+		public boolean[] isTerminal(State s) {
+
+			boolean[] b = new boolean[2];
+			b[0] = false; // whether terminal state or not
+			b[1] = false; // if Hacked State, then true
+			WState state = (WState) s;
+			ArrayList<Node> l = state.getNodeList();
+			int size = l.size();
+			for (int i = 0; i < size; i++) {
+				Node n = l.get(i);
+				if (n.getSymbol().equals("S7")) {
+					if (n.getStatus().equals(NodeStatus.HACKED)) {
+						b[0] = true;
+						b[1] = true;
+						return b;
+					}
+				}
+				if (n.getStatus().equals(NodeStatus.VULNERABLE)
+						|| n.getStatus().equals(NodeStatus.UNKNOWN)) {
+					b[0] = false;
+					b[1] = false;
+					return b;
+				}
+			}
+			b[0] = true;
+			b[1] = false;
+			return b;
+		}
+
 		@Override
 		public double reward(State s, Action a, State sp) {
+
+			boolean[] b = isTerminal(sp);
+			if (b[0] && !b[1])
+				return 500;
+
+			if (b[0] && b[1])
+				return -500;
+
+			int negativereward = -200;
+			double fraction = 2;
 
 			// Fill this function
 			MAction ac = (MAction) a;
@@ -199,10 +238,10 @@ public class WorldGenerator implements DomainGenerator {
 
 				if (DecisionMaking.isHackedStateInvolved
 						&& n.getStatus().equals(NodeStatus.HACKED)) {
-					return -80;
+					return negativereward;
 
 				} else if (n.getStatus().equals(NodeStatus.VULNERABLE)) {
-					return -80;
+					return negativereward;
 
 				} else if (n.getStatus().equals(NodeStatus.UNKNOWN)) {
 					// We distinguish between the state in which
@@ -210,22 +249,22 @@ public class WorldGenerator implements DomainGenerator {
 
 					if (DecisionMaking.isHackedStateInvolved
 							&& np.getStatus().equals(NodeStatus.HACKED)) {
-						return MainClass.reward.get(np.getName()) * 1.2;
+						return MainClass.reward.get(np.getName()) * fraction;
 					} else if (np.getStatus().equals(NodeStatus.PATCHED)) {
 						return 0;
 					} else {
-						return MainClass.reward.get(np.getName()) * 1.2;
+						return MainClass.reward.get(np.getName()) * fraction;
 					}
 				} else if (n.getStatus().equals(NodeStatus.PATCHED)) {
 					// We distinguish between the state in which
 					// node lands.. whether Vulnerable or Patched
 					if (DecisionMaking.isHackedStateInvolved
 							&& np.getStatus().equals(NodeStatus.HACKED)) {
-						return MainClass.reward.get(np.getName()) * 1.2;
+						return MainClass.reward.get(np.getName()) * fraction;
 					} else if (np.getStatus().equals(NodeStatus.PATCHED)) {
-						return -80;
+						return negativereward;
 					} else {
-						return MainClass.reward.get(np.getName()) * 1.2;
+						return MainClass.reward.get(np.getName()) * fraction;
 					}
 				}
 
@@ -233,13 +272,13 @@ public class WorldGenerator implements DomainGenerator {
 
 				if (DecisionMaking.isHackedStateInvolved
 						&& n.getStatus().equals(NodeStatus.HACKED)) {
-					return MainClass.reward.get(np.getName()) * 1.2;
+					return MainClass.reward.get(np.getName()) * fraction;
 				} else if (n.getStatus().equals(NodeStatus.VULNERABLE)) {
-					return MainClass.reward.get(np.getName()) * 1.2;
+					return MainClass.reward.get(np.getName()) * fraction;
 				} else if (n.getStatus().equals(NodeStatus.PATCHED)) {
-					return -80;
+					return negativereward;
 				} else if (n.getStatus().equals(NodeStatus.UNKNOWN)) {
-					return -80;
+					return negativereward;
 				}
 			}
 
@@ -257,6 +296,10 @@ public class WorldGenerator implements DomainGenerator {
 			int size = l.size();
 			for (int i = 0; i < size; i++) {
 				Node n = l.get(i);
+				if (n.getSymbol().equals("S7")) {
+					if (n.getStatus().equals(NodeStatus.HACKED))
+						return true;
+				}
 				if (n.getStatus().equals(NodeStatus.VULNERABLE)
 						|| n.getStatus().equals(NodeStatus.UNKNOWN)) {
 					return false;

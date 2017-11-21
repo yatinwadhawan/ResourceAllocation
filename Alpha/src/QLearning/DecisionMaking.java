@@ -33,9 +33,10 @@ import burlap.statehashing.simple.SimpleHashableStateFactory;
 public class DecisionMaking {
 
 	// Configuration Variables
-	public static int trials = 250000;
+	public static int trials = 100000;
+	public static int timesteps = 50;
 
-	public static double learningrate = 0.8;
+	public static double learningrate = 0.2;
 	public static double gamma = 0.2; // For preferring future rewards or not.
 	public static double epsilon = 0.8; // greedy policy exploration
 
@@ -43,8 +44,71 @@ public class DecisionMaking {
 	public static double qinit = 0.0;
 	public static int count_state = 0;
 	public static boolean isHackedStateInvolved = true;
-	public static boolean isQLearning = false;
+	public static boolean isQLearning = true;
 	public static double movingaverage = 300;
+
+	public static ArrayList<State> wl = new ArrayList<State>();
+	public static ArrayList<State> allStates = new ArrayList<State>();
+	public static HashMap<State, QValue> stateToQvalue = new HashMap<State, QValue>();
+
+	// For Q Learning
+	public static void findOutDecisionMade(QLearning agent) throws IOException {
+		// In this function, we are maintaining the HashMap of states to
+		// Actions. We have to go through all the states and all actions to find
+		// out which action returns the maximum Q value. And finally we store
+		// the mapping from state to optimal action possible.
+
+		// List of all actions
+		List<MAction> actionList = MainClass.actionList;
+
+		// List of all states traversed
+		for (int i = 0; i < allStates.size(); i++) {
+
+			double max = -1000.0;
+			QValue qvalue = null;
+			WState s = (WState) allStates.get(i);
+			for (int j = 0; j < actionList.size(); j++) {
+				MAction a = (MAction) actionList.get(j);
+				QValue q = agent.storedQ(s, a);
+				if (q.q > max) {
+					max = q.q;
+					qvalue = q;
+				}
+			}
+			stateToQvalue.put(s, qvalue);
+		}
+		putStateToActions(MainClass.ADDRESS + "statetoaction.text");
+	}
+
+	// For SARSA Learning
+	public static void findOutDecisionMade(SarsaLam agent) throws IOException {
+		// In this function, we are maintaining the HashMap of states to
+		// Actions. We have to go through all the states and all actions to find
+		// out which action returns the maximum Q value. And finally we store
+		// the mapping from state to optimal action possible.
+
+		// List of all actions
+		List<MAction> actionList = MainClass.actionList;
+
+		// List of all states traversed
+		for (int i = 0; i < allStates.size(); i++) {
+
+			double max = -1000.0;
+			QValue qvalue = new QValue();
+			WState s = (WState) allStates.get(i);
+			for (int j = 0; j < actionList.size(); j++) {
+				MAction a = (MAction) actionList.get(j);
+				double q = agent.qValue(s, a);
+				if (q > max) {
+					max = q;
+					qvalue.q = q;
+					qvalue.a = a;
+				}
+			}
+			stateToQvalue.put(s, qvalue);
+		}
+		putStateToActions(MainClass.ADDRESS + "statetoaction.text");
+	}
 
 	public static void makeDecision() throws IOException {
 
@@ -58,16 +122,14 @@ public class DecisionMaking {
 				initialstate);
 
 		// QLearning
-		// QLearning agent = new QLearning(domain, gamma,
-		// new SimpleHashableStateFactory(), new ConstantValueFunction(),
-		// learningrate, epsilon);
+		QLearning agent = new QLearning(domain, gamma,
+				new SimpleHashableStateFactory(), new ConstantValueFunction(),
+				learningrate, epsilon);
 
 		// Sarsa Learning Agent
-		 SarsaLam agent = new SarsaLam(domain, gamma,
-		 new SimpleHashableStateFactory(), qinit, learningrate, lambda);
+		// SarsaLam agent = new SarsaLam(domain, gamma,
+		// new SimpleHashableStateFactory(), qinit, learningrate, lambda);
 
-		ArrayList<State> wl = new ArrayList<State>();
-		ArrayList<State> allStates = new ArrayList<State>();
 		HashMap<State, List<List<QValue>>> map = new HashMap<State, List<List<QValue>>>();
 
 		System.out.println("RUNNING....");
@@ -76,16 +138,16 @@ public class DecisionMaking {
 		// run Q-learning and store results in a list
 		List<Episode> episodes = new ArrayList<Episode>(trials);
 		for (int x = 0; x < trials; x++) {
-			if (x > 100000) {
+			if (x > 30000) {
 				epsilon = 0.6;
 			}
-			if (x > 126000) {
+			if (x > 40000) {
 				epsilon = 0.4;
 			}
-			if (x > 148000) {
+			if (x > 50000) {
 				epsilon = 0.2;
 			}
-			if (x > 170000) {
+			if (x > 60000) {
 				epsilon = 0.1;
 			}
 
@@ -151,8 +213,8 @@ public class DecisionMaking {
 			writeFile(rl, MainClass.ADDRESS + "reward.text", i);
 		}
 
-		createGraph("Average Reward per Episode", firstplot);
-		createGraph("Average Running Reward per Episode", secondplot);
+		// Storing the results for the best action at each state.
+		findOutDecisionMade(agent);
 
 		System.out.println("Count States - " + count_state);
 		System.out.println("Total states - " + allStates.size());
@@ -161,6 +223,10 @@ public class DecisionMaking {
 		createFilesForEachStateQValues(map);
 		writeOutput(MainClass.ADDRESS + "output.text", allStates.size(),
 				(end - start) / (1000 * 60));
+
+		createGraph("", firstplot);
+		createGraph("", secondplot);
+
 	}
 
 	public static void createGraph(String name, List plot) {
@@ -198,6 +264,40 @@ public class DecisionMaking {
 		bw.close();
 	}
 
+	public static void putStateToActions(String name) throws IOException {
+		File fout = new File(name);
+		FileOutputStream fos = new FileOutputStream(fout, true);
+
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
+
+		Set set = stateToQvalue.keySet();
+		Iterator itr = set.iterator();
+		while (itr.hasNext()) {
+			State s = (State) itr.next();
+			WState w = (WState) s;
+			ArrayList<Node> nl = w.getNodeList();
+			for (int j = 0; j < nl.size(); j++) {
+				Node n = nl.get(j);
+				bw.write(n.getSymbol());
+				bw.newLine();
+				bw.write(n.getName());
+				bw.newLine();
+				bw.write(n.getStatus());
+				bw.newLine();
+			}
+			bw.newLine();
+			bw.newLine();
+			QValue q = stateToQvalue.get(s);
+			bw.write("Action : " + q.a.actionName());
+			bw.newLine();
+			bw.write("QValue : " + q.q);
+			bw.newLine();
+			bw.newLine();
+			bw.newLine();
+		}
+		bw.close();
+	}
+
 	public static void createFilesForEachStateQValues(
 			HashMap<State, List<List<QValue>>> map) throws IOException {
 
@@ -215,11 +315,11 @@ public class DecisionMaking {
 			ArrayList<Node> nl = w.getNodeList();
 			for (int j = 0; j < nl.size(); j++) {
 				Node n = nl.get(j);
+				bw.write(n.getSymbol());
+				bw.newLine();
 				bw.write(n.getName());
 				bw.newLine();
 				bw.write(n.getStatus());
-				bw.newLine();
-				bw.write(n.getAdjList().toString());
 				bw.newLine();
 			}
 			bw.newLine();
@@ -329,3 +429,4 @@ public class DecisionMaking {
 		bw.close();
 	}
 }
+

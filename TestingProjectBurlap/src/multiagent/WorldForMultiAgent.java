@@ -102,11 +102,11 @@ public class WorldForMultiAgent {
 		aagent.setLearningPolicy(ap);
 
 		System.out.println("Starting training");
-		System.setOut(new PrintStream(new OutputStream() {
-			public void write(int b) {
-				// NO-OP
-			}
-		}));
+		// System.setOut(new PrintStream(new OutputStream() {
+		// public void write(int b) {
+		// // NO-OP
+		// }
+		// }));
 
 		ArrayList<Integer> randomNum = new ArrayList<Integer>();
 
@@ -183,6 +183,7 @@ public class WorldForMultiAgent {
 		System.out.println("Number of Games won by defender: " + windef);
 		System.out.println("Number of Games won by Attacker: "
 				+ (ngames - windef));
+		System.out.println("Number of Games: " + policy);
 		PlotGraph demo = new PlotGraph("Average Reward per Episode", rewardls);
 		demo.pack();
 		RefineryUtilities.centerFrameOnScreen(demo);

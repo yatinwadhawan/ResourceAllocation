@@ -18,9 +18,9 @@ public class PlotGraph extends ApplicationFrame {
 			series.add(i + 1, rl.get(i));
 		}
 		final XYSeriesCollection data = new XYSeriesCollection(series);
-		final JFreeChart chart = ChartFactory.createXYLineChart(
-				"Average Reward per Episode", "Episodes", "Average Reward",
-				data, PlotOrientation.VERTICAL, true, true, false);
+		final JFreeChart chart = ChartFactory.createXYLineChart("", "Episodes",
+				"Moving Average Reward", data, PlotOrientation.VERTICAL, true, true,
+				false);
 
 		final ChartPanel chartPanel = new ChartPanel(chart);
 		chartPanel.setPreferredSize(new java.awt.Dimension(500, 270));
