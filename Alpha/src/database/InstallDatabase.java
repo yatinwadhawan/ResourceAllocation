@@ -1,20 +1,10 @@
 package database;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
-import org.apache.log4j.chainsaw.Main;
-
 import mainClass.MainClass;
-import classes.NetworkComponent;
-import classes.Node;
 import classes.RewardVariables;
-import classes.Vulnerability;
 
 public class InstallDatabase {
 

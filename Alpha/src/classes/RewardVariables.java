@@ -7,6 +7,7 @@ public class RewardVariables {
 	private String description;
 	private Double value;
 
+	@Override
 	public RewardVariables clone() {
 		RewardVariables n = new RewardVariables();
 		n.name = this.name;

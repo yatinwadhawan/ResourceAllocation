@@ -2,11 +2,9 @@ package QLearning;
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -16,7 +14,6 @@ import java.util.Set;
 import mainClass.MainClass;
 import mainClass.PlotGraph;
 
-import org.apache.log4j.chainsaw.Main;
 import org.jfree.ui.RefineryUtilities;
 
 import classes.Node;
@@ -68,7 +65,7 @@ public class DecisionMaking {
 			QValue qvalue = null;
 			WState s = (WState) allStates.get(i);
 			for (int j = 0; j < actionList.size(); j++) {
-				MAction a = (MAction) actionList.get(j);
+				MAction a = actionList.get(j);
 				QValue q = agent.storedQ(s, a);
 				if (q.q > max) {
 					max = q.q;
@@ -97,7 +94,7 @@ public class DecisionMaking {
 			QValue qvalue = new QValue();
 			WState s = (WState) allStates.get(i);
 			for (int j = 0; j < actionList.size(); j++) {
-				MAction a = (MAction) actionList.get(j);
+				MAction a = actionList.get(j);
 				double q = agent.qValue(s, a);
 				if (q > max) {
 					max = q;
@@ -349,19 +346,19 @@ public class DecisionMaking {
 		bw.write(Integer.toString(number));
 		bw.newLine();
 		if (name.equals(MainClass.ADDRESS + "state.text")) {
-			List<State> l = (List<State>) ls;
+			List<State> l = ls;
 			for (int j = 0; j < l.size(); j++) {
 				WState s = (WState) l.get(j);
 				bw.write(s.getNodeList().toString());
 				bw.newLine();
 			}
 		} else if (name.equals(MainClass.ADDRESS + "reward.text")) {
-			List<Double> l = (List<Double>) ls;
+			List<Double> l = ls;
 			for (int j = 0; j < l.size(); j++) {
 				bw.write(l.get(j) + ",");
 			}
 		} else {
-			List<Action> l = (List<Action>) ls;
+			List<Action> l = ls;
 			for (int j = 0; j < l.size(); j++) {
 				bw.write(l.get(j).actionName() + ",");
 			}

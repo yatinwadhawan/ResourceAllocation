@@ -27,11 +27,15 @@ public class Terminal implements TerminalFunction {
 
 		// When last node in the system gets HACKED by the attacker. Now
 		// attacked can control the system functionality.
-		if (l.get(6).getAstatus().equals(NodeStatus.HACKED)) {
-			WorldForMultiAgent.isDefWin = false;
-			return true;
+		for (int i = 0; i < l.size(); i++) {
+			Node n = l.get(i);
+			if (n.getName().equals("N6")) {
+				if (n.getStatus().equals(NodeStatus.HACKED)) {
+					WorldForMultiAgent.isDefWin = false;
+					return true;
+				}
+			}
 		}
-
 		return false;
 	}
 }

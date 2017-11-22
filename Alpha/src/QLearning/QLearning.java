@@ -5,10 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import mainClass.MainClass;
-
-import org.apache.log4j.chainsaw.Main;
-
 import burlap.behavior.policy.EpsilonGreedy;
 import burlap.behavior.policy.Policy;
 import burlap.behavior.singleagent.Episode;

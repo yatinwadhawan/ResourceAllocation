@@ -8,8 +8,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Set;
 
-import org.apache.log4j.chainsaw.Main;
-
 import mainClass.MainClass;
 import classes.NetworkComponent;
 import classes.Node;

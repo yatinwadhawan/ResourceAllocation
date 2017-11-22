@@ -1,7 +1,0 @@
-package multiagent;
-
-import burlap.behavior.stochasticgames.agents.twoplayer.singlestage.equilibriumplayer.EquilibriumPlayingSGAgent;
-
-public class EquiliribiumAgent extends EquilibriumPlayingSGAgent{
-
-}
