@@ -16,11 +16,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import multiagent.WorldForMultiAgent;
-
-import org.jfree.ui.RefineryUtilities;
-
 import burlap.behavior.singleagent.Episode;
 import burlap.behavior.singleagent.auxiliary.performance.LearningAlgorithmExperimenter;
 import burlap.behavior.singleagent.auxiliary.performance.PerformanceMetric;
@@ -51,7 +47,7 @@ public class MainClass {
 	public static ArrayList<Node> nlist = new ArrayList<Node>();
 	static ArrayList<State> wl = new ArrayList<State>();
 
-	static int trials = 1000;
+	static int trials = 500;
 	static double learningrate = 0.2;
 	static double gamma = 0.2;
 	static double epsilon = 0.2;
@@ -69,7 +65,7 @@ public class MainClass {
 
 		// Create a nodelist that will create a state.
 
-		for (int i = 0; i < 8; i++) {
+		for (int i = 0; i < 12; i++) {
 			Node n = new Node("N" + i, NodeStatus.UNKNOWN);
 			nlist.add(n);
 		}
@@ -98,14 +94,32 @@ public class MainClass {
 
 		ArrayList<Node> l5 = new ArrayList<Node>();
 		l5.add(nlist.get(6));
+		l5.add(nlist.get(8));
 		nlist.get(5).setAdj(l5);
 
 		ArrayList<Node> l6 = new ArrayList<Node>();
+		l6.add(nlist.get(10));
 		nlist.get(6).setAdj(l6);
 
 		ArrayList<Node> l7 = new ArrayList<Node>();
 		l7.add(nlist.get(6));
+		l7.add(nlist.get(9));
 		nlist.get(7).setAdj(l7);
+
+		ArrayList<Node> l8 = new ArrayList<Node>();
+		l8.add(nlist.get(11));
+		nlist.get(8).setAdj(l8);
+
+		ArrayList<Node> l9 = new ArrayList<Node>();
+		l9.add(nlist.get(10));
+		nlist.get(9).setAdj(l9);
+
+		ArrayList<Node> l10 = new ArrayList<Node>();
+		l10.add(nlist.get(11));
+		nlist.get(10).setAdj(l10);
+
+		ArrayList<Node> l11 = new ArrayList<Node>();
+		nlist.get(11).setAdj(l11);
 
 		// Creating action set for the domain. We will assign this in the
 		// WorldGenerator class.
@@ -129,6 +143,10 @@ public class MainClass {
 		reward.put(nlist.get(5).getName(), 40);
 		reward.put(nlist.get(6).getName(), 20);
 		reward.put(nlist.get(7).getName(), 20);
+		reward.put(nlist.get(8).getName(), 40);
+		reward.put(nlist.get(9).getName(), 90);
+		reward.put(nlist.get(10).getName(), 10);
+		reward.put(nlist.get(11).getName(), 170);
 
 		WorldForMultiAgent world = new WorldForMultiAgent();
 		world.createAndRunGameModel();

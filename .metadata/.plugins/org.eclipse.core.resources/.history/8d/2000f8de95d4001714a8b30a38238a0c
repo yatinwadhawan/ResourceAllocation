@@ -1,0 +1,95 @@
+package multiagent;
+
+import Graph.Node;
+import Graph.NodeStatus;
+import QLearning.MAction;
+import QLearning.MainClass;
+import QLearning.WState;
+import burlap.mdp.core.state.State;
+import burlap.mdp.stochasticgames.JointAction;
+import burlap.mdp.stochasticgames.model.JointRewardFunction;
+
+public class Reward implements JointRewardFunction {
+
+	boolean flag = false;
+	int reward = -100;
+
+	@Override
+	public double[] reward(State s, JointAction a, State sp) {
+
+		double[] result = new double[2];
+
+		MAction dfaction = (MAction) a.action(0);
+		String dname = dfaction.getNodeName();
+		String daction = dfaction.getAction();
+
+		MAction ataction = (MAction) a.action(1);
+		String aname = ataction.getNodeName();
+		String aaction = ataction.getAction();
+
+		State w = s.copy();
+		WState state = (WState) w;
+		int size = state.getNodeList().size();
+
+		State wp = sp.copy();
+		WState statep = (WState) wp;
+		int sizep = statep.getNodeList().size();
+
+		int dindex = 0;
+		int aindex = 0;
+
+		// Find the index of the node in the graph on which action is
+		// performed.
+		for (int i = 0; i < size; i++) {
+			if (dname.equals(state.getNodeList().get(i).getName())) {
+				dindex = i;
+				break;
+			}
+		}
+		for (int i = 0; i < sizep; i++) {
+			if (aname.equals(state.getNodeList().get(i).getName())) {
+				aindex = i;
+				break;
+			}
+		}
+
+		// The index of nodes which agents performed actions will remain same
+		// in both the state that is state and statep. Therefore, there is no
+		// need of creating and finding them separately.
+
+		Node dn = state.getNodeList().get(dindex);
+		Node an = state.getNodeList().get(aindex);
+		Node dnp = statep.getNodeList().get(dindex);
+		Node anp = statep.getNodeList().get(aindex);
+		result[0] = getRewardForDefender(daction, dn, dnp, aaction, an, anp);
+		result[1] = getRewardForAttacker(daction, dn, dnp, aaction, an, anp);
+
+		return result;
+	}
+
+
+
+	// Terminal Function for deciding early rewards.
+	public boolean isTerminal(Node n) {
+
+		// When defender is trying to access a node on which attacker is
+		// present.
+		if (WorldForMultiAgent.defenderNode != null
+				&& WorldForMultiAgent.defenderNode
+						.equals(WorldForMultiAgent.attackerNode)) {
+			flag = true;
+			return true;
+		}
+
+		// When last node in the system gets HACKED by the attacker. Now
+		// attacked can control the system functionality.
+		if (n.getName().equals("N6")) {
+			if (n.getStatus().equals(NodeStatus.HACKED)) {
+				flag = false;
+				return true;
+			}
+		}
+
+		return false;
+	}
+}

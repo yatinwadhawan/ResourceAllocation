@@ -22,6 +22,7 @@ public class Terminal implements TerminalFunction {
 				&& WorldForMultiAgent.defenderNode
 						.equals(WorldForMultiAgent.attackerNode)) {
 			WorldForMultiAgent.isDefWin = true;
+			System.out.println("Defender and Attacker are on the same Node.");
 			return true;
 		}
 
@@ -29,9 +30,10 @@ public class Terminal implements TerminalFunction {
 		// attacked can control the system functionality.
 		for (int i = 0; i < l.size(); i++) {
 			Node n = l.get(i);
-			if (n.getName().equals("N6")) {
+			if (n.getName().equals("N11")) {
 				if (n.getStatus().equals(NodeStatus.HACKED)) {
 					WorldForMultiAgent.isDefWin = false;
+					System.out.println("Attacker Hacked the Main Node N6.");
 					return true;
 				}
 			}

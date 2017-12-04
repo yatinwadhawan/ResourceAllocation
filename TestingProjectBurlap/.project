@@ -3,6 +3,7 @@
 	<name>TestingProjectBurlap</name>
 	<comment></comment>
 	<projects>
+		<project>burlap</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

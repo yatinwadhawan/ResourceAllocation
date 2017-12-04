@@ -1,7 +1,5 @@
 package multiagent;
 
-import java.util.ArrayList;
-
 import Graph.Node;
 import Graph.NodeStatus;
 import QLearning.MAction;
@@ -14,6 +12,7 @@ import burlap.mdp.stochasticgames.model.JointRewardFunction;
 public class Reward implements JointRewardFunction {
 
 	boolean flag = false;
+	int reward = -10;
 
 	@Override
 	public double[] reward(State s, JointAction a, State sp) {
@@ -78,8 +77,8 @@ public class Reward implements JointRewardFunction {
 		// Action is SCAN
 		if (defenderaction.equals(MainClass.ACTION_SCAN)) {
 
-			if (dnp.getDstatus().equals(NodeStatus.HACKED))
-				return MainClass.reward.get(dnp.getName()) * 2;
+			if (dnp.getStatus().equals(NodeStatus.HACKED))
+				return MainClass.reward.get(dnp.getName());
 
 			if ((dn.getDstatus().equals(NodeStatus.UNKNOWN) || dn.getDstatus()
 					.equals(NodeStatus.PATCHED))
@@ -88,21 +87,18 @@ public class Reward implements JointRewardFunction {
 
 			// When dnp is either UNKNOWN or PATCHED, there is no advantage of
 			// scanning that function. return 0 in the end.
+			return reward;
 
 		} else {
 			// Action is PATCH
 
-			if ((dn.getDstatus().equals(NodeStatus.VULNERABLE) || dn
-					.getDstatus().equals(NodeStatus.HACKED))
-					&& dnp.getDstatus().equals(NodeStatus.PATCHED))
-				return MainClass.reward.get(dnp.getName()) * 4;
+			if ((dn.getStatus().equals(NodeStatus.VULNERABLE) || dn.getStatus()
+					.equals(NodeStatus.HACKED))
+					&& dnp.getStatus().equals(NodeStatus.PATCHED))
+				return MainClass.reward.get(dnp.getName()) * 2;
 
-			// When dn status is PATCHED or UNKNOWN, agent receive 0 reward.
-			if (dn.getDstatus().equals(NodeStatus.PATCHED)
-					|| dn.getDstatus().equals(NodeStatus.UNKNOWN))
-				return 0;
+			return reward;
 		}
-		return 0;
 	}
 
 	public double getRewardForAttacker(String defenderaction, Node dn,
@@ -120,23 +116,22 @@ public class Reward implements JointRewardFunction {
 					&& anp.getAstatus().equals(NodeStatus.VULNERABLE))
 				return MainClass.reward.get(dnp.getName()) * 2;
 
-			if (an.getAstatus().equals(NodeStatus.PATCHED)
-					&& anp.getAstatus().equals(NodeStatus.VULNERABLE))
-				return MainClass.reward.get(dnp.getName()) * 2;
-
-			if (an.getAstatus().equals(NodeStatus.VULNERABLE)
-					&& anp.getAstatus().equals(NodeStatus.VULNERABLE))
+			if (an.getAstatus().equals(NodeStatus.UNKNOWN)
+					&& anp.getAstatus().equals(NodeStatus.PATCHED))
 				return 0;
+
+			if (an.getStatus().equals(NodeStatus.PATCHED)
+					&& anp.getStatus().equals(NodeStatus.VULNERABLE))
+				return MainClass.reward.get(dnp.getName()) * 2;
 
 			// Action is HACK
 		} else {
 
 			if ((an.getAstatus().equals(NodeStatus.VULNERABLE))
 					&& anp.getAstatus().equals(NodeStatus.HACKED))
-				return MainClass.reward.get(dnp.getName()) * 3;
-
+				return MainClass.reward.get(dnp.getName()) * 4;
 		}
-		return 0;
+		return reward;
 	}
 
 	// Terminal Function for deciding early rewards.
@@ -153,7 +148,7 @@ public class Reward implements JointRewardFunction {
 
 		// When last node in the system gets HACKED by the attacker. Now
 		// attacked can control the system functionality.
-		if (n.getName().equals("N6")) {
+		if (n.getName().equals("N11")) {
 			if (n.getStatus().equals(NodeStatus.HACKED)) {
 				flag = false;
 				return true;

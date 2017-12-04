@@ -1,8 +1,6 @@
 package multiagent;
 
 import java.util.ArrayList;
-import java.util.List;
-
 import QLearning.MAction;
 import QLearning.MainClass;
 import burlap.mdp.auxiliary.DomainGenerator;

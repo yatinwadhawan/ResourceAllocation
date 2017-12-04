@@ -13,10 +13,12 @@ public class SAgentType extends SGAgentType {
 
 	private String typeName;
 	private List<ActionType> actionsAvailableToType;
+	private int agentNum;
 
-	public SAgentType(String typeName, ArrayList<ActionType> arrayList) {
+	public SAgentType(String typeName, int num, ArrayList<ActionType> arrayList) {
 		super(typeName, arrayList);
 		this.typeName = typeName;
+		this.agentNum = num;
 		this.actionsAvailableToType = arrayList;
 	}
 
@@ -27,6 +29,9 @@ public class SAgentType extends SGAgentType {
 	// For Attacker
 	public void updateActionList(int index) {
 		WorldForMultiAgent.attackerNode = MainClass.nlist.get(index).copy();
+		int[] ind = new int[2];
+		int count = 0;
+
 		for (int i = 0; i < MainClass.nlist.get(index).getAdj().size(); i++) {
 			MAction s = new MAction(MainClass.nlist.get(index).getAdj().get(i)
 					.getName(), MainClass.ACTION_SCAN);
@@ -35,10 +40,20 @@ public class SAgentType extends SGAgentType {
 			this.addAction(s);
 			this.addAction(p);
 		}
+		// for (int i = 0; i < this.actionsAvailableToType.size(); i++) {
+		// UniversalActionType a = (UniversalActionType)
+		// this.actionsAvailableToType
+		// .get(i);
+		// MAction ac = (MAction) a.action;
+		// if (ac.getNodeName() == MainClass.nlist.get(index).getName())
+		// ind[count++] = i;
+		// }
+		// this.actionsAvailableToType.remove(ind[0]);
+		// this.actionsAvailableToType.remove(ind[1]);
 	}
 
 	public void addAction(MAction a) {
-		for (int i = 0; i < actionsAvailableToType.size(); i++) {
+		for (int i = 0; i < this.actionsAvailableToType.size(); i++) {
 			UniversalActionType u = (UniversalActionType) this.actionsAvailableToType
 					.get(i);
 			MAction temp = (MAction) u.action;
@@ -63,6 +78,14 @@ public class SAgentType extends SGAgentType {
 	public void setActionsAvailableToType(
 			List<ActionType> actionsAvailableToType) {
 		this.actionsAvailableToType = actionsAvailableToType;
+	}
+
+	public int getAgentNum() {
+		return agentNum;
+	}
+
+	public void setAgentNum(int agentNum) {
+		this.agentNum = agentNum;
 	}
 
 }

@@ -7,9 +7,9 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import QLearning.DecisionMaking;
-import QLearning.MAction;
+import QLearningDefender.DecisionMaking;
 import burlap.mdp.core.state.State;
+import classes.MAction;
 import classes.NetworkComponent;
 import classes.Node;
 import classes.NodeStatus;
@@ -58,14 +58,15 @@ public class MainClass {
 		InstallDatabase.install();
 		InstallDatabase.print();
 		InstallDatabase.printReward();
-
-		// Adding actions and rewards
-		NodeStatus.addActions();
-		NodeStatus.createActionList();
 		NodesImportance.rewardFunction();
+
+		// Defender Data
+		// Adding actions and rewards
+		NodeStatus.addDefenderActions();
+		NodeStatus.createDefenderActionList();
 		// NodesImportance.alternateRewardFunction();
 
-		// Calling QLearning Algorithm to make decision
+		// Calling QLearning Algorithm to make decision for Defender
 		DecisionMaking.makeDecision();
 
 	}
