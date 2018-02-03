@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring accessors="true" comment="Delete 5 elements from project &apos;TestingProjectBurlap&apos;&#x0A;- Original project: &apos;TestingProjectBurlap&apos;&#x0A;- Original elements:&#x0A;     multiagent.RewardSecond.java&#x0A;     multiagent.RewardTwoActions.java&#x0A;     multiagent.StateWorldSecond.java&#x0A;     multiagent.StateWorldTwoActions.java&#x0A;     multiagent.TerminalTwoActions.java" description="Delete elements" element1="/src&lt;multiagent{StateWorldSecond.java" element2="/src&lt;multiagent{RewardTwoActions.java" element3="/src&lt;multiagent{RewardSecond.java" element4="/src&lt;multiagent{StateWorldTwoActions.java" element5="/src&lt;multiagent{TerminalTwoActions.java" elements="5" flags="589830" id="org.eclipse.jdt.ui.delete" resources="0" stamp="1516591833163" subPackages="false" version="1.0"/>
+</session>

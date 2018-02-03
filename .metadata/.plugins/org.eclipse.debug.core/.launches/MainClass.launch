@@ -9,4 +9,5 @@
 <booleanAttribute key="org.eclipse.jdt.launching.ATTR_USE_START_ON_FIRST_THREAD" value="true"/>
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="QLearning.MainClass"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="TestingProjectBurlap"/>
+<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Xms1024m -Xmx7G"/>
 </launchConfiguration>

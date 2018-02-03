@@ -66,7 +66,7 @@ public class MainClass {
 		// Create a nodelist that will create a state.
 
 		for (int i = 0; i < 12; i++) {
-			Node n = new Node("N" + i, NodeStatus.UNKNOWN);
+			Node n = new Node("N" + i, NodeStatus.VULNERABLE);
 			nlist.add(n);
 		}
 		ArrayList<Node> l0 = new ArrayList<Node>();
@@ -85,7 +85,6 @@ public class MainClass {
 		nlist.get(2).setAdj(l2);
 
 		ArrayList<Node> l3 = new ArrayList<Node>();
-		l3.add(nlist.get(6));
 		nlist.get(3).setAdj(l3);
 
 		ArrayList<Node> l4 = new ArrayList<Node>();
@@ -115,7 +114,7 @@ public class MainClass {
 		nlist.get(9).setAdj(l9);
 
 		ArrayList<Node> l10 = new ArrayList<Node>();
-		l10.add(nlist.get(11));
+		l10.add(nlist.get(8));
 		nlist.get(10).setAdj(l10);
 
 		ArrayList<Node> l11 = new ArrayList<Node>();
@@ -225,10 +224,7 @@ public class MainClass {
 		// System.out.println("Count States - " + count_state);
 		// System.out.println("Total states - " + allStates.size());
 		//
-		// PlotGraph demo = new PlotGraph("Average Reward per Episode", plot);
-		// demo.pack();
-		// RefineryUtilities.centerFrameOnScreen(demo);
-		// demo.setVisible(true);
+
 		//
 		// purgeDirectory(ADDRESS + "/states/");
 		// createFilesForEachStateQValues(map);

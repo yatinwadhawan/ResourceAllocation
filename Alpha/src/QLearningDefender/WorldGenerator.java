@@ -182,7 +182,8 @@ public class WorldGenerator implements DomainGenerator {
 					}
 				}
 				if (n.getStatus().equals(NodeStatus.VULNERABLE)
-						|| n.getStatus().equals(NodeStatus.UNKNOWN)) {
+						|| n.getStatus().equals(NodeStatus.UNKNOWN)
+						|| n.getStatus().equals(NodeStatus.HACKED)) {
 					b[0] = false;
 					b[1] = false;
 					return b;
@@ -303,12 +304,12 @@ public class WorldGenerator implements DomainGenerator {
 						return true;
 				}
 				if (n.getStatus().equals(NodeStatus.VULNERABLE)
-						|| n.getStatus().equals(NodeStatus.UNKNOWN)) {
+						|| n.getStatus().equals(NodeStatus.UNKNOWN)
+						|| n.getStatus().equals(NodeStatus.HACKED)) {
 					return false;
 				}
 			}
 			return true;
 		}
 	}
-
 }

@@ -1,21 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="mainClass.InstallDatabase"/>
-<fullyQualifiedTypeName name="classes.NetworkComponent"/>
-<fullyQualifiedTypeName name="classes.Vulnerability"/>
-<fullyQualifiedTypeName name="burlap.mdp.core.state.MutableState"/>
-<fullyQualifiedTypeName name="org.omg.CORBA.NO_IMPLEMENT"/>
-<fullyQualifiedTypeName name="burlap.mdp.stochasticgames.world.WorldGenerator"/>
-<fullyQualifiedTypeName name="burlap.behavior.singleagent.learning.tdmethods.QLearning"/>
-<fullyQualifiedTypeName name="org.rlcommunity.rlglue.codec.types.Reward_observation_action_terminal"/>
-<fullyQualifiedTypeName name="mainClass.PlotGraph"/>
-<fullyQualifiedTypeName name="database.ConfigureDatabase"/>
-<fullyQualifiedTypeName name="java.lang.Double"/>
-<fullyQualifiedTypeName name="classes.RewardVariables"/>
-<fullyQualifiedTypeName name="database.NodesImportance"/>
-<fullyQualifiedTypeName name="database.InstallDatabase"/>
-<fullyQualifiedTypeName name="burlap.behavior.valuefunction.ConstantValueFunction"/>
-<fullyQualifiedTypeName name="burlap.behavior.singleagent.learning.tdmethods.SarsaLam"/>
 <fullyQualifiedTypeName name="burlap.statehashing.simple.SimpleHashableStateFactory"/>
 <fullyQualifiedTypeName name="burlap.behavior.singleagent.MDPSolver"/>
 <fullyQualifiedTypeName name="bayesian.BuildNetwork"/>
@@ -24,7 +8,6 @@
 <fullyQualifiedTypeName name="norsys.neticaEx.aliases.Node"/>
 <fullyQualifiedTypeName name="classes.Node"/>
 <fullyQualifiedTypeName name="java.util.HashMap"/>
-<fullyQualifiedTypeName name="QLearning.WState"/>
 <fullyQualifiedTypeName name="QLearning.QLearning"/>
 <fullyQualifiedTypeName name="burlap.behavior.valuefunction.QValue"/>
 <fullyQualifiedTypeName name="QLearning.WorldGenerator"/>
@@ -38,10 +21,7 @@
 <fullyQualifiedTypeName name="joptsimple.internal.Objects"/>
 <fullyQualifiedTypeName name="java.util.Objects"/>
 <fullyQualifiedTypeName name="QLearning.MAction"/>
-<fullyQualifiedTypeName name="Graph.NodeStatus"/>
-<fullyQualifiedTypeName name="burlap.mdp.stochasticgames.JointAction"/>
 <fullyQualifiedTypeName name="jdk.nashorn.internal.runtime.QuotedStringTokenizer"/>
-<fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="java.lang.Object"/>
 <fullyQualifiedTypeName name="burlap.mdp.auxiliary.DomainGenerator"/>
 <fullyQualifiedTypeName name="burlap.mdp.singleagent.model.statemodel.FullStateModel"/>
@@ -60,4 +40,24 @@
 <fullyQualifiedTypeName name="classes.MAction"/>
 <fullyQualifiedTypeName name="org.apache.log4j.chainsaw.Main"/>
 <fullyQualifiedTypeName name="mainClass.MainClass"/>
+<fullyQualifiedTypeName name="burlap.behavior.stochasticgames.madynamicprogramming.policies.EMinMaxPolicy"/>
+<fullyQualifiedTypeName name="burlap.behavior.stochasticgames.madynamicprogramming.backupOperators.MinMaxQ"/>
+<fullyQualifiedTypeName name="demo.PlotOrientationDemo1"/>
+<fullyQualifiedTypeName name="org.jfree.chart.plot.Plot"/>
+<fullyQualifiedTypeName name="org.jfree.chart.plot.PlotOrientation"/>
+<fullyQualifiedTypeName name="org.jfree.chart.entity.PlotEntity"/>
+<fullyQualifiedTypeName name="org.jfree.ui.RefineryUtilities"/>
+<fullyQualifiedTypeName name="Graph.PlotGraph"/>
+<fullyQualifiedTypeName name="burlap.mdp.stochasticgames.JointAction"/>
+<fullyQualifiedTypeName name="QLearning.WState"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="java.lang.Double"/>
+<fullyQualifiedTypeName name="multiagent.StateWorldSecond"/>
+<fullyQualifiedTypeName name="multiagent.RewardSecond"/>
+<fullyQualifiedTypeName name="Graph.NodeStatus"/>
+<fullyQualifiedTypeName name="java.util.Set"/>
+<fullyQualifiedTypeName name="multiagent.StateWorld"/>
+<fullyQualifiedTypeName name="multiagent.Reward"/>
+<fullyQualifiedTypeName name="burlap.behavior.singleagent.planning.vfa.fittedvi.FittedVI.VFAVInit"/>
 </qualifiedTypeNameHistroy>

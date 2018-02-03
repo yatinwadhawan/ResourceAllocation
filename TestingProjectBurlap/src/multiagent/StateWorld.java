@@ -89,8 +89,8 @@ public class StateWorld implements FullJointModel {
 	}
 
 	public String getDefenderUpdatedStatus(String action, Node n) {
-		System.out.println("Defender Action: " + action + " Node: "
-				+ n.getName());
+		// System.out.println("Defender Action: " + action + " Node: "
+		//		+ n.getName());
 
 		// Action is SCAN
 		if (action.equals(MainClass.ACTION_SCAN)) {
@@ -142,8 +142,8 @@ public class StateWorld implements FullJointModel {
 	public String getAttackerUpdatedStatus(String action, Node n, int index) {
 		// Action is SCAN
 
-		System.out.println("Attacker Action: " + action + " Node: "
-				+ n.getName());
+//		System.out.println("Attacker Action: " + action + " Node: "
+//				+ n.getName());
 		if (action.equals(MainClass.ACTION_SCAN)) {
 
 			// Already patched by the Defender

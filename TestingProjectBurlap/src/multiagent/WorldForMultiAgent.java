@@ -7,8 +7,11 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
+import org.jfree.ui.RefineryUtilities;
+
 import Graph.Node;
 import Graph.NodeStatus;
+import Graph.PlotGraph;
 import QLearning.MAction;
 import QLearning.MainClass;
 import QLearning.WState;
@@ -43,13 +46,15 @@ import burlap.visualizer.Visualizer;
 
 public class WorldForMultiAgent {
 
-	final double discount = 0.6;
-	final double learningRate = 0.6;
-	final double defaultQ = 10;
+	final int movingaverage = 10;
+	final double discount = 0.2;
+	final double learningRate = 0.2;
+	final double defaultQ = 0;
 	double epsilon = 0.8;
-	int ngames = 500;
+	int ngames = 100;
 	public static int windef = 0;
 	public static boolean isDefWin = false;
+	public static String initialStatus = NodeStatus.UNKNOWN;
 
 	public static boolean isDefenderAttackerAccessingSameNode = false;
 	public static SAgentType defender, attacker;
@@ -77,14 +82,12 @@ public class WorldForMultiAgent {
 		World w = new World(domain, rf, tf, initialState);
 
 		MultiAgentQLearning dagent = new MultiAgentQLearning(domain, discount,
-				learningRate, hashingFactory, defaultQ, new CorrelatedQ(
-						CorrelatedEquilibriumObjective.UTILITARIAN), true,
+				learningRate, hashingFactory, defaultQ, new MinMaxQ(), true,
 				defender.getTypeName(), defender);
 		dagent.agentNum = 0;
 
 		MultiAgentQLearning aagent = new MultiAgentQLearning(domain, discount,
-				learningRate, hashingFactory, defaultQ, new CorrelatedQ(
-						CorrelatedEquilibriumObjective.UTILITARIAN), true,
+				learningRate, hashingFactory, defaultQ, new MinMaxQ(), true,
 				attacker.getTypeName(), attacker);
 		aagent.agentNum = 1;
 
@@ -92,24 +95,17 @@ public class WorldForMultiAgent {
 		w.join(aagent);
 
 		ECorrelatedQJointPolicy policy = new ECorrelatedQJointPolicy(
-				CorrelatedEquilibriumObjective.UTILITARIAN, epsilon);
+				CorrelatedEquilibriumObjective.LIBERTARIAN, epsilon);
 		PolicyFromJointPolicy dp = new PolicyFromJointPolicy(policy, true);
 		PolicyFromJointPolicy ap = new PolicyFromJointPolicy(policy, true);
-
 		dp.setSynchronizeJointActionSelectionAmongAgents(true);
 		ap.setSynchronizeJointActionSelectionAmongAgents(true);
 		dp.setActingAgent(0);
 		ap.setActingAgent(1);
-
 		aagent.setLearningPolicy(ap);
 		dagent.setLearningPolicy(dp);
 
 		System.out.println("Starting training");
-		// System.setOut(new PrintStream(new OutputStream() {
-		// public void write(int b) {
-		// // NO-OP
-		// }
-		// }));
 
 		ArrayList<Integer> randomNum = new ArrayList<Integer>();
 
@@ -122,20 +118,13 @@ public class WorldForMultiAgent {
 			defenderNode = null;
 			attackerNode = null;
 			attacker.clearActions();
-			MAction ms = new MAction(MainClass.nlist.get(random).getName(),
-					MainClass.ACTION_SCAN);
-			MAction mp = new MAction(MainClass.nlist.get(random).getName(),
-					MainClass.ACTION_HACK);
-			attacker.addAction(ms);
-			attacker.addAction(mp);
+
 			attacker.updateActionList(random);
 
 			for (int j = 0; j < MainClass.nlist.size(); j++) {
-				initialState.getNodeList().get(j)
-						.setDstatus(NodeStatus.UNKNOWN);
-				initialState.getNodeList().get(j)
-						.setAstatus(NodeStatus.UNKNOWN);
-				initialState.getNodeList().get(j).setStatus(NodeStatus.UNKNOWN);
+				initialState.getNodeList().get(j).setDstatus(initialStatus);
+				initialState.getNodeList().get(j).setAstatus(initialStatus);
+				initialState.getNodeList().get(j).setStatus(initialStatus);
 			}
 			// Initially attacker has compromised the first node which is the
 			// starting point for the attacker.
@@ -147,9 +136,7 @@ public class WorldForMultiAgent {
 
 			w.setCurrentState(initialState);
 
-			System.out.println("Start Node: "
-					+ initialState.getNodeList().get(random).getName());
-			System.out.println("");
+			System.out.println("GAME NUMBER " + i);
 
 			GameEpisode ga = w.runGame();
 			if (isDefWin)
@@ -164,6 +151,9 @@ public class WorldForMultiAgent {
 		System.out.println("Analysis Starts");
 		ArrayList<WState> ls = new ArrayList<WState>();
 		ArrayList<Double> display = new ArrayList<Double>();
+		ArrayList<Double> adisplay = new ArrayList<Double>();
+		int avg = 0;
+		double defreward = 0.0, attrewards = 0.0, sum = 0.0, asum = 0.0;
 		for (int i = 0; i < ngames; i++) {
 			GameEpisode g = games.get(i);
 			List<State> temp = g.getStates();
@@ -174,15 +164,29 @@ public class WorldForMultiAgent {
 				}
 			}
 
-			double defreward = 0.0, attrewards = 0.0;
 			List<double[]> ld = g.getJointRewards();
 			for (int j = 0; j < ld.size(); j++) {
 				defreward += ld.get(j)[0];
 				attrewards += ld.get(j)[1];
 			}
-			display.add(defreward / ld.size());
+			sum = sum + (defreward / ld.size());
+			asum = asum + (attrewards / ld.size());
+			if (avg == (movingaverage - 1)) {
+				avg = 0;
+				if (sum != 0)
+					display.add(sum / movingaverage);
+				if (asum != 0)
+					adisplay.add(asum / movingaverage);
+				sum = 0.0;
+				asum = 0.0;
+				defreward = 0.0;
+				attrewards = 0.0;
+			}
+			avg++;
 		}
 
+		plot(display, "Defender Rewards", "Moving average of rewards");
+		plot(adisplay, "Attacker Rewards", "Moving average of rewards");
 		System.out.println("Random Numbers Choosen: " + randomNum);
 		System.out.println("Number of states covered: " + ls.size());
 
@@ -190,7 +194,62 @@ public class WorldForMultiAgent {
 		System.out.println("Number of Games won by defender: " + windef);
 		System.out.println("Number of Games won by Attacker: "
 				+ (ngames - windef));
-		System.out
-				.println(policy.qSourceProvider.getQSources().agentQSource(0));
+		System.out.println("Defender: Moving Average: " + display);
+		System.out.println("Attacker: Moving Average: " + adisplay);
+
+		storeQValues("Defender", policy.qSourceProvider.getQSources()
+				.agentQSource(0), games);
+		storeQValues("Attacker", policy.qSourceProvider.getQSources()
+				.agentQSource(1), games);
+		showQValueDiff("Difference", policy.qSourceProvider.getQSources()
+				.agentQSource(0), policy.qSourceProvider.getQSources()
+				.agentQSource(1), games);
+
+	}
+
+	public static void storeQValues(String agentName,
+			QSourceForSingleAgent qsource, List<GameEpisode> games) {
+		List<Double> ls = new ArrayList<Double>();
+		for (int i = 0; i < games.size(); i++) {
+			GameEpisode g = games.get(i);
+			List<JointAction> ja = g.jointActions;
+			List<State> s = g.states;
+			double qvalue = 0.0;
+			for (int j = 0; j < ja.size(); j++) {
+				qvalue += qsource.getQValueFor(s.get(j), ja.get(j)).q;
+			}
+			if (qvalue != 0)
+				ls.add(qvalue / ja.size());
+		}
+		System.out.println(agentName + ": Q-Values Average: " + ls);
+		plot(ls, agentName, "Q-Values Average:");
+	}
+
+	public static void showQValueDiff(String agentName,
+			QSourceForSingleAgent defender, QSourceForSingleAgent attacker,
+			List<GameEpisode> games) {
+		List<Double> ls = new ArrayList<Double>();
+		for (int i = 0; i < games.size(); i++) {
+			GameEpisode g = games.get(i);
+			List<JointAction> ja = g.jointActions;
+			List<State> s = g.states;
+			double dqvalue = 0.0, aqvalue = 0.0;
+			for (int j = 0; j < ja.size(); j++) {
+				dqvalue += defender.getQValueFor(s.get(j), ja.get(j)).q;
+				aqvalue += attacker.getQValueFor(s.get(j), ja.get(j)).q;
+			}
+			ls.add((Math.abs(dqvalue) - Math.abs(aqvalue)));
+		}
+		System.out.println(agentName
+				+ ": Difference Between Q-Values and Average: " + ls);
+		plot(ls, agentName, "Difference Between Q-Values and Average");
+	}
+
+	public static void plot(List<Double> ls, String name, String str) {
+		PlotGraph demo = new PlotGraph(name + " " + str, ls);
+		demo.pack();
+		RefineryUtilities.centerFrameOnScreen(demo);
+		demo.setVisible(true);
+
 	}
 }

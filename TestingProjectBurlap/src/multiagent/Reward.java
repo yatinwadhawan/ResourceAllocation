@@ -12,7 +12,7 @@ import burlap.mdp.stochasticgames.model.JointRewardFunction;
 public class Reward implements JointRewardFunction {
 
 	boolean flag = false;
-	int reward = -10;
+	int reward = -50;
 
 	@Override
 	public double[] reward(State s, JointAction a, State sp) {
@@ -70,9 +70,10 @@ public class Reward implements JointRewardFunction {
 	public double getRewardForDefender(String defenderaction, Node dn,
 			Node dnp, String attackerAction, Node an, Node anp) {
 
+		flag = false;
 		boolean isTerminal = isTerminal(anp);
 		if (isTerminal && flag)
-			return 500;
+			return 300;
 
 		// Action is SCAN
 		if (defenderaction.equals(MainClass.ACTION_SCAN)) {
@@ -104,10 +105,11 @@ public class Reward implements JointRewardFunction {
 	public double getRewardForAttacker(String defenderaction, Node dn,
 			Node dnp, String attackerAction, Node an, Node anp) {
 
+		flag = false;
 		boolean istermial = isTerminal(anp);
 
 		if (istermial && !flag)
-			return 500;
+			return 300;
 
 		// Action is SCAN
 		if (attackerAction.equals(MainClass.ACTION_SCAN)) {

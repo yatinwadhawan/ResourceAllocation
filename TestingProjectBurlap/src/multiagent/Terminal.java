@@ -33,7 +33,7 @@ public class Terminal implements TerminalFunction {
 			if (n.getName().equals("N11")) {
 				if (n.getStatus().equals(NodeStatus.HACKED)) {
 					WorldForMultiAgent.isDefWin = false;
-					System.out.println("Attacker Hacked the Main Node N6.");
+					System.out.println("Attacker Hacked the Main Node N11.");
 					return true;
 				}
 			}
