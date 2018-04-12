@@ -1,0 +1,5 @@
+import ilog.concert.*;
+import ilog.cplex.*;
+public class EraserAlgo {
+
+}

@@ -1,0 +1,13 @@
+import ilog.concert.*;
+import ilog.cplex.*;
+
+public class ERASER {
+
+	public static void solve() {
+		int targets = 7;
+		double[] defCov = {11, };
+		int[] defUCov = {};
+		int[] attCov = {};
+		int[] attUCov = {};
+	}
+}

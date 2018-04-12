@@ -1,0 +1,45 @@
+import ilog.concert.IloException;
+import ilog.concert.IloLinearNumExpr;
+import ilog.concert.IloNumVar;
+import ilog.cplex.IloCplex;
+
+public class practice {
+
+	public static void practice2() throws IloException {
+		IloCplex cplex = new IloCplex();
+		
+		
+	}
+
+	public static void practice1solve() {
+		try {
+			IloCplex cplex = new IloCplex();
+			IloNumVar x = cplex.numVar(0.0, 5.0);
+			IloNumVar y = cplex.numVar(0.0, 10.0);
+			IloNumVar z = cplex.numVar(0.0, 20.0);
+
+			IloLinearNumExpr expr = cplex.linearNumExpr();
+			expr.addTerm(1.0, x);
+			expr.addTerm(1.0, y);
+			expr.addTerm(1.0, z);
+			cplex.addLe(expr, 20);
+
+			IloLinearNumExpr obj = cplex.linearNumExpr();
+			obj.addTerm(1.0, x);
+			obj.addTerm(12.0, y);
+			obj.addTerm(4.0, z);
+			cplex.addMaximize(obj);
+
+			if (cplex.solve()) {
+				System.out.println("Solution status = " + cplex.getStatus());
+				System.out.println("Solution value = " + cplex.getObjValue());
+				System.out.print("x = " + cplex.getValue(x));
+				System.out.print("\ny = " + cplex.getValue(y));
+				System.out.print("\nz = " + cplex.getValue(z));
+			}
+			cplex.end();
+
+		} catch (IloException e) {
+		}
+	}
+}

@@ -1,0 +1,14 @@
+public class Main {
+
+	public static void main(String[] str) {
+
+	//	MyGameMIQP.solve();
+		 DOBBS.solve();
+		// DobbsType.solve();
+		// MyGame.solve();
+		// practice.solve();
+		// CopyOfDOBBS.solve();
+		// TSP.saleman();
+		// Cargo.solve();
+	}
+}

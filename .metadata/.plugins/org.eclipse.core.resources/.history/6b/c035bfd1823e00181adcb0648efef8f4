@@ -1,0 +1,28 @@
+import ilog.concert.*;
+import ilog.cplex.*;
+
+public class EraserAlgo {
+
+	public static void solve() throws IloException {
+		int targets = 3;
+		double Z = Double.MAX_VALUE;
+		double B = 4; // Budget: number of hours defender has.
+
+		// Values of the targets when it covered and uncovered by defender for
+		// defender and attacker.
+		double[] defCov = { 11.0, 7.0, 14.0, 15.0, 19.0, 16.0, 17.0 };
+		double[] defUCov = { -22.0, -17.0, -28.0, -30.0, -38.0, -32.0, -35.0 };
+		double[] attCov = { -33.0, -21.0, -42.0, -45.0, -57.0, -48.0, -51.0 };
+		double[] attUCov = { 33.0, 21.0, 42.0, 45.0, 57.0, 48.0, 51.0 };
+		double[] hours = { 4.0, 2.0, 3.0, 10.0, 5.0, 6.0, 5.0 };
+
+		IloCplex cplex = new IloCplex();
+		IloNumVar[] c = cplex.numVarArray(targets, 0.0, 1.0);
+		IloNumVar[] a = cplex.boolVarArray(targets);
+
+		// Constraint 1
+		cplex.addEq(cplex.sum(a), 1);
+
+		// Constraint 2
+	}
+}

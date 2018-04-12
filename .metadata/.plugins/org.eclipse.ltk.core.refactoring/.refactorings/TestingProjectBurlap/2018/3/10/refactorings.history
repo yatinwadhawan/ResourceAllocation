@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring accessors="true" comment="Delete 5 elements from project &apos;TestingProjectBurlap&apos;&#x0A;- Original project: &apos;TestingProjectBurlap&apos;&#x0A;- Original elements:&#x0A;     Tiger.TigerDomain.java&#x0A;     Tiger.TigerModel.java&#x0A;     Tiger.TigerObservation.java&#x0A;     Tiger.TigerObservations.java&#x0A;     Tiger.TigerState.java" description="Delete elements" element1="/src&lt;Tiger{TigerModel.java" element2="/src&lt;Tiger{TigerDomain.java" element3="/src&lt;Tiger{TigerObservation.java" element4="/src&lt;Tiger{TigerObservations.java" element5="/src&lt;Tiger{TigerState.java" elements="5" flags="589830" id="org.eclipse.jdt.ui.delete" resources="0" stamp="1520383750398" subPackages="false" version="1.0"/>
+</session>
