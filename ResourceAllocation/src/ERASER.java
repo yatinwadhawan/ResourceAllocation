@@ -80,6 +80,8 @@ public class ERASER {
 		}
 		System.out.println();
 		System.out.println();
+		System.out.println("********************************************");
+		System.out.println("********************************************");
 		System.out.print("Results");
 
 		if (flag) {
@@ -105,6 +107,8 @@ public class ERASER {
 			System.out.println();
 			System.out.println();
 			SamplePolicy.samplePolicy(val, Input.hours, Input.B);
+			System.out.println("********************************************");
+			System.out.println("********************************************");
 		} else {
 			System.out.println();
 			System.out.println("Not solved");

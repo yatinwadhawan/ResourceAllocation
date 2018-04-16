@@ -6,7 +6,7 @@ public class Main {
 
 		ERASER.solve();
 		ORIGAMI.solve();
-		// UniformRandomPolicy.uniformPolicy();
+		UniformRandomPolicy.uniformPolicy();
 
 	}
 }
