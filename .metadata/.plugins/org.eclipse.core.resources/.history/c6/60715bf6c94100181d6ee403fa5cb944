@@ -30,7 +30,7 @@ public class ERASER {
 
 		// Objective Function
 		IloNumVar D = cplex.numVar(Double.MIN_VALUE, Double.MAX_VALUE);
-		IloNumVar K = cplex.numVar(Double.MIN_VALUE, Double.MAX_VALUE);
+		IloNumExpr K = cplex.numVar(Double.MIN_VALUE, Double.MAX_VALUE);
 		cplex.addMaximize(D);
 
 		// Constraint 1

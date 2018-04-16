@@ -15,7 +15,7 @@ public class ORIGAMI {
 					cplex.prod(Input.attUCov[t], cplex.diff(1.0, c[t])));
 		}
 
-		IloNumExpr K = cplex.numVar(Double.MIN_VALUE, Double.MAX_VALUE);
+		IloNumVar K = cplex.numVar(Double.MIN_VALUE, Double.MAX_VALUE);
 
 		// Constraint 1
 		cplex.addLe(cplex.scalProd(c, Input.hours), Input.B);
