@@ -13,8 +13,9 @@ org.eclipse.jdt.ui.text.code_templates_migrated=true
 org.eclipse.jdt.ui.text.custom_code_templates=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?><templates/>
 org.eclipse.jdt.ui.text.custom_templates=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?><templates/>
 org.eclipse.jdt.ui.text.templates_migrated=true
-org.eclipse.jface.textfont=1|Monaco|12.0|0|COCOA|1|Monaco;
+org.eclipse.jface.textfont=1|Monaco|13.0|0|COCOA|1|Monaco;
 proposalOrderMigrated=true
+sourceHoverBackgroundColor=250,251,197
 spelling_ignore_ampersand_in_properties=true
 spelling_ignore_digits=true
 spelling_ignore_java_strings=true

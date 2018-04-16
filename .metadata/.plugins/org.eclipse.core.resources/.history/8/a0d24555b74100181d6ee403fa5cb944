@@ -1,0 +1,16 @@
+public class Sample implements Comparable {
+	String name;
+	double coverage;
+	double hours;
+
+	public Sample(String n, double c, double h) {
+		this.name = n;
+		this.coverage = c;
+		this.hours = h;
+	}
+
+	public int compareTo(Object o) {
+		
+		return 0;
+	}
+}

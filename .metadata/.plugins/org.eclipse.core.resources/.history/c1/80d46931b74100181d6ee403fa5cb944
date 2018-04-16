@@ -1,0 +1,11 @@
+public class Sample implements Comparable<T> {
+	String name;
+	double coverage;
+	double hours;
+
+	public Sample(String n, double c, double h) {
+		this.name = n;
+		this.coverage = c;
+		this.hours = h;
+	}
+}

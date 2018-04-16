@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="burlap.statehashing.simple.SimpleHashableStateFactory"/>
-<fullyQualifiedTypeName name="burlap.behavior.singleagent.MDPSolver"/>
 <fullyQualifiedTypeName name="bayesian.BuildNetwork"/>
 <fullyQualifiedTypeName name="norsys.netica.Environ"/>
 <fullyQualifiedTypeName name="norsys.netica.Net"/>
@@ -52,7 +50,6 @@
 <fullyQualifiedTypeName name="QLearning.WState"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="java.util.List"/>
-<fullyQualifiedTypeName name="java.lang.Double"/>
 <fullyQualifiedTypeName name="multiagent.StateWorldSecond"/>
 <fullyQualifiedTypeName name="multiagent.RewardSecond"/>
 <fullyQualifiedTypeName name="Graph.NodeStatus"/>
@@ -60,4 +57,7 @@
 <fullyQualifiedTypeName name="multiagent.StateWorld"/>
 <fullyQualifiedTypeName name="multiagent.Reward"/>
 <fullyQualifiedTypeName name="burlap.behavior.singleagent.planning.vfa.fittedvi.FittedVI.VFAVInit"/>
+<fullyQualifiedTypeName name="ERASER"/>
+<fullyQualifiedTypeName name="java.lang.Double"/>
+<fullyQualifiedTypeName name="ilog.concert.IloNumVar"/>
 </qualifiedTypeNameHistroy>

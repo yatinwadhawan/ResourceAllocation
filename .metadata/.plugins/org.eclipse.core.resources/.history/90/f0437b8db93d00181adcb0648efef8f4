@@ -1,9 +1,0 @@
-import ilog.concert.*;
-import ilog.cplex.*;
-
-public class ERASER {
-
-	public static void solve() {
-		
-	}
-}
