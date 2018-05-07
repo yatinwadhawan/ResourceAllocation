@@ -1,20 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="bayesian.BuildNetwork"/>
-<fullyQualifiedTypeName name="norsys.netica.Environ"/>
-<fullyQualifiedTypeName name="norsys.netica.Net"/>
-<fullyQualifiedTypeName name="norsys.neticaEx.aliases.Node"/>
-<fullyQualifiedTypeName name="classes.Node"/>
-<fullyQualifiedTypeName name="java.util.HashMap"/>
-<fullyQualifiedTypeName name="QLearning.QLearning"/>
-<fullyQualifiedTypeName name="burlap.behavior.valuefunction.QValue"/>
-<fullyQualifiedTypeName name="QLearning.WorldGenerator"/>
-<fullyQualifiedTypeName name="QLearning.DecisionMaking"/>
-<fullyQualifiedTypeName name="java.lang.Math"/>
-<fullyQualifiedTypeName name="test.java.burlap.testing.TestBlockDude"/>
-<fullyQualifiedTypeName name="burlap.mdp.core.action.Action"/>
-<fullyQualifiedTypeName name="multiagent.WorldForMultiAgent"/>
-<fullyQualifiedTypeName name="burlap.behavior.stochasticgames.madynamicprogramming.QSourceForSingleAgent"/>
 <fullyQualifiedTypeName name="org.jfree.chart.HashUtilities"/>
 <fullyQualifiedTypeName name="joptsimple.internal.Objects"/>
 <fullyQualifiedTypeName name="java.util.Objects"/>
@@ -48,7 +33,6 @@
 <fullyQualifiedTypeName name="Graph.PlotGraph"/>
 <fullyQualifiedTypeName name="burlap.mdp.stochasticgames.JointAction"/>
 <fullyQualifiedTypeName name="QLearning.WState"/>
-<fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="multiagent.StateWorldSecond"/>
 <fullyQualifiedTypeName name="multiagent.RewardSecond"/>
@@ -57,7 +41,23 @@
 <fullyQualifiedTypeName name="multiagent.StateWorld"/>
 <fullyQualifiedTypeName name="multiagent.Reward"/>
 <fullyQualifiedTypeName name="burlap.behavior.singleagent.planning.vfa.fittedvi.FittedVI.VFAVInit"/>
-<fullyQualifiedTypeName name="ERASER"/>
-<fullyQualifiedTypeName name="java.lang.Double"/>
 <fullyQualifiedTypeName name="ilog.concert.IloNumVar"/>
+<fullyQualifiedTypeName name="java.lang.annotation.Target"/>
+<fullyQualifiedTypeName name="UniformRandomPolicy"/>
+<fullyQualifiedTypeName name="java.util.Collection"/>
+<fullyQualifiedTypeName name="java.lang.System"/>
+<fullyQualifiedTypeName name="javax.naming.ldap.HasControls"/>
+<fullyQualifiedTypeName name="java.lang.Double"/>
+<fullyQualifiedTypeName name="java.util.HashMap"/>
+<fullyQualifiedTypeName name="java.awt.HeadlessException"/>
+<fullyQualifiedTypeName name="ERASER"/>
+<fullyQualifiedTypeName name="ERASER.Sample"/>
+<fullyQualifiedTypeName name="java.util.Comparator"/>
+<fullyQualifiedTypeName name="java.lang.Comparable"/>
+<fullyQualifiedTypeName name="java.util.Collections"/>
+<fullyQualifiedTypeName name="java.lang.reflect.Array"/>
+<fullyQualifiedTypeName name="Sample"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="SamplePolicy"/>
+<fullyQualifiedTypeName name="Input"/>
 </qualifiedTypeNameHistroy>
