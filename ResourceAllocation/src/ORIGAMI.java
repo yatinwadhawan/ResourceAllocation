@@ -94,7 +94,7 @@ public class ORIGAMI {
 			}
 			System.out.println();
 			System.out.println();
-			SamplePolicy.samplePolicy(val, Input.hours, Input.B);
+			// SamplePolicy.samplePolicy(val, Input.hours, Input.B);
 			System.out.println("********************************************");
 			System.out.println("********************************************");
 		} else {

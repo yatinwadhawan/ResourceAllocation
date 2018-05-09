@@ -8,9 +8,9 @@ public class Input {
 	// Region 1 (SGC Paper)
 	static int targets = 7;
 	static double[] defCov = { 11.0, 7.0, 14.0, 15.0, 19.0, 16.0, 17.0 };
-	static double[] defUCov = { -22.0, -14.0, -35.0, -19.0, -38.0, -14.0, -21.0 };
-	static double[] attCov = { -21.0, -31.0, -13.0, -16.0, -25.0, -33.0, -41.0 };
-	static double[] attUCov = { 14.0, 23.0, 30.0, 17.0, 76.0, 16.0, 64.0 };
+	static double[] defUCov = { -22.0, -34.0, -65.0, -19.0, -38.0, -14.0, -21.0 };
+	static double[] attCov = { -81.0, -11.0, -13.0, -96.0, -25.0, -33.0, -91.0 };
+	static double[] attUCov = { 4.0, 23.0, 30.0, 10.0, 76.0, 16.0, 64.0 };
 	static double[] hours = { 9.0, 3.0, 4.0, 8.0, 7.0, 6.0, 5.0 };
 
 	// Region 2
