@@ -3,7 +3,7 @@ import java.util.Random;
 public class Input {
 
 	static double Z = 9999.0;
-	static double B = 20.0; // Budget: number of hours defender has.
+	static double B = 40.0; // Budget: number of hours defender has.
 
 	// Region 1 (SGC Paper)
 	static int targets = 7;
