@@ -59,14 +59,14 @@ public class ERASER {
 			System.out.print(Input.defCov[t] + ", ");
 		}
 		System.out.println();
-		System.out.print("Attacker Covered: ");
-		for (int t = 0; t < Input.targets; t++) {
-			System.out.print(Input.attCov[t] + ", ");
-		}
-		System.out.println();
 		System.out.print("Defender Uncovered: ");
 		for (int t = 0; t < Input.targets; t++) {
 			System.out.print(Input.defUCov[t] + ", ");
+		}
+		System.out.println();
+		System.out.print("Attacker Covered: ");
+		for (int t = 0; t < Input.targets; t++) {
+			System.out.print(Input.attCov[t] + ", ");
 		}
 		System.out.println();
 		System.out.print("Attack Uncovered: ");
