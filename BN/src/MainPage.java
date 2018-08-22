@@ -27,11 +27,6 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.wb.swt.SWTResourceManager;
-import org.graphstream.algorithm.util.FibonacciHeap.Node;
-import org.graphstream.graph.Graph;
-import org.graphstream.graph.implementations.SingleGraph;
-import org.graphstream.ui.view.Viewer;
-
 import com.src.classes.Functions;
 import com.src.classes.NetworkComponent;
 import com.src.classes.Vulnerability;
