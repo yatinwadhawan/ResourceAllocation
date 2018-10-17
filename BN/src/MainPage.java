@@ -3,12 +3,15 @@ import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Path2D;
 import java.awt.geom.Point2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
+import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 
@@ -120,7 +123,7 @@ public class MainPage {
 				".Helvetica Neue DeskInterface", 13, SWT.BOLD));
 		lblRsmartGridResilience.setBounds(812, 11, 346, 251);
 		lblRsmartGridResilience
-				.setText("R,Smart Grid Resilience\nS1,Quality of Smart Meter and Electric Vehicle Reads\nS2,Quality of Smart Sync Head\nS3,Billing System Performance\nS4,Performance of Outage Management System\nS6,Quality of Data captured by Vendor\nS7,Performance of Electricity Energy Control Center\nS8,Meter Data Management\nS9,Power Generation");
+				.setText("S1,Quality of Smart Meter and Electric Vehicle Reads\nS2,Quality of Smart Sync Head\nS3,Billing System Performance\nS4,Performance of Outage Management System\nS6,Quality of Data captured by Vendor\nS7,Performance of Electricity Energy Control Center\nS8,Meter Data Management");
 
 		int j = 0, k = 0;
 		int length = MainPage.flist.size();
@@ -241,6 +244,19 @@ public class MainPage {
 			vulNetwork.put(v.getName(), vname);
 		}
 	}
+	
+	private static Image resize(Image image, int width, int height) {
+		Image scaled = new Image(Display.getDefault(), width, height);
+		GC gc = new GC(scaled);
+		gc.setAntialias(SWT.ON);
+		gc.setInterpolation(SWT.HIGH);
+		gc.drawImage(image, 0, 0, 
+		image.getBounds().width, image.getBounds().height, 
+		0, 0, width, height);
+		gc.dispose();
+		image.dispose(); // don't forget about me!
+		return scaled;
+		}
 
 	private static void drawLinesFunction() {
 		int length = MainPage.flist.size();
@@ -259,6 +275,9 @@ public class MainPage {
 							public void paintControl(PaintEvent e) {
 								e.gc.drawLine(b.getX(), b.getY(), b2.getX(),
 										b2.getY());
+								
+//								Image image = new Image(e.gc.getDevice(), "/Users/yatinwadhawan/Documents/Security Projects/BN/src/arrow.jpg");										
+//								e.gc.drawImage(resize(image, 30, 30), b2.getX()-40,b2.getY()-20);
 							}
 						});
 						shell.setSize(150, 150);

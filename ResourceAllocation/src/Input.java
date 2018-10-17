@@ -34,8 +34,8 @@ public class Input {
 	 static int targets = 3;
 	 static double[] defCov = { 8.0, 16.0, 17.0 };
 	 static double[] defUCov = { -14.0, -49.0, -24.0 };
-	 static double[] attCov = { -11.0, -48.0, -33.0 };
-	 static double[] attUCov = { 33.0, 10.0, 36.0 };
+	 static double[] attCov = { -11.0, -48.0, -13.0 };
+	 static double[] attUCov = { 33.0, 10.0, 56.0 };
 	 static double[] hours = { 6.0, 8.0, 6.0 };
 
 
